@@ -1,0 +1,256 @@
+tablist:
+  enabled: true
+  header:
+    - ""
+    - "&6&lCountach Hub"
+    - ""
+  footer:
+    - ""
+    - "&bTwitter &f@CountachHub &7| &aStore &fstore.countach.hub"
+    - "&9Discord &fdiscord.countach.hub"
+    - ""
+  lines:
+    left:
+      '1':
+        text: ""
+        head: ""
+      '2':
+        text: ""
+        head: ""
+      '3':
+        text: ""
+        head: ""
+      '4':
+        text: ""
+        head: ""
+      '5':
+        text: ""
+        head: ""
+      '6':
+        text: ""
+        head: ""
+      '7':
+        text: ""
+        head: ""
+      '8':
+        text: ""
+        head: ""
+      '9':
+        text: ""
+        head: ""
+      '10':
+        text: "&6&lKitMap"
+        head: ""
+      '11':
+        text: " &7▶ &eOnline&7: &f%bungee_server-1%/250"
+        head: ""
+      '12':
+        text: " &7▶ &eStatus&7: &r<server-1-status>"
+        head: "<server-1-status-head>"
+      '13':
+        text: ""
+        head: ""
+      '14':
+        text: " &7▶ &eKills&7: &f<lazarus-kitmap-kills>"
+        head: ""
+      '15':
+        text: " &7▶ &eDeaths&7: &f<lazarus-kitmap-deaths>"
+        head: ""
+      '16':
+        text: " &7▶ &eKillStreak&7: &f<lazarus-kitmap-killstreak>"
+        head: ""
+      '17':
+        text: ""
+        head: ""
+      '18':
+        text: ""
+        head: ""
+      '19':
+        text: "&6Store"
+        head: ""
+      '20':
+        text: "&fstore.countach.hub"
+        head: "<store-head>"
+    middle:
+      '1':
+        text: ""
+        head: ""
+      '2':
+        text: ""
+        head: ""
+      '3':
+        text: "&6&lCountach Hub"
+        head: ""
+      '4':
+        text: "&f%bungee_total%/%server_max_players%"
+        head: ""
+      '5':
+        text: ""
+        head: ""
+      '6':
+        text: ""
+        head: ""
+      '7':
+        text: "&6&lServers"
+        head: ""
+      '8':
+        text: ""
+        head: ""
+      '9':
+        text: ""
+        head: ""
+      '10':
+        text: "&6&lServer-2"
+        head: ""
+      '11':
+        text: " &7▶ &eOnline&7: &f%bungee_server-2%/250"
+        head: ""
+      '12':
+        text: " &7▶ &eStatus&7: &r<server-2-status>"
+        head: "<server-2-status-head>"
+      '13':
+        text: ""
+        head: ""
+      '14':
+        text: ""
+        head: ""
+      '15':
+        text: "&6&lQueue Information"
+        head: ""
+      '16':
+        text: " &7▶ &eServer&7: &f%countach_queue_player_name%"
+        head: ""
+      '17':
+        text: " &7▶ &ePosition&7: &f%countach_queue_player_position%/&f%countach_queue_player_size%"
+        head: ""
+      '18':
+        text: ""
+        head: ""
+      '19':
+        text: "&bTwitter"
+        head: ""
+      '20':
+        text: "&f@CountachHub"
+        head: "<twitter-head>"
+    right:
+      '1':
+        text: ""
+        head: ""
+      '2':
+        text: ""
+        head: ""
+      '3':
+        text: ""
+        head: ""
+      '4':
+        text: ""
+        head: ""
+      '5':
+        text: ""
+        head: ""
+      '6':
+        text: ""
+        head: ""
+      '7':
+        text: ""
+        head: ""
+      '8':
+        text: ""
+        head: ""
+      '9':
+        text: ""
+        head: ""
+      '10':
+        text: "&6&lHCF"
+        head: ""
+      '11':
+        text: " &7▶ &eOnline&7: &f%bungee_server-3%/250"
+        head: ""
+      '12':
+        text: " &7▶ &eStatus&7: &r<server-3-status>"
+        head: "<server-3-status-head>"
+      '13':
+        text: ""
+        head: ""
+      '14':
+        text: " &7▶ &eKills&7: &f<lazarus-hcf-kills>"
+        head: ""
+      '15':
+        text: " &7▶ &eDeaths&7: &f<lazarus-hcf-deaths>"
+        head: ""
+      '16':
+        text: " &7▶ &eLives&7: &f<lazarus-hcf-lives>"
+        head: ""
+      '17':
+        text: " &7▶ &eDeathbanned&7: &f<lazarus-hcf-deathban>"
+        head: ""
+      '18':
+        text: ""
+        head: ""
+      '19':
+        text: "&9Discord"
+        head: ""
+      '20':
+        text: "&fdiscord.countach.hub"
+        head: "<discord-head>"
+    far-right:
+      '1':
+        text: ""
+        head: ""
+      '2':
+        text: ""
+        head: ""
+      '3':
+        text: ""
+        head: ""
+      '4':
+        text: ""
+        head: ""
+      '5':
+        text: ""
+        head: ""
+      '6':
+        text: ""
+        head: ""
+      '7':
+        text: ""
+        head: ""
+      '8':
+        text: ""
+        head: ""
+      '9':
+        text: ""
+        head: ""
+      '10':
+        text: ""
+        head: ""
+      '11':
+        text: ""
+        head: ""
+      '12':
+        text: ""
+        head: ""
+      '13':
+        text: ""
+        head: ""
+      '14':
+        text: ""
+        head: ""
+      '15':
+        text: ""
+        head: ""
+      '16':
+        text: ""
+        head: ""
+      '17':
+        text: ""
+        head: ""
+      '18':
+        text: ""
+        head: ""
+      '19':
+        text: ""
+        head: ""
+      '20':
+        text: ""
+        head: ""

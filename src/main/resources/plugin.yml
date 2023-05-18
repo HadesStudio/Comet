@@ -1,0 +1,6 @@
+main: dev.risas.countach.Countach
+name: ${project.name}
+version: ${project.version}
+api-version: 1.13
+softdepend: ["PlaceholderAPI"]
+depend: ["PlaceholderAPI"]

@@ -1,0 +1,30 @@
+title-animation:
+  enabled: false
+  interval: 0.3
+  lines:
+    - "&8&l» &6&lCountach &8&l«"
+
+footer-animation:
+  enabled: false
+  interval: 1.5
+  lines:
+    - "&6countach.hub"
+
+scoreboard:
+  enabled: true
+  lines:
+    - "&7&m----------------------"
+    - "&6Online:"
+    - "&f%bungee_total%"
+    - ""
+    - "&6Rank:"
+    - "&f%luckperms_suffix%"
+    - ""
+    - "<queue>"
+    - "<timers>"
+    - "<footer>"
+    - "&7&m----------------------"
+  addons:
+    queue: []
+    timers:
+      - "<timer-name>&7: &f<timer-time>"

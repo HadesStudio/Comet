@@ -1,0 +1,25 @@
+double-jump:
+  enabled: true
+  effect: "EXPLOSION_HUGE"
+  sound: "BAT_TAKEOFF"
+  velocity: 1.5
+
+lunar-client:
+  enabled: false
+  nametag:
+    - "&7Ping: &f%player_ping%ms"
+    - "%player_name%"
+
+action-bar:
+  enabled: true
+  interval: 5
+  messages:
+    - "&6&lTEST"
+    - "&6&lTEST 2"
+    - "&6&lTEST 3"
+    - "&6&lTEST 4"
+    - "&6&lTEST 5"
+
+spawn-location: ""
+
+

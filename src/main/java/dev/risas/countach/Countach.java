@@ -1,0 +1,168 @@
+package dev.risas.countach;
+
+import dev.risas.countach.commands.BuildModeCommand;
+import dev.risas.countach.commands.CountachCommand;
+import dev.risas.countach.commands.queue.QueueCommand;
+import dev.risas.countach.commands.queue.subcommands.*;
+import dev.risas.countach.commands.spawn.SetSpawnCommand;
+import dev.risas.countach.commands.spawn.SpawnCommand;
+import dev.risas.countach.commands.timer.TimerCommand;
+import dev.risas.countach.commands.timer.subcommand.TimerListCommand;
+import dev.risas.countach.commands.timer.subcommand.TimerStartCommand;
+import dev.risas.countach.commands.timer.subcommand.TimerStopCommand;
+import dev.risas.countach.database.mongo.MongoManager;
+import dev.risas.countach.database.redis.RedisManager;
+import dev.risas.countach.integrations.PlaceholderAPIHook;
+import dev.risas.countach.listeners.PlayerListener;
+import dev.risas.countach.listeners.QueueListener;
+import dev.risas.countach.listeners.SpawnListener;
+import dev.risas.countach.listeners.WorldListener;
+import dev.risas.countach.listeners.hotbar.CustomHotbarListener;
+import dev.risas.countach.listeners.hotbar.NormalHotbarListener;
+import dev.risas.countach.model.actionbar.ActionBarRunnable;
+import dev.risas.countach.model.hotbar.custom.CustomHotbarManager;
+import dev.risas.countach.model.hotbar.normal.NormalHotbarManager;
+import dev.risas.countach.model.lazarus.LazarusManager;
+import dev.risas.countach.model.lunarclient.LunarClientRunnable;
+import dev.risas.countach.model.queue.QueueManager;
+import dev.risas.countach.model.queue.rank.QueueRankManager;
+import dev.risas.countach.model.queue.thread.QueuePositionThread;
+import dev.risas.countach.model.queue.thread.QueueReminderThread;
+import dev.risas.countach.model.spawn.SpawnManager;
+import dev.risas.countach.model.timer.TimerManager;
+import dev.risas.countach.scoreboard.Scoreboard;
+import dev.risas.countach.scoreboard.ScoreboardProvider;
+import dev.risas.countach.tablist.Tablist;
+import dev.risas.countach.tablist.TablistProvider;
+import dev.risas.countach.tablist.head.HeadManager;
+import dev.risas.countach.utilities.command.CommandManager;
+import dev.risas.countach.utilities.file.FileConfig;
+import lombok.Getter;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+
+/**
+ * Created by Risas
+ * Project: Countach
+ * Date: 05-12-2022
+ * Twitter: @RisasDev
+ * GitHub: https://github.com/RisasDev
+ */
+
+@Getter
+public class Countach extends JavaPlugin {
+
+    private FileConfig configFile, hotbarFile, scoreboardFile, tablistFile, tablistHeadsFile, databaseFile, queueFile;
+
+    private CommandManager commandManager;
+    private SpawnManager spawnManager;
+    private NormalHotbarManager normalHotbarManager;
+    private CustomHotbarManager customHotbarManager;
+    private TimerManager timerManager;
+    private HeadManager headManager;
+    private MongoManager mongoManager;
+    private RedisManager redisManager;
+    private LazarusManager lazarusManager;
+    private QueueRankManager queueRankManager;
+    private QueueManager queueManager;
+
+    private Scoreboard scoreboard;
+    private Tablist tablist;
+
+    @Override
+    public void onEnable() {
+        this.configFile = new FileConfig(this, "config.yml");
+        this.hotbarFile = new FileConfig(this, "hotbar.yml");
+        this.scoreboardFile = new FileConfig(this, "scoreboard.yml");
+        this.databaseFile = new FileConfig(this, "database.yml");
+        this.queueFile = new FileConfig(this, "queue.yml");
+        this.tablistFile = new FileConfig(this, "tablist/tablist.yml");
+        this.tablistHeadsFile = new FileConfig(this, "tablist/heads.yml");
+
+        this.commandManager = new CommandManager(this);
+        this.spawnManager = new SpawnManager(this);
+        this.normalHotbarManager = new NormalHotbarManager(this);
+        this.customHotbarManager = new CustomHotbarManager(this);
+        this.timerManager = new TimerManager();
+        this.headManager = new HeadManager(this);
+        this.queueRankManager = new QueueRankManager(this);
+        this.queueManager = new QueueManager(this);
+        this.mongoManager = new MongoManager(this);
+        this.redisManager = new RedisManager(this);
+        this.lazarusManager = new LazarusManager(this);
+
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new PlayerListener(this), this);
+        pluginManager.registerEvents(new SpawnListener(this), this);
+        pluginManager.registerEvents(new WorldListener(), this);
+        pluginManager.registerEvents(new NormalHotbarListener(this), this);
+        pluginManager.registerEvents(new CustomHotbarListener(this), this);
+        pluginManager.registerEvents(new QueueListener(this), this);
+
+        commandManager.registerCommands(new CountachCommand(this));
+        commandManager.registerCommands(new BuildModeCommand(this));
+        commandManager.registerCommands(new SetSpawnCommand(this));
+        commandManager.registerCommands(new SpawnCommand(this));
+        commandManager.registerCommands(new TimerCommand());
+        commandManager.registerCommands(new TimerStartCommand(this));
+        commandManager.registerCommands(new TimerStopCommand(this));
+        commandManager.registerCommands(new TimerListCommand(this));
+        commandManager.registerCommands(new QueueCommand());
+        commandManager.registerCommands(new QueueJoinCommand(this));
+        commandManager.registerCommands(new QueueLeaveCommand(this));
+        commandManager.registerCommands(new QueuePauseCommand(this));
+        commandManager.registerCommands(new QueueListCommand(this));
+
+        PlaceholderAPIHook.initialize(this);
+
+        if (scoreboardFile.getBoolean("scoreboard.enabled")) {
+            this.scoreboard = new Scoreboard(this);
+            scoreboard.setTicks(2L);
+            scoreboard.setAdapter(new ScoreboardProvider(this));
+        }
+        if (tablistFile.getBoolean("tablist.enabled")) {
+            this.tablist = new Tablist(this, new TablistProvider(this));
+        }
+
+        if (configFile.getBoolean("lunar-client.enabled")) {
+            Bukkit.getScheduler().runTaskTimerAsynchronously(this, new LunarClientRunnable(this), 0L, 20L);
+        }
+        if (configFile.getBoolean("action-bar.enabled")) {
+            int interval = configFile.getInt("action-bar.interval");
+            Bukkit.getScheduler().runTaskTimerAsynchronously(this, new ActionBarRunnable(this, interval), interval * 20L, interval * 20L);
+        }
+
+        QueueReminderThread reminderThread = new QueueReminderThread(this);
+        reminderThread.start();
+
+        QueuePositionThread positionThread = new QueuePositionThread(this);
+        positionThread.start();
+
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+    }
+
+    @Override
+    public void onDisable() {
+        this.mongoManager.onDisable();
+        this.redisManager.onDisable();
+    }
+
+    public void onReload() {
+        this.configFile.reload();
+        this.hotbarFile.reload();
+        this.scoreboardFile.reload();
+        this.tablistFile.reload();
+        this.databaseFile.reload();
+        this.queueFile.reload();
+        this.normalHotbarManager.loadOrRefresh(true);
+        this.customHotbarManager.loadOrRefresh(true);
+        this.queueRankManager.loadOrRefresh();
+        this.queueManager.loadOrRefresh();
+        this.headManager.loadOrRefresh();
+    }
+
+    public static Countach getInstance() {
+        return getPlugin(Countach.class);
+    }
+}
