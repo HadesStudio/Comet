@@ -1,6 +1,6 @@
 package com.connorlinfoot.actionbarapi;
 
-import dev.risas.countach.Countach;
+import dev.rage.comet.Comet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -76,7 +76,7 @@ public class ActionBarAPI {
         }
     }
 
-    public static void sendActionBar(Countach plugin, Player player, String message, int duration) {
+    public static void sendActionBar(Comet plugin, Player player, String message, int duration) {
         sendActionBar(player, message);
 
         if (duration >= 0) {
@@ -101,11 +101,11 @@ public class ActionBarAPI {
         }
     }
 
-    public static void sendActionBarToAllPlayers(Countach plugin, String message) {
+    public static void sendActionBarToAllPlayers(Comet plugin, String message) {
         sendActionBarToAllPlayers(plugin, message, -1);
     }
 
-    public static void sendActionBarToAllPlayers(Countach plugin, String message, int duration) {
+    public static void sendActionBarToAllPlayers(Comet plugin, String message, int duration) {
         for (Player p : Bukkit.getOnlinePlayers()) {
             sendActionBar(plugin, p, message, duration);
         }

@@ -1,4 +1,4 @@
-main: dev.risas.countach.Countach
+main: dev.rage.comet.Comet
 name: ${project.name}
 version: ${project.version}
 api-version: 1.13
