@@ -1,7 +1,7 @@
 # Comet
 Comet HubCore
 
-Features ↴
+Features ->
 • HexColor Support
 • Tablist Compatible with lazaurs for kits & hcf hook
 • Custom Heads in Tablist
