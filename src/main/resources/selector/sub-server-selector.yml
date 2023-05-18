@@ -1,0 +1,14 @@
+sub-servers:
+  default:
+    default-1:
+      item:
+        head: ""
+        name: "&6&lDefault Sub Server 1"
+        description:
+          - "&7This is the default server."
+        material: "DIAMOND_SWORD"
+        data: 0
+        slot: 4
+        enchanted: true
+      sub-server: "default-1"
+      commands: []

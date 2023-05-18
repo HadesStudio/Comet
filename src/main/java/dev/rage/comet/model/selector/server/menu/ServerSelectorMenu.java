@@ -1,9 +1,9 @@
-package dev.rage.comet.model.selector.menu;
+package dev.rage.comet.model.selector.server.menu;
 
 import dev.rage.comet.Comet;
-import dev.rage.comet.model.selector.ServerSelector;
-import dev.rage.comet.model.selector.ServerSelectorManager;
-import dev.rage.comet.model.selector.menu.button.ServerSelectorButton;
+import dev.rage.comet.model.selector.server.ServerSelector;
+import dev.rage.comet.model.selector.server.ServerSelectorManager;
+import dev.rage.comet.model.selector.server.menu.button.ServerSelectorButton;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.Menu;
 import org.bukkit.entity.Player;
@@ -13,9 +13,11 @@ import java.util.Map;
 
 public class ServerSelectorMenu extends Menu {
 
+    private final Comet plugin;
     private final ServerSelectorManager serverSelectorManager;
 
     public ServerSelectorMenu(Comet plugin) {
+        this.plugin = plugin;
         this.serverSelectorManager = plugin.getServerSelectorManager();
     }
 
@@ -29,7 +31,7 @@ public class ServerSelectorMenu extends Menu {
         HashMap<Integer, Button> buttons = new HashMap<>();
 
         for (ServerSelector serverSelector : serverSelectorManager.getServerSelectors()) {
-            buttons.put(serverSelector.getIconSlot(), new ServerSelectorButton(serverSelector));
+            buttons.put(serverSelector.getIconSlot(), new ServerSelectorButton(plugin, serverSelector));
         }
 
         return buttons;

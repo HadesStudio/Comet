@@ -1,4 +1,4 @@
-package dev.rage.comet.model.selector;
+package dev.rage.comet.model.selector.server;
 
 import dev.rage.comet.Comet;
 import dev.rage.comet.utilities.file.FileConfig;

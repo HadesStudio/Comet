@@ -32,7 +32,7 @@ import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.model.queue.rank.QueueRankManager;
 import dev.rage.comet.model.queue.thread.QueuePositionThread;
 import dev.rage.comet.model.queue.thread.QueueReminderThread;
-import dev.rage.comet.model.selector.ServerSelectorManager;
+import dev.rage.comet.model.selector.server.ServerSelectorManager;
 import dev.rage.comet.model.spawn.SpawnManager;
 import dev.rage.comet.model.timer.TimerManager;
 import dev.rage.comet.scoreboard.Scoreboard;
@@ -65,7 +65,8 @@ public class Comet extends JavaPlugin {
             tablistHeadsFile,
             databaseFile,
             queueFile,
-            serverSelectorFile;
+            serverSelectorFile,
+            subServerSelectorFile;
 
     private CommandManager commandManager;
     private SpawnManager spawnManager;
@@ -96,6 +97,7 @@ public class Comet extends JavaPlugin {
         this.tablistFile = new FileConfig(this, "tablist/tablist.yml");
         this.tablistHeadsFile = new FileConfig(this, "tablist/heads.yml");
         this.serverSelectorFile = new FileConfig(this, "selector/server-selector.yml");
+        this.subServerSelectorFile = new FileConfig(this, "selector/sub-server-selector.yml");
 
         this.commandManager = new CommandManager(this);
         this.serverDataManager = new ServerDataManager();

@@ -1,4 +1,4 @@
-package dev.rage.comet.model.selector;
+package dev.rage.comet.model.selector.server;
 
 import lombok.Getter;
 import lombok.Setter;
