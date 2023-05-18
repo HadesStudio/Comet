@@ -105,7 +105,7 @@ public class QueueManager {
     }
 
     public void sendToServer(Player player, Queue queue) {
-        BungeeUtil.sendBungeeServer(player, queue.getServer());
+        BungeeUtil.sendBungeeServer(plugin, player, queue.getServer());
         this.removeQueuePlayer(queue, player.getUniqueId());
     }
 

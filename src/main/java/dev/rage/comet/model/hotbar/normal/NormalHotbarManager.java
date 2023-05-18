@@ -1,6 +1,7 @@
 package dev.rage.comet.model.hotbar.normal;
 
 import dev.rage.comet.model.hotbar.normal.impl.EnderButtHotbar;
+import dev.rage.comet.model.hotbar.normal.impl.ServerSelectorHotbar;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.Comet;
@@ -80,6 +81,7 @@ public class NormalHotbarManager {
         ConfigurationSection section = hotbarFile.getConfiguration().getConfigurationSection("normal");
 
         registerHotbars(registerHotbarFromConfig(new EnderButtHotbar("ender-butt"), section));
+        registerHotbars(registerHotbarFromConfig(new ServerSelectorHotbar(plugin, "server-selector"), section));
 
         if (reload) Bukkit.getOnlinePlayers().forEach(this::giveHotbar);
     }

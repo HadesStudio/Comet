@@ -22,6 +22,7 @@ import dev.rage.comet.listeners.SpawnListener;
 import dev.rage.comet.listeners.WorldListener;
 import dev.rage.comet.listeners.hotbar.CustomHotbarListener;
 import dev.rage.comet.listeners.hotbar.NormalHotbarListener;
+import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.model.actionbar.ActionBarRunnable;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
@@ -31,6 +32,7 @@ import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.model.queue.rank.QueueRankManager;
 import dev.rage.comet.model.queue.thread.QueuePositionThread;
 import dev.rage.comet.model.queue.thread.QueueReminderThread;
+import dev.rage.comet.model.selector.ServerSelectorManager;
 import dev.rage.comet.model.spawn.SpawnManager;
 import dev.rage.comet.model.timer.TimerManager;
 import dev.rage.comet.scoreboard.Scoreboard;
@@ -56,12 +58,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 @Getter
 public class Comet extends JavaPlugin {
 
-    private FileConfig configFile, hotbarFile, scoreboardFile, tablistFile, tablistHeadsFile, databaseFile, queueFile;
+    private FileConfig configFile,
+            hotbarFile,
+            scoreboardFile,
+            tablistFile,
+            tablistHeadsFile,
+            databaseFile,
+            queueFile,
+            serverSelectorFile;
 
     private CommandManager commandManager;
     private SpawnManager spawnManager;
     private NormalHotbarManager normalHotbarManager;
     private CustomHotbarManager customHotbarManager;
+    private ServerSelectorManager serverSelectorManager;
     private TimerManager timerManager;
     private HeadManager headManager;
     private MongoManager mongoManager;
@@ -69,12 +79,15 @@ public class Comet extends JavaPlugin {
     private LazarusManager lazarusManager;
     private QueueRankManager queueRankManager;
     private QueueManager queueManager;
+    private ServerDataManager serverDataManager;
 
     private Scoreboard scoreboard;
     private Tablist tablist;
 
     @Override
     public void onEnable() {
+        PlaceholderAPIHook.initialize(this);
+
         this.configFile = new FileConfig(this, "config.yml");
         this.hotbarFile = new FileConfig(this, "hotbar.yml");
         this.scoreboardFile = new FileConfig(this, "scoreboard.yml");
@@ -82,11 +95,14 @@ public class Comet extends JavaPlugin {
         this.queueFile = new FileConfig(this, "queue.yml");
         this.tablistFile = new FileConfig(this, "tablist/tablist.yml");
         this.tablistHeadsFile = new FileConfig(this, "tablist/heads.yml");
+        this.serverSelectorFile = new FileConfig(this, "selector/server-selector.yml");
 
         this.commandManager = new CommandManager(this);
+        this.serverDataManager = new ServerDataManager();
         this.spawnManager = new SpawnManager(this);
         this.normalHotbarManager = new NormalHotbarManager(this);
         this.customHotbarManager = new CustomHotbarManager(this);
+        this.serverSelectorManager = new ServerSelectorManager(this);
         this.timerManager = new TimerManager();
         this.headManager = new HeadManager(this);
         this.queueRankManager = new QueueRankManager(this);
@@ -116,8 +132,6 @@ public class Comet extends JavaPlugin {
         commandManager.registerCommands(new QueueLeaveCommand(this));
         commandManager.registerCommands(new QueuePauseCommand(this));
         commandManager.registerCommands(new QueueListCommand(this));
-
-        PlaceholderAPIHook.initialize(this);
 
         if (scoreboardFile.getBoolean("scoreboard.enabled")) {
             this.scoreboard = new Scoreboard(this);
@@ -158,14 +172,12 @@ public class Comet extends JavaPlugin {
         this.tablistFile.reload();
         this.databaseFile.reload();
         this.queueFile.reload();
+        this.serverSelectorFile.reload();
         this.normalHotbarManager.loadOrRefresh(true);
         this.customHotbarManager.loadOrRefresh(true);
+        this.serverSelectorManager.loadOrRefresh();
         this.queueRankManager.loadOrRefresh();
         this.queueManager.loadOrRefresh();
         this.headManager.loadOrRefresh();
-    }
-
-    public static Comet getInstance() {
-        return getPlugin(Comet.class);
     }
 }

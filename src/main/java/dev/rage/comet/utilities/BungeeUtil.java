@@ -17,14 +17,14 @@ import org.bukkit.entity.Player;
 @UtilityClass
 public class BungeeUtil {
 
-    public void sendBungeeServer(Player player, String server) {
+    public void sendBungeeServer(Comet plugin, Player player, String server) {
         try {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("ConnectOther");
             out.writeUTF(player.getName());
             out.writeUTF(server);
 
-            player.sendPluginMessage(Comet.getInstance(), "BungeeCord", out.toByteArray());
+            player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
         }
         catch (Exception exception) {
             ChatUtil.sendMessage(player, "&cAn error occurred while trying to send you to the server.");

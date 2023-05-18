@@ -9,8 +9,6 @@ normal:
       data: 0
       slot: 8
       enchanted: true
-
-custom:
   server-selector:
     enabled: true
     item:
@@ -18,6 +16,19 @@ custom:
       name: "&6&lSERVER SELECTOR &8┃ &7(Right Click)"
       description: []
       material: "COMPASS"
+      data: 0
+      slot: 4
+      enchanted: true
+    commands: []
+
+custom:
+  example:
+    enabled: false
+    item:
+      head: ""
+      name: "&6&lEXAMPLE &8┃ &7(Right Click)"
+      description: []
+      material: "CHEST"
       data: 0
       slot: 4
       enchanted: true

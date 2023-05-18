@@ -1,0 +1,13 @@
+servers:
+  default:
+    item:
+      head: ""
+      name: "&6&lDefault Server"
+      description:
+        - "&7This is the default server."
+      material: "DIAMOND_SWORD"
+      data: 0
+      slot: 4
+      enchanted: true
+    server: "default"
+    commands: []
