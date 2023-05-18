@@ -18,16 +18,16 @@ public final class TablistLayout {
     private int ping;
     private Head head;
 
-    public TablistLayout(TablistColumn column, int slot) {
-        this(column, slot, "", -1);
+    public TablistLayout(Comet plugin, TablistColumn column, int slot) {
+        this(plugin, column, slot, "", -1);
     }
 
-    public TablistLayout(TablistColumn column, int slot, String text) {
-        this(column, slot, text, -1);
+    public TablistLayout(Comet plugin, TablistColumn column, int slot, String text) {
+        this(plugin, column, slot, text, -1);
     }
 
-    public TablistLayout(TablistColumn column, int slot, String text, int ping) {
-        this(column, slot, text, ping, Comet.getInstance().getHeadManager().getDefault());
+    public TablistLayout(Comet plugin, TablistColumn column, int slot, String text, int ping) {
+        this(column, slot, text, ping, plugin.getHeadManager().getDefault());
     }
 
     public TablistLayout(TablistColumn column, int slot, String text, Head head) {

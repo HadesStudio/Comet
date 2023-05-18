@@ -1,11 +1,11 @@
 package dev.rage.comet.tablist.head;
 
+import dev.rage.comet.model.server.IServerData;
+import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.Comet;
 import dev.rage.comet.tablist.Tablist;
 import lombok.Getter;
-import me.activated.core.api.ServerData;
-import me.activated.core.plugin.AquaCoreAPI;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -29,10 +29,13 @@ public class HeadManager {
     private final Map<String, Head> heads;
     private final Set<String> headNames;
 
+    private final ServerDataManager serverDataManager;
+
     public HeadManager(Comet plugin) {
         this.plugin = plugin;
         this.heads = new HashMap<>();
         this.headNames = new HashSet<>();
+        this.serverDataManager = plugin.getServerDataManager();
         this.loadOrRefresh();
     }
 
@@ -60,10 +63,10 @@ public class HeadManager {
         String serverName = server
                 .replace("<", "")
                 .replace("-status-head>", "");
-        ServerData serverData = AquaCoreAPI.INSTANCE.getServerData(serverName);
-        if (serverData == null) return this.getHead("<offline-head>");
-        if (serverData.isWhitelisted()) return this.getHead("<whitelisted-head>");
-        if (serverData.isMaintenance()) return this.getHead("<maintenance-head>");
+        IServerData serverData = serverDataManager.getServerData();
+        if (serverData.isOffline(serverName)) return this.getHead("<offline-head>");
+        else if (serverData.isWhitelisted(serverName)) return this.getHead("<whitelisted-head>");
+        else if (serverData.isMaintenance(serverName)) return this.getHead("<maintenance-head>");
         else return this.getHead("<online-head>");
     }
 

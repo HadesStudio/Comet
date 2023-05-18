@@ -1,11 +1,11 @@
 package dev.rage.comet.tablist;
 
-import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.lazarus.LazarusManager;
+import dev.rage.comet.model.server.IServerData;
+import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.tablist.head.HeadManager;
-import me.activated.core.api.ServerData;
-import me.activated.core.plugin.AquaCoreAPI;
+import dev.rage.comet.utilities.ChatUtil;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -18,11 +18,13 @@ public class TablistProvider implements TablistAdapter {
     private final Comet plugin;
     private final HeadManager headManager;
     private final LazarusManager lazarusManager;
+    private final ServerDataManager serverDataManager;
 
     public TablistProvider(Comet plugin) {
         this.plugin = plugin;
         this.headManager = plugin.getHeadManager();
         this.lazarusManager = plugin.getLazarusManager();
+        this.serverDataManager = plugin.getServerDataManager();
     }
 
     @Override
@@ -44,16 +46,16 @@ public class TablistProvider implements TablistAdapter {
         Set<TablistLayout> layout = new HashSet<>();
 
         for (int i = 1; i <= 20; ++i) {
-            layout.add(new TablistLayout(TablistColumn.LEFT, i)
+            layout.add(new TablistLayout(plugin, TablistColumn.LEFT, i)
                     .setText(ChatUtil.placeholder(player, replace(player, plugin.getTablistFile().getString("tablist.lines.left." + i + ".text"))))
                     .setHead(headManager.getHead(player, plugin.getTablistFile().getString("tablist.lines.left." + i + ".head"))));
-            layout.add(new TablistLayout(TablistColumn.MIDDLE, i)
+            layout.add(new TablistLayout(plugin, TablistColumn.MIDDLE, i)
                     .setText(ChatUtil.placeholder(player, replace(player, plugin.getTablistFile().getString("tablist.lines.middle." + i + ".text"))))
                     .setHead(headManager.getHead(player, plugin.getTablistFile().getString("tablist.lines.middle." + i + ".head"))));
-            layout.add(new TablistLayout(TablistColumn.RIGHT, i)
+            layout.add(new TablistLayout(plugin, TablistColumn.RIGHT, i)
                     .setText(ChatUtil.placeholder(player, replace(player, plugin.getTablistFile().getString("tablist.lines.right." + i + ".text"))))
                     .setHead(headManager.getHead(player, plugin.getTablistFile().getString("tablist.lines.right." + i + ".head"))));
-            layout.add(new TablistLayout(TablistColumn.FAR_RIGHT, i)
+            layout.add(new TablistLayout(plugin, TablistColumn.FAR_RIGHT, i)
                     .setText(ChatUtil.placeholder(player, replace(player, plugin.getTablistFile().getString("tablist.lines.far-right." + i + ".text"))))
                     .setHead(headManager.getHead(player, plugin.getTablistFile().getString("tablist.lines.far-right." + i + ".head"))));
         }
@@ -68,14 +70,14 @@ public class TablistProvider implements TablistAdapter {
                     .replace("<", "")
                     .replace("-status>", "");
 
-            ServerData serverData = AquaCoreAPI.INSTANCE.getServerData(serverName);
+            IServerData serverData = serverDataManager.getServerData();
             String placeholderPath = "<" + serverName + "-status>";
 
-            if (serverData == null) return text
+            if (serverData.isOffline(serverName)) return text
                     .replace(placeholderPath, "&cOffline");
-            if (serverData.isWhitelisted()) return text
+            else if (serverData.isWhitelisted(serverName)) return text
                     .replace(placeholderPath, "&eWhitelisted");
-            if (serverData.isMaintenance()) return text
+            else if (serverData.isMaintenance(serverName)) return text
                     .replace(placeholderPath, "&cMaintenance");
             else return text.replace(placeholderPath, "&aOnline");
         }
