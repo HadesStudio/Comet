@@ -21,6 +21,6 @@ public class RedisManager {
     }
 
     public void onDisable() {
-        redis.disconnect();
+        if (redis.isConnected()) redis.disconnect();
     }
 }
