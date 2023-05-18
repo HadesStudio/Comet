@@ -17,6 +17,10 @@
 
     <repositories>
         <repository>
+            <id>nms-repo</id>
+            <url>https://repo.codemc.io/repository/nms/</url>
+        </repository>
+        <repository>
             <id>minecraft-repo</id>
             <url>https://libraries.minecraft.net/</url>
         </repository>
@@ -38,18 +42,9 @@
         <!-- Spigot API -->
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-1.8.8</artifactId>
-            <version>1.8.8-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/libs/spigot-1.8.8.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-1.7.10</artifactId>
-            <version>1.7.10-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/libs/spigot-1.7.10.jar</systemPath>
+            <artifactId>spigot</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -64,7 +59,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>1.18.26</version>
             <scope>provided</scope>
         </dependency>
 
@@ -112,7 +107,7 @@
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
-            <version>3.12.11</version>
+            <version>3.12.12</version>
             <scope>compile</scope>
         </dependency>
 
