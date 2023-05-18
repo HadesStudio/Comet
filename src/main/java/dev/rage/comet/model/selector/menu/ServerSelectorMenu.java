@@ -13,9 +13,11 @@ import java.util.Map;
 
 public class ServerSelectorMenu extends Menu {
 
+    private final Comet plugin;
     private final ServerSelectorManager serverSelectorManager;
 
     public ServerSelectorMenu(Comet plugin) {
+        this.plugin = plugin;
         this.serverSelectorManager = plugin.getServerSelectorManager();
     }
 
@@ -29,7 +31,7 @@ public class ServerSelectorMenu extends Menu {
         HashMap<Integer, Button> buttons = new HashMap<>();
 
         for (ServerSelector serverSelector : serverSelectorManager.getServerSelectors()) {
-            buttons.put(serverSelector.getIconSlot(), new ServerSelectorButton(serverSelector));
+            buttons.put(serverSelector.getIconSlot(), new ServerSelectorButton(plugin, serverSelector));
         }
 
         return buttons;
