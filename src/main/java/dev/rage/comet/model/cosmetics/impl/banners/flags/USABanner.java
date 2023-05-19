@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.banners.flags;
 
 import dev.rage.comet.model.cosmetics.impl.banners.Banner;
+import dev.rage.comet.utilities.ChatUtil;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -11,10 +12,16 @@ import org.bukkit.inventory.meta.BannerMeta;
 public class USABanner extends Banner {
 
     @Override
+    public String getName() {
+        return "&2Unit&fedSt&cates &eFlag";
+    }
+
+    @Override
     public ItemStack getItem() {
         ItemStack banner = new ItemStack(Material.BANNER);
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
 
+        bannerMeta.setDisplayName(ChatUtil.translate(getName()));
         bannerMeta.setBaseColor(DyeColor.WHITE);
 
         for (int i = 0; i < 13; i++) {

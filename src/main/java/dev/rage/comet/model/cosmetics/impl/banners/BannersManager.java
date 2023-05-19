@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.banners.flags.*;
 import lombok.Getter;
+import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,5 +24,9 @@ public class BannersManager {
                 new MexicoBanner(),
                 new SpainBanner(),
                 new USABanner()));
+    }
+
+    public void apply(Player player, Banner banner) {
+        player.getInventory().setHelmet(banner.getItem());
     }
 }

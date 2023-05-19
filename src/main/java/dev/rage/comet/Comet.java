@@ -22,6 +22,7 @@ import dev.rage.comet.listeners.SpawnListener;
 import dev.rage.comet.listeners.WorldListener;
 import dev.rage.comet.listeners.hotbar.CustomHotbarListener;
 import dev.rage.comet.listeners.hotbar.NormalHotbarListener;
+import dev.rage.comet.model.cosmetics.impl.banners.BannersManager;
 import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.model.actionbar.ActionBarRunnable;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
@@ -81,6 +82,7 @@ public class Comet extends JavaPlugin {
     private QueueRankManager queueRankManager;
     private QueueManager queueManager;
     private ServerDataManager serverDataManager;
+    private BannersManager bannersManager;
 
     private Scoreboard scoreboard;
     private Tablist tablist;
@@ -101,6 +103,7 @@ public class Comet extends JavaPlugin {
         this.commandManager = new CommandManager(this);
         this.serverDataManager = new ServerDataManager();
         this.spawnManager = new SpawnManager(this);
+        this.bannersManager = new BannersManager(this);
         this.normalHotbarManager = new NormalHotbarManager(this);
         this.customHotbarManager = new CustomHotbarManager(this);
         this.serverSelectorManager = new ServerSelectorManager(this);

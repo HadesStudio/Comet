@@ -92,7 +92,7 @@ public class NormalHotbarManager {
                 registerHotbarFromConfig(new ServerSelectorHotbar(plugin, "server-selector"), section),
                 registerHotbarFromConfig(new ShowPlayerHotbar("show-players", this), section),
                 registerHotbarFromConfig(new HidePlayerHotbar("hide-players", this), section),
-                registerHotbarFromConfig(new CosmeticsHotbar("cosmetics"), section)
+                registerHotbarFromConfig(new CosmeticsHotbar("cosmetics", plugin.getBannersManager()), section)
         );
 
         if (reload) Bukkit.getOnlinePlayers().forEach(this::giveHotbar);
