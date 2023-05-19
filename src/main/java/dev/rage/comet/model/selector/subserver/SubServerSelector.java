@@ -12,7 +12,7 @@ public class SubServerSelector {
     private final String name;
     private ItemStack icon;
     private int iconSlot;
-    private String subServer;
+    private String subServer, server;
     private List<String> commands;
 
     public SubServerSelector(String name) {
