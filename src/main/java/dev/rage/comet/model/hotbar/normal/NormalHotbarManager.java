@@ -91,8 +91,8 @@ public class NormalHotbarManager {
                 registerHotbarFromConfig(new EnderButtHotbar("ender-butt"), section),
                 registerHotbarFromConfig(new ServerSelectorHotbar(plugin, "server-selector"), section),
                 registerHotbarFromConfig(new ShowPlayerHotbar("show-players", this), section),
-                registerHotbarFromConfig(new HidePlayerHotbar("hide-players", this), section)
-                registerHotbars(registerHotbarFromConfig(new CosmeticsHotbar("cosmetics"), section));
+                registerHotbarFromConfig(new HidePlayerHotbar("hide-players", this), section),
+                registerHotbarFromConfig(new CosmeticsHotbar("cosmetics"), section);
         );
 
         if (reload) Bukkit.getOnlinePlayers().forEach(this::giveHotbar);
