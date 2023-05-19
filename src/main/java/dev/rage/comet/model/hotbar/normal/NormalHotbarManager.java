@@ -1,17 +1,19 @@
 package dev.rage.comet.model.hotbar.normal;
 
+import dev.rage.comet.Comet;
 import dev.rage.comet.model.hotbar.normal.impl.EnderButtHotbar;
+import dev.rage.comet.model.hotbar.normal.impl.HidePlayerHotbar;
 import dev.rage.comet.model.hotbar.normal.impl.ServerSelectorHotbar;
+import dev.rage.comet.model.hotbar.normal.impl.ShowPlayerHotbar;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.item.ItemBuilder;
-import dev.rage.comet.Comet;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -29,12 +31,16 @@ public class NormalHotbarManager {
 
     public NormalHotbarManager(Comet plugin) {
         this.plugin = plugin;
-        this.hotbarMap = new HashMap<>();
+        this.hotbarMap = new LinkedHashMap<>();
         this.loadOrRefresh(false);
     }
 
     public Collection<NormalHotbar> getHotbars() {
         return hotbarMap.values();
+    }
+
+    public NormalHotbar getHotbar(String name) {
+        return hotbarMap.get(name);
     }
 
     public NormalHotbar getHotbar(ItemStack item) {
@@ -80,8 +86,12 @@ public class NormalHotbarManager {
         FileConfig hotbarFile = plugin.getHotbarFile();
         ConfigurationSection section = hotbarFile.getConfiguration().getConfigurationSection("normal");
 
-        registerHotbars(registerHotbarFromConfig(new EnderButtHotbar("ender-butt"), section));
-        registerHotbars(registerHotbarFromConfig(new ServerSelectorHotbar(plugin, "server-selector"), section));
+        registerHotbars(
+                registerHotbarFromConfig(new EnderButtHotbar("ender-butt"), section),
+                registerHotbarFromConfig(new ServerSelectorHotbar(plugin, "server-selector"), section),
+                registerHotbarFromConfig(new ShowPlayerHotbar("show-players", this), section),
+                registerHotbarFromConfig(new HidePlayerHotbar("hide-players", this), section)
+        );
 
         if (reload) Bukkit.getOnlinePlayers().forEach(this::giveHotbar);
     }
