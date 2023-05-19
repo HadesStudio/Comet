@@ -18,7 +18,7 @@ public class BannersMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "&6&lBanners";
+        return ChatUtil.translate("&6&lBanners");
     }
 
     @Override

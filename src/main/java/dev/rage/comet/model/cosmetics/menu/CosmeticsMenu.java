@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import dev.rage.comet.model.cosmetics.impl.banners.Banner;
 import dev.rage.comet.model.cosmetics.impl.banners.BannersManager;
 import dev.rage.comet.model.cosmetics.menu.buttons.BannersButton;
+import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.Menu;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class CosmeticsMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "&6&lCosmetics";
+        return ChatUtil.translate("&6&lCosmetics");
     }
 
     @Override

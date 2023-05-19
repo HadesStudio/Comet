@@ -14,7 +14,7 @@ public class SpainBanner extends Banner {
 
     @Override
     public String getName() {
-        return "&eSpa&cin Flag";
+        return "&eSpa&cin &eFlag";
     }
 
     @Override
