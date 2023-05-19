@@ -32,7 +32,7 @@ import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.model.queue.rank.QueueRankManager;
 import dev.rage.comet.model.queue.thread.QueuePositionThread;
 import dev.rage.comet.model.queue.thread.QueueReminderThread;
-import dev.rage.comet.model.selector.server.ServerSelectorManager;
+import dev.rage.comet.model.selector.ServerSelectorManager;
 import dev.rage.comet.model.spawn.SpawnManager;
 import dev.rage.comet.model.timer.TimerManager;
 import dev.rage.comet.scoreboard.Scoreboard;
@@ -42,6 +42,7 @@ import dev.rage.comet.tablist.TablistProvider;
 import dev.rage.comet.tablist.head.HeadManager;
 import dev.rage.comet.utilities.command.CommandManager;
 import dev.rage.comet.utilities.file.FileConfig;
+import dev.rage.comet.utilities.menu.ButtonListener;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -65,8 +66,7 @@ public class Comet extends JavaPlugin {
             tablistHeadsFile,
             databaseFile,
             queueFile,
-            serverSelectorFile,
-            subServerSelectorFile;
+            serverSelectorFile;
 
     private CommandManager commandManager;
     private SpawnManager spawnManager;
@@ -97,7 +97,6 @@ public class Comet extends JavaPlugin {
         this.tablistFile = new FileConfig(this, "tablist/tablist.yml");
         this.tablistHeadsFile = new FileConfig(this, "tablist/heads.yml");
         this.serverSelectorFile = new FileConfig(this, "selector/server-selector.yml");
-        this.subServerSelectorFile = new FileConfig(this, "selector/sub-server-selector.yml");
 
         this.commandManager = new CommandManager(this);
         this.serverDataManager = new ServerDataManager();
@@ -114,6 +113,7 @@ public class Comet extends JavaPlugin {
         this.lazarusManager = new LazarusManager(this);
 
         PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new ButtonListener(), this);
         pluginManager.registerEvents(new PlayerListener(this), this);
         pluginManager.registerEvents(new SpawnListener(this), this);
         pluginManager.registerEvents(new WorldListener(), this);

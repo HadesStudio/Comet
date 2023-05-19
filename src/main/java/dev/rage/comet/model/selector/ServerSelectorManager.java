@@ -1,4 +1,4 @@
-package dev.rage.comet.model.selector.server;
+package dev.rage.comet.model.selector;
 
 import dev.rage.comet.Comet;
 import dev.rage.comet.utilities.file.FileConfig;
@@ -34,8 +34,8 @@ public class ServerSelectorManager {
         return serverSelectors.get(name);
     }
 
-    public void loadOrCreate(String name, ConfigurationSection section) {
-        ServerSelector serverSelector = exists(name) ? getServerSelector(name) : new ServerSelector(name);
+    public void loadOrCreateServer(String name, ConfigurationSection section) {
+        ServerSelector serverSelector = exists(name) ? getServerSelector(name) : new ServerSelector(plugin, name);
         serverSelector.setIcon(new ItemBuilder(section.getString(name + ".item.material"))
                 .setName(section.getString(name + ".item.name"))
                 .setLore(section.getStringList(name + ".item.description"))
@@ -43,11 +43,40 @@ public class ServerSelectorManager {
                 .setSkullOwner(section.getString(name + ".item.head"))
                 .setEnchanted(section.getBoolean(name + ".item.enchanted"))
                 .build());
-        serverSelector.setIconSlot(section.getInt(name+ ".item.slot"));
+        serverSelector.setIconSlot(section.getInt(name + ".item.slot"));
         serverSelector.setServer(section.getString(name + ".server"));
         serverSelector.setCommands(section.getStringList(name + ".commands"));
+        serverSelector.loadOrCreateFolder();
+
+        FileConfig subServerFile = serverSelector.getSubServerFile();
+        serverSelector.setMenuTitle(subServerFile.getString("menu.title"));
+        serverSelector.setMenuRows(subServerFile.getInt("menu.rows"));
+
+        serverSelector.getSubServerSelectors().clear();
+
+        ConfigurationSection subServerSection = subServerFile.getConfiguration().getConfigurationSection("sub-servers");
+
+        for (String subServerName : subServerSection.getKeys(false)) {
+            loadOrCreateSubServer(serverSelector, subServerName, subServerSection);
+        }
 
         if (!exists(name)) serverSelectors.put(name, serverSelector);
+    }
+
+    public void loadOrCreateSubServer(ServerSelector serverSelector, String subServerName, ConfigurationSection section) {
+        SubServerSelector subServerSelector = new SubServerSelector(subServerName);
+        subServerSelector.setIcon(new ItemBuilder(section.getString(subServerName + ".item.material"))
+                .setName(section.getString(subServerName + ".item.name"))
+                .setLore(section.getStringList(subServerName + ".item.description"))
+                .setData(section.getInt(subServerName + ".item.data"))
+                .setSkullOwner(section.getString(subServerName + ".item.head"))
+                .setEnchanted(section.getBoolean(subServerName + ".item.enchanted"))
+                .build());
+        subServerSelector.setIconSlot(section.getInt(subServerName + ".item.slot"));
+        subServerSelector.setSubServer(section.getString(subServerName + ".sub-server"));
+        subServerSelector.setCommands(section.getStringList(subServerName + ".commands"));
+
+        serverSelector.getSubServerSelectors().add(subServerSelector);
     }
 
     public void loadOrRefresh() {
@@ -55,7 +84,7 @@ public class ServerSelectorManager {
         ConfigurationSection section = serverSelectorFile.getConfiguration().getConfigurationSection("servers");
 
         for (String serverName : section.getKeys(false)) {
-            loadOrCreate(serverName, section);
+            loadOrCreateServer(serverName, section);
         }
 
         for (ServerSelector serverSelector : serverSelectors.values()) {

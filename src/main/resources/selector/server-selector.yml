@@ -1,5 +1,8 @@
+menu:
+  title: "Server Selector"
+  rows: 3
 servers:
-  default:
+  Default:
     item:
       head: ""
       name: "&6&lDefault Server"
@@ -7,7 +10,7 @@ servers:
         - "&7This is the default server."
       material: "DIAMOND_SWORD"
       data: 0
-      slot: 4
+      slot: 13
       enchanted: true
     server: "default"
     commands: []
