@@ -1,4 +1,15 @@
 normal:
+  server-selector:
+    enabled: true
+    item:
+      head: ""
+      name: "&6&lSERVER SELECTOR &8┃ &7(Right Click)"
+      description: [ ]
+      material: "COMPASS"
+      data: 0
+      slot: 4
+      enchanted: true
+    commands: []
   ender-butt:
     enabled: true
     item:
@@ -9,15 +20,26 @@ normal:
       data: 0
       slot: 8
       enchanted: true
-  server-selector:
+  hide-players:
     enabled: true
     item:
       head: ""
-      name: "&6&lSERVER SELECTOR &8┃ &7(Right Click)"
+      name: "&6&lHIDE PLAYERS &8┃ &7(Right Click)"
       description: []
-      material: "COMPASS"
-      data: 0
-      slot: 4
+      material: "INK_SACK"
+      data: 10
+      slot: 7
+      enchanted: true
+    commands: []
+  show-players:
+    enabled: true
+    item:
+      head: ""
+      name: "&6&lSHOW PLAYERS &8┃ &7(Right Click)"
+      description: []
+      material: "INK_SACK"
+      data: 8
+      slot: 7
       enchanted: true
     commands: []
   cosmetics:

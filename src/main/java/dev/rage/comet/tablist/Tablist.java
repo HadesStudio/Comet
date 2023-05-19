@@ -63,7 +63,7 @@ public class Tablist {
         this.tablistThread = new TablistThread(this);
     }
 
-    public void disable() {
+    public void onDisable() {
         if (this.tablistThread != null) {
             this.tablistThread.stop();
             this.tablistThread = null;

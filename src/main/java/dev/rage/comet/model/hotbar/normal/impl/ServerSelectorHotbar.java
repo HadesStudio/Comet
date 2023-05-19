@@ -2,7 +2,7 @@ package dev.rage.comet.model.hotbar.normal.impl;
 
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.hotbar.normal.NormalHotbar;
-import dev.rage.comet.model.selector.server.menu.ServerSelectorMenu;
+import dev.rage.comet.model.selector.menu.ServerSelectorMenu;
 import org.bukkit.entity.Player;
 
 /**
