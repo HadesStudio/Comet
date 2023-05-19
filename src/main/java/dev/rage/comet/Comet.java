@@ -165,6 +165,7 @@ public class Comet extends JavaPlugin {
     public void onDisable() {
         this.mongoManager.onDisable();
         this.redisManager.onDisable();
+        this.tablist.onDisable();
     }
 
     public void onReload() {
