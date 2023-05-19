@@ -3,6 +3,7 @@ package dev.rage.comet.model.cosmetics.impl.banners.menu;
 import com.google.common.collect.Maps;
 import dev.rage.comet.model.cosmetics.impl.banners.Banner;
 import dev.rage.comet.model.cosmetics.impl.banners.BannersManager;
+import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.Menu;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,8 @@ public class BannersMenu extends Menu {
         for (Banner banner : bannersManager.getBanners()) {
             buttons.put(buttons.size(), Button.fromItem(banner.getItem(), player1 -> {
                 bannersManager.apply(player1, banner);
-                player1.sendMessage("&aYou have applied the " + banner.getName() + " &abanner.");
+                player1.sendMessage(ChatUtil.translate("&aYou have applied the " + banner.getName() + " &abanner."));
+                player1.closeInventory();
             }));
         }
 

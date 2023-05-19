@@ -6,6 +6,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
@@ -24,19 +25,14 @@ public class USABanner extends Banner {
         bannerMeta.setDisplayName(ChatUtil.translate(getName()));
         bannerMeta.setBaseColor(DyeColor.WHITE);
 
-        for (int i = 0; i < 13; i++) {
-            bannerMeta.addPattern(new Pattern(DyeColor.RED, PatternType.STRIPE_TOP));
-        }
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 11), PatternType.getByIdentifier("bri")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 11), PatternType.getByIdentifier("ss")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("ms")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("hhb")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("vh")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 0), PatternType.getByIdentifier("ss")));
 
-        bannerMeta.addPattern(new Pattern(DyeColor.BLUE, PatternType.GRADIENT_UP));
-
-        for (int row = 0; row < 9; row++) {
-            for (int col = 0; col < 11; col++) {
-                if ((row + col) % 2 == 0) {
-                    bannerMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.CIRCLE_MIDDLE)); // ????
-                }
-            }
-        }
+        bannerMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
         banner.setItemMeta(bannerMeta);
 

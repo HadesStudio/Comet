@@ -6,6 +6,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
@@ -13,7 +14,7 @@ public class ChileBanner extends Banner {
 
     @Override
     public String getName() {
-        return "&2Ch&fi&cle &eFlag";
+        return "&1Ch&fi&cle &eFlag";
     }
 
     @Override
@@ -24,9 +25,13 @@ public class ChileBanner extends Banner {
         bannerMeta.setDisplayName(ChatUtil.translate(getName()));
         bannerMeta.setBaseColor(DyeColor.WHITE);
 
-        bannerMeta.addPattern(new Pattern(DyeColor.RED, PatternType.STRIPE_MIDDLE));
-        bannerMeta.addPattern(new Pattern(DyeColor.BLUE, PatternType.GRADIENT_UP));
-        bannerMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.CIRCLE_MIDDLE));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("vh")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 11), PatternType.getByIdentifier("tr")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 0), PatternType.getByIdentifier("vhr")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 11), PatternType.getByIdentifier("tr")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("vh")));
+
+        bannerMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
         banner.setItemMeta(bannerMeta);
 

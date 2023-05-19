@@ -6,6 +6,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
@@ -13,7 +14,7 @@ public class SpainBanner extends Banner {
 
     @Override
     public String getName() {
-        return "Spain Flag";
+        return "&eSpa&cin Flag";
     }
 
     @Override
@@ -22,11 +23,16 @@ public class SpainBanner extends Banner {
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
 
         bannerMeta.setDisplayName(ChatUtil.translate(getName()));
-        bannerMeta.setBaseColor(DyeColor.WHITE);
+        bannerMeta.setBaseColor(DyeColor.YELLOW);
 
-        bannerMeta.addPattern(new Pattern(DyeColor.RED, PatternType.STRIPE_TOP));
-        bannerMeta.addPattern(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_MIDDLE));
-        bannerMeta.addPattern(new Pattern(DyeColor.RED, PatternType.STRIPE_BOTTOM));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 1), PatternType.getByIdentifier("flo")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 4), PatternType.getByIdentifier("hhb")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("rs")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("rs")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("ls")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("ls")));
+
+        bannerMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
         banner.setItemMeta(bannerMeta);
 

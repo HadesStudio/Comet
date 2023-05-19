@@ -6,6 +6,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
@@ -13,7 +14,7 @@ public class ColombiaBanner extends Banner {
 
     @Override
     public String getName() {
-        return "&6Col&2omb&cia &eBanner";
+        return "&eCol&2omb&cia &eBanner";
     }
 
     @Override
@@ -22,11 +23,15 @@ public class ColombiaBanner extends Banner {
         BannerMeta bannerMeta = (BannerMeta) banner.getItemMeta();
 
         bannerMeta.setDisplayName(ChatUtil.translate(getName()));
-        bannerMeta.setBaseColor(DyeColor.WHITE);
+        bannerMeta.setBaseColor(DyeColor.BLUE);
 
-        bannerMeta.addPattern(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_MIDDLE));
-        bannerMeta.addPattern(new Pattern(DyeColor.BLUE, PatternType.STRIPE_TOP));
-        bannerMeta.addPattern(new Pattern(DyeColor.RED, PatternType.STRIPE_BOTTOM));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 4), PatternType.getByIdentifier("ts")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("bs")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 4), PatternType.getByIdentifier("ts")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("bs")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("bs")));
+
+        bannerMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
         banner.setItemMeta(bannerMeta);
 

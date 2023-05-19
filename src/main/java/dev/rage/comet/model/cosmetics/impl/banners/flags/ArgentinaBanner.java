@@ -6,6 +6,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
@@ -24,10 +25,15 @@ public class ArgentinaBanner extends Banner {
         bannerMeta.setDisplayName(ChatUtil.translate(getName()));
         bannerMeta.setBaseColor(DyeColor.WHITE);
 
-        bannerMeta.addPattern(new Pattern(DyeColor.LIGHT_BLUE, PatternType.STRIPE_BOTTOM));
-        bannerMeta.addPattern(new Pattern(DyeColor.LIGHT_BLUE, PatternType.STRIPE_TOP));
-        bannerMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.STRIPE_CENTER));
-        bannerMeta.addPattern(new Pattern(DyeColor.YELLOW, PatternType.CREEPER));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 0), PatternType.getByIdentifier("vhr")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 0), PatternType.getByIdentifier("vh")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 3), PatternType.getByIdentifier("rs")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 3), PatternType.getByIdentifier("ls")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 4), PatternType.getByIdentifier("flo")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 4), PatternType.getByIdentifier("mc")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 4), PatternType.getByIdentifier("mc")));
+
+        bannerMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
         banner.setItemMeta(bannerMeta);
 

@@ -6,6 +6,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
@@ -13,7 +14,7 @@ public class MexicoBanner extends Banner {
 
     @Override
     public String getName() {
-        return "&aMex&fico &eFlag";
+        return "&aMex&cico &eFlag";
     }
 
     @Override
@@ -24,10 +25,15 @@ public class MexicoBanner extends Banner {
         bannerMeta.setDisplayName(ChatUtil.translate(getName()));
         bannerMeta.setBaseColor(DyeColor.WHITE);
 
-        bannerMeta.addPattern(new Pattern(DyeColor.LIME, PatternType.STRIPE_MIDDLE));
-        bannerMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.STRIPE_CENTER));
-        bannerMeta.addPattern(new Pattern(DyeColor.RED, PatternType.STRIPE_MIDDLE));
-        bannerMeta.addPattern(new Pattern(DyeColor.BLACK, PatternType.RHOMBUS_MIDDLE));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 12), PatternType.getByIdentifier("flo")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 0), PatternType.getByIdentifier("ls")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 0), PatternType.getByIdentifier("rs")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 0), PatternType.getByIdentifier("bt")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 0), PatternType.getByIdentifier("tt")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 13), PatternType.getByIdentifier("bs")));
+        bannerMeta.addPattern(new Pattern(DyeColor.getByData((byte) 14), PatternType.getByIdentifier("ts")));
+
+        bannerMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
         banner.setItemMeta(bannerMeta);
 
