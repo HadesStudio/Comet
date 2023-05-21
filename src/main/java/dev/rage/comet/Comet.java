@@ -23,7 +23,6 @@ import dev.rage.comet.listeners.WorldListener;
 import dev.rage.comet.listeners.hotbar.CustomHotbarListener;
 import dev.rage.comet.listeners.hotbar.NormalHotbarListener;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonsManager;
-import dev.rage.comet.model.cosmetics.impl.balloons.commands.DevCommand;
 import dev.rage.comet.model.cosmetics.impl.banners.BannersManager;
 import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.model.actionbar.ActionBarRunnable;
@@ -141,8 +140,6 @@ public class Comet extends JavaPlugin {
         commandManager.registerCommands(new QueueLeaveCommand(this));
         commandManager.registerCommands(new QueuePauseCommand(this));
         commandManager.registerCommands(new QueueListCommand(this));
-
-        commandManager.registerCommands(new DevCommand(balloonsManager));
 
         if (scoreboardFile.getBoolean("scoreboard.enabled")) {
             this.scoreboard = new Scoreboard(this);
