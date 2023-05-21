@@ -7,6 +7,7 @@ import dev.rage.comet.utilities.command.CommandArgs;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
+import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.entity.Player;
 
 /**
@@ -19,9 +20,11 @@ import org.bukkit.entity.Player;
 
 public class QueueJoinCommand extends BaseCommand {
 
+    private final FileConfig languageFile;
     private final QueueManager queueManager;
 
     public QueueJoinCommand(Comet plugin) {
+        this.languageFile = plugin.getLanguageFile();
         this.queueManager = plugin.getQueueManager();
     }
 
@@ -39,19 +42,22 @@ public class QueueJoinCommand extends BaseCommand {
         String queueName = args[0];
 
         if (!queueManager.exists(queueName)) {
-            ChatUtil.sendMessage(player, "&cQueue with name '" + queueName + "' does not exist.");
+            ChatUtil.sendMessage(player, languageFile.getString("queue-message.not-exist")
+                    .replace("<queue>", queueName));
             return;
         }
 
         Queue queuePlayer = queueManager.getQueueByPlayer(player);
 
         if (queuePlayer != null) {
-            ChatUtil.sendMessage(player, "&cYou are already in &c&l" + queueName + " &cqueue.");
+            ChatUtil.sendMessage(player, languageFile.getString("queue-message.already-in-queue")
+                    .replace("<queue>", queueName));
             return;
         }
 
         Queue queue = queueManager.getQueue(queueName);
         queueManager.addQueuePlayer(queue, player.getUniqueId());
-        ChatUtil.sendMessage(player, "&aYou have joined &a&l" + queueName + " &aqueue.");
+        ChatUtil.sendMessage(player, languageFile.getString("queue-message.joined")
+                .replace("<queue>", queueName));
     }
 }

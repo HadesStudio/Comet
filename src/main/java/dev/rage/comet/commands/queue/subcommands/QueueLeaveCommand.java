@@ -7,6 +7,7 @@ import dev.rage.comet.utilities.command.CommandArgs;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
+import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.entity.Player;
 
 /**
@@ -19,9 +20,11 @@ import org.bukkit.entity.Player;
 
 public class QueueLeaveCommand extends BaseCommand {
 
+    private final FileConfig languageFile;
     private final QueueManager queueManager;
 
     public QueueLeaveCommand(Comet plugin) {
+        this.languageFile = plugin.getLanguageFile();
         this.queueManager = plugin.getQueueManager();
     }
 
@@ -39,20 +42,22 @@ public class QueueLeaveCommand extends BaseCommand {
         String queueName = args[0];
 
         if (!queueManager.exists(queueName)) {
-            ChatUtil.sendMessage(player, "&cQueue with name '" + queueName + "' does not exist.");
+            ChatUtil.sendMessage(player, languageFile.getString("queue-message.not-exist")
+                    .replace("<queue>", queueName));
             return;
         }
 
         Queue queuePlayer = queueManager.getQueueByPlayer(player);
 
         if (queuePlayer == null) {
-            ChatUtil.sendMessage(player, "&cYou are not in any queue.");
+            ChatUtil.sendMessage(player, languageFile.getString("queue-message.not-in-queue"));
             return;
         }
 
         Queue queue = queueManager.getQueue(queueName);
         queueManager.removeQueuePlayer(queue, player.getUniqueId());
 
-        ChatUtil.sendMessage(player, "&cYou have left &c&l" + queueName + " &cqueue.");
+        ChatUtil.sendMessage(player, languageFile.getString("queue-message.left")
+                .replace("<queue>", queueName));
     }
 }

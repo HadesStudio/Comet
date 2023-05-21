@@ -1,0 +1,22 @@
+build-mode-message:
+  enabled: "&aBuild mode has been enabled."
+  disabled: "&cBuild mode has been disabled."
+timer-message:
+  not-active: "&cTimer <timer> is not activated."
+  exists: "&cTimer <timer> already exists."
+  created: "&aCustom Timer '&f<timer>&a' has been created."
+  stopped: "&cCustom Timer '&f<timer>&c' has been stopped."
+spawn-message:
+  set: "&aSpawn location has been set."
+  teleport: "&aYou have been teleported to spawn."
+queue-message:
+  not-exist: "&cQueue <queue> does not exist."
+  not-in-queue: "&cYou are not in any queue."
+  already-in-queue: "&cYou are already in &c&l<queue> &cqueue."
+  joined: "&aYou have joined &a&l<queue> &aqueue."
+  left: "&cYou have left &c&l<queue> &cqueue."
+  paused: "&eQueue &6<queue> &ehas been &cpaused&e."
+  un-paused: "&eQueue &6<queue> &ehas been &aun-paused&e."
+  position:
+    - "&7You are currently in queue for &f<queue>&7."
+    - "&7You are currently &f<queue-player-position>/<queue-player-size> &7in queue."

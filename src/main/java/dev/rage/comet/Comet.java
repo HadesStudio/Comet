@@ -62,6 +62,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Comet extends JavaPlugin {
 
     private FileConfig configFile,
+            languageFile,
             hotbarFile,
             scoreboardFile,
             tablistFile,
@@ -95,6 +96,7 @@ public class Comet extends JavaPlugin {
         PlaceholderAPIHook.initialize(this);
 
         this.configFile = new FileConfig(this, "config.yml");
+        this.languageFile = new FileConfig(this, "language.yml");
         this.hotbarFile = new FileConfig(this, "hotbar.yml");
         this.scoreboardFile = new FileConfig(this, "scoreboard.yml");
         this.databaseFile = new FileConfig(this, "database.yml");

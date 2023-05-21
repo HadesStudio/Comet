@@ -10,6 +10,7 @@ import dev.rage.comet.utilities.command.CommandArgs;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
+import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -22,10 +23,12 @@ import org.bukkit.command.CommandSender;
 
 public class QueuePauseCommand extends BaseCommand {
 
+    private final FileConfig languageFile;
     private final RedisManager redisManager;
     private final QueueManager queueManager;
 
     public QueuePauseCommand(Comet plugin) {
+        this.languageFile = plugin.getLanguageFile();
         this.redisManager = plugin.getRedisManager();
         this.queueManager = plugin.getQueueManager();
     }
@@ -51,8 +54,17 @@ public class QueuePauseCommand extends BaseCommand {
         Queue queue = queueManager.getQueue(queueName);
         String json = new RedisMessage(RedisPayload.QUEUE_PAUSE_UPDATE)
                 .setParam("queue-name", queueName)
-                .setParam("queue-pause", String.valueOf(queue.isPaused())).toJSON();
+                .setParam("queue-pause", String.valueOf(queue.isPaused()))
+                .toJSON();
         redisManager.getRedis().write(json);
-        ChatUtil.sendMessage(sender, "&eQueue &6" + queueName + " &ehas been " + (!queue.isPaused() ? "&cpaused" : "&aunpaused") + "&e.");
+
+        if (queue.isPaused()) {
+            ChatUtil.sendMessage(sender, languageFile.getString("queue-message.paused")
+                    .replace("<queue>", queueName));
+        }
+        else {
+            ChatUtil.sendMessage(sender, languageFile.getString("queue-message.un-paused")
+                    .replace("<queue>", queueName));
+        }
     }
 }

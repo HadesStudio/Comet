@@ -7,13 +7,16 @@ import dev.rage.comet.utilities.command.CommandArgs;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.timer.Timer;
 import dev.rage.comet.model.timer.TimerManager;
+import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.command.CommandSender;
 
 public class TimerStopCommand extends BaseCommand {
 
+    private final FileConfig languageFile;
     private final TimerManager timerManager;
 
     public TimerStopCommand(Comet plugin) {
+        this.languageFile = plugin.getLanguageFile();
         this.timerManager = plugin.getTimerManager();
     }
 
@@ -32,12 +35,14 @@ public class TimerStopCommand extends BaseCommand {
         String timerName = args[0];
 
         if (!timerManager.existsTimer(timerName)) {
-            ChatUtil.sendMessage(sender, "&cTimer '" + timerName + "' is not activated.");
+            ChatUtil.sendMessage(sender, languageFile.getString("timer-message.not-active")
+                    .replace("<timer>", timerName));
             return;
         }
 
         Timer timer = timerManager.getTimer(timerName);
         timer.setRunning(false);
-        ChatUtil.sendMessage(sender, "&cCustom Timer '&f" + timerName + "&c' has been stopped.");
+        ChatUtil.sendMessage(sender, languageFile.getString("timer-message.stopped")
+                .replace("<timer>", timerName));
     }
 }

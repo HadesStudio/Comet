@@ -8,16 +8,19 @@ import dev.rage.comet.utilities.command.CommandArgs;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.timer.Timer;
 import dev.rage.comet.model.timer.TimerManager;
+import dev.rage.comet.utilities.file.FileConfig;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.CommandSender;
 
 public class TimerStartCommand extends BaseCommand {
 
     private final Comet plugin;
+    private final FileConfig languageFile;
     private final TimerManager timerManager;
 
     public TimerStartCommand(Comet plugin) {
         this.plugin = plugin;
+        this.languageFile = plugin.getLanguageFile();
         this.timerManager = plugin.getTimerManager();
     }
 
@@ -36,7 +39,8 @@ public class TimerStartCommand extends BaseCommand {
         String timerName = args[0];
 
         if (timerManager.existsTimer(timerName)) {
-            ChatUtil.sendMessage(sender, "&cTimer '" + timerName + "' already exist.");
+            ChatUtil.sendMessage(sender, languageFile.getString("timer-message.exists")
+                    .replace("<timer>", timerName));
             return;
         }
 
@@ -56,6 +60,7 @@ public class TimerStartCommand extends BaseCommand {
 
         Timer timer = new Timer(plugin, timerName, System.currentTimeMillis(), System.currentTimeMillis() + duration, prefix);
         timerManager.createTimer(timer);
-        ChatUtil.sendMessage(sender, "&aCustom Timer '&f" + timerName + "&a' has been created.");
+        ChatUtil.sendMessage(sender, languageFile.getString("timer-message.created")
+                .replace("<timer>", timerName));
     }
 }
