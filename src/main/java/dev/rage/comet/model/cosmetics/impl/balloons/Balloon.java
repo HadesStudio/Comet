@@ -63,6 +63,8 @@ public class Balloon {
     }
 
     public void remove(BalloonsManager balloonsManager) {
+        bat.setLeashHolder(null);
+        bat.remove();
         armorStandLow.remove();
         armorStandHigh.remove();
 
