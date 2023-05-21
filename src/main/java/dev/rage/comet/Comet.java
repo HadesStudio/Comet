@@ -68,7 +68,8 @@ public class Comet extends JavaPlugin {
             tablistHeadsFile,
             databaseFile,
             queueFile,
-            serverSelectorFile;
+            serverSelectorFile,
+            balloonsFile;
 
     private CommandManager commandManager;
     private SpawnManager spawnManager;
@@ -101,6 +102,7 @@ public class Comet extends JavaPlugin {
         this.tablistFile = new FileConfig(this, "tablist/tablist.yml");
         this.tablistHeadsFile = new FileConfig(this, "tablist/heads.yml");
         this.serverSelectorFile = new FileConfig(this, "selector/server-selector.yml");
+        this.balloonsFile = new FileConfig(this, "cosmetics/balloons.yml");
 
         this.commandManager = new CommandManager(this);
         this.serverDataManager = new ServerDataManager();
