@@ -29,7 +29,7 @@ public class BalloonsMenu extends Menu {
         Map<Integer, Button> buttons = Maps.newHashMap();
 
         for (Heads head : balloonsManager.getHeads()) {
-            buttons.put(getSlot(4, 1), new HeadButton(head));
+            buttons.put(buttons.size(), new HeadButton(head));
         }
 
         return buttons;
@@ -47,6 +47,9 @@ public class BalloonsMenu extends Menu {
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+            if (balloonsManager.getBalloons().containsKey(player.getUniqueId())) {
+                balloonsManager.getBalloons().get(player.getUniqueId()).remove(balloonsManager);
+            }
             new Balloon(player, head).spawn(balloonsManager);
             player.sendMessage(ChatUtil.translate("&aSpawned balloon."));
         }
