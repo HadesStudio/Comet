@@ -1,5 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.balloons;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Location;
@@ -8,6 +9,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.EulerAngle;
@@ -16,40 +18,40 @@ import org.bukkit.util.Vector;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+@Getter
 @RequiredArgsConstructor
 public class Balloon {
 
     private final Player player;
-    private final Heads head;
-
+    private final ItemStack head;
     private ArmorStand armorStandLow, armorStandHigh;
-
     private Bat bat;
-
     private int ticks = 0;
 
-    public void spawn(BalloonsManager balloonsManager) {
-        Location loc;
+    public void spawn() {
+        Location location;
+
         try {
-            loc = getCalcAngleLoc().get();
-        } catch (ExecutionException | InterruptedException e) {
+            location = getCalcAngleLoc().get();
+        }
+        catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        this.armorStandLow = player.getWorld().spawn(loc, ArmorStand.class);
+        this.armorStandLow = player.getWorld().spawn(location, ArmorStand.class);
         armorStandLow.setGravity(false);
         armorStandLow.setVisible(false);
         armorStandLow.setCustomNameVisible(false);
         armorStandLow.setSmall(true);
 
-        this.armorStandHigh = player.getWorld().spawn(loc.add(0, 2, 0), ArmorStand.class);
+        this.armorStandHigh = player.getWorld().spawn(location.add(0, 2, 0), ArmorStand.class);
         armorStandHigh.setGravity(false);
         armorStandHigh.setVisible(false);
         armorStandHigh.setCustomNameVisible(false);
         armorStandHigh.setSmall(true);
-        armorStandHigh.setHelmet(head.getHeadSkull());
+        armorStandHigh.setHelmet(head);
 
-        this.bat = player.getWorld().spawn(loc, Bat.class);
+        this.bat = player.getWorld().spawn(location, Bat.class);
         bat.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, false, false));
 
         armorStandHigh.setPassenger(bat);
@@ -58,17 +60,13 @@ public class Balloon {
         noAI(bat);
 
         bat.setLeashHolder(player);
-
-        balloonsManager.getBalloons().put(player.getUniqueId(), this);
     }
 
-    public void remove(BalloonsManager balloonsManager) {
+    public void remove() {
         bat.setLeashHolder(null);
         bat.remove();
         armorStandLow.remove();
         armorStandHigh.remove();
-
-        balloonsManager.getBalloons().remove(player.getUniqueId());
     }
 
     public boolean tick() {
@@ -91,9 +89,7 @@ public class Balloon {
             }
 
             armorStandLow.teleport(newLoc);
-
             bat.teleport(newLoc.add(0, 2, 0));
-
             armorStandHigh.teleport(newLoc);
         });
     }

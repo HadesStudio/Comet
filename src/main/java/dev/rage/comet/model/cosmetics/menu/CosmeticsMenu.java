@@ -32,7 +32,7 @@ public class CosmeticsMenu extends Menu {
         Map<Integer, Button> buttons = Maps.newHashMap();
 
         buttons.put(getSlot(2, 1), new BannerButton(plugin.getBannerManager(), plugin.getUserManager()));
-        buttons.put(getSlot(3, 2), new BalloonButton(plugin.getBalloonsManager()));
+        buttons.put(getSlot(3, 2), new BalloonButton(plugin.getBalloonManager(), plugin.getUserManager()));
 
         return buttons;
     }

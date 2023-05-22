@@ -19,8 +19,7 @@ public class UserListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     private void onAsyncPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
-        User user = userManager.createUser(event.getUniqueId(), event.getName());
-        userManager.loadUser(user, false);
+        userManager.createUser(event.getUniqueId(), event.getName());
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -38,7 +37,6 @@ public class UserListener implements Listener {
         User user = userManager.getUser(event.getPlayer().getUniqueId());
 
         if (user != null) {
-            userManager.saveUser(user, true);
             userManager.destroyUser(user);
         }
     }

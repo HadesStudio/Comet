@@ -23,6 +23,7 @@ public class RemoveBannerButton extends Button {
         return new ItemBuilder(XMaterial.PLAYER_HEAD.parseMaterial())
                 .setName("&c&lRemove Banner")
                 .setLore("&7Click to remove your banner.")
+                .setData(XMaterial.PLAYER_HEAD.getData())
                 .setSkullOwner("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjc1NDgzNjJhMjRjMGZhODQ1M2U0ZDkzZTY4YzU5NjlkZGJkZTU3YmY2NjY2YzAzMTljMWVkMWU4NGQ4OTA2NSJ9fX0=")
                 .build();
     }
@@ -32,10 +33,12 @@ public class RemoveBannerButton extends Button {
         User user = userManager.getUser(player.getUniqueId());
 
         if (!user.hasBanner()) {
+            playFail(player);
             ChatUtil.sendMessage(player, "&cYou do not have a banner applied.");
             return;
         }
 
+        playSuccess(player);
         user.removeBanner(player);
         ChatUtil.sendMessage(player, "&aYou have removed your banner.");
     }

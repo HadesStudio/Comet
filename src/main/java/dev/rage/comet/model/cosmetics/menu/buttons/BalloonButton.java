@@ -1,8 +1,9 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
 import com.cryptomorin.xseries.XMaterial;
-import dev.rage.comet.model.cosmetics.impl.balloons.BalloonsManager;
-import dev.rage.comet.model.cosmetics.impl.balloons.menu.BalloonsMenu;
+import dev.rage.comet.model.cosmetics.impl.balloons.BalloonManager;
+import dev.rage.comet.model.cosmetics.impl.balloons.menu.BalloonMenu;
+import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,8 @@ import org.bukkit.inventory.ItemStack;
 @RequiredArgsConstructor
 public class BalloonButton extends Button {
 
-    private final BalloonsManager balloonsManager;
+    private final BalloonManager balloonsManager;
+    private final UserManager userManager;
 
     @Override
     public ItemStack getButtonItem(Player player) {
@@ -27,6 +29,7 @@ public class BalloonButton extends Button {
 
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-        new BalloonsMenu(balloonsManager).openMenu(player);
+        BalloonMenu balloonMenu = new BalloonMenu(balloonsManager, userManager);
+        balloonMenu.openMenu(player);
     }
 }

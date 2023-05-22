@@ -29,10 +29,12 @@ public class BannerButton extends Button {
         User user = userManager.getUser(player.getUniqueId());
 
         if (user.hasBanner(banner)) {
+            playFail(player);
             ChatUtil.sendMessage(player, "&cYou already have this banner applied.");
             return;
         }
 
+        playSuccess(player);
         user.applyBanner(player, banner);
         ChatUtil.sendMessage(player, "&aYou have applied the " + banner.getName() + " banner.");
     }

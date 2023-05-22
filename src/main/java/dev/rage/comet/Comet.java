@@ -22,10 +22,10 @@ import dev.rage.comet.listeners.SpawnListener;
 import dev.rage.comet.listeners.WorldListener;
 import dev.rage.comet.listeners.hotbar.CustomHotbarListener;
 import dev.rage.comet.listeners.hotbar.NormalHotbarListener;
-import dev.rage.comet.model.cosmetics.impl.balloons.BalloonsManager;
-import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
-import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.model.actionbar.ActionBarRunnable;
+import dev.rage.comet.model.cosmetics.impl.balloons.BalloonManager;
+import dev.rage.comet.model.cosmetics.impl.balloons.tasks.BalloonRunnable;
+import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
 import dev.rage.comet.model.lazarus.LazarusManager;
@@ -35,6 +35,7 @@ import dev.rage.comet.model.queue.rank.QueueRankManager;
 import dev.rage.comet.model.queue.thread.QueuePositionThread;
 import dev.rage.comet.model.queue.thread.QueueReminderThread;
 import dev.rage.comet.model.selector.ServerSelectorManager;
+import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.model.spawn.SpawnManager;
 import dev.rage.comet.model.timer.TimerManager;
 import dev.rage.comet.scoreboard.Scoreboard;
@@ -42,6 +43,7 @@ import dev.rage.comet.scoreboard.ScoreboardProvider;
 import dev.rage.comet.tablist.Tablist;
 import dev.rage.comet.tablist.TablistProvider;
 import dev.rage.comet.tablist.head.HeadManager;
+import dev.rage.comet.user.UserListener;
 import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.command.CommandManager;
 import dev.rage.comet.utilities.file.FileConfig;
@@ -88,7 +90,7 @@ public class Comet extends JavaPlugin {
     private QueueManager queueManager;
     private ServerDataManager serverDataManager;
     private BannerManager bannerManager;
-    private BalloonsManager balloonsManager;
+    private BalloonManager balloonManager;
 
     private Scoreboard scoreboard;
     private Tablist tablist;
@@ -109,11 +111,11 @@ public class Comet extends JavaPlugin {
         this.balloonsFile = new FileConfig(this, "cosmetics/balloons.yml");
 
         this.commandManager = new CommandManager(this);
+        this.userManager = new UserManager(this);
         this.serverDataManager = new ServerDataManager();
         this.spawnManager = new SpawnManager(this);
         this.bannerManager = new BannerManager();
-        this.balloonsManager = new BalloonsManager(this);
-        this.userManager = new UserManager(this);
+        this.balloonManager = new BalloonManager(this);
         this.normalHotbarManager = new NormalHotbarManager(this);
         this.customHotbarManager = new CustomHotbarManager(this);
         this.serverSelectorManager = new ServerSelectorManager(this);
@@ -133,6 +135,7 @@ public class Comet extends JavaPlugin {
         pluginManager.registerEvents(new NormalHotbarListener(this), this);
         pluginManager.registerEvents(new CustomHotbarListener(this), this);
         pluginManager.registerEvents(new QueueListener(this), this);
+        pluginManager.registerEvents(new UserListener(this), this);
 
         commandManager.registerCommands(new CometCommand(this));
         commandManager.registerCommands(new BuildModeCommand(this));
@@ -171,6 +174,7 @@ public class Comet extends JavaPlugin {
         QueuePositionThread positionThread = new QueuePositionThread(this);
         positionThread.start();
 
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new BalloonRunnable(userManager), 0L, 1L);
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     }
 
@@ -196,5 +200,6 @@ public class Comet extends JavaPlugin {
         this.queueRankManager.loadOrRefresh();
         this.queueManager.loadOrRefresh();
         this.headManager.loadOrRefresh();
+        this.balloonManager.loadOrRefresh();
     }
 }

@@ -1,27 +1,21 @@
 package dev.rage.comet.model.cosmetics.impl.balloons.tasks;
 
-import dev.rage.comet.model.cosmetics.impl.balloons.Balloon;
-import dev.rage.comet.model.cosmetics.impl.balloons.BalloonsManager;
+import dev.rage.comet.user.User;
+import dev.rage.comet.user.UserManager;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Map;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 public class BalloonRunnable implements Runnable {
     
-    private final BalloonsManager balloonsManager;
+    private final UserManager userManager;
     
     @Override
     public void run() {
-        for (Map.Entry<UUID, Balloon> uuidBalloonEntry : balloonsManager.getBalloons().entrySet()) {
-            if (uuidBalloonEntry.getValue() == null) {
-                balloonsManager.getBalloons().remove(uuidBalloonEntry.getKey());
-                continue;
-            }
+        for (User user : userManager.getUsers().values()) {
+            if (!user.hasBalloon()) continue;
 
-            if (!uuidBalloonEntry.getValue().tick()) {
-                uuidBalloonEntry.getValue().remove(balloonsManager);
+            if (!user.getBalloon().tick()) {
+                user.removeBalloon();
             }
         }
     }
