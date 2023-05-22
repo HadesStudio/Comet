@@ -1,5 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.balloons.menu.button;
 
+import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonHead;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
@@ -13,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 @RequiredArgsConstructor
 public class BalloonButton extends Button {
 
+    private final Comet plugin;
     private final BalloonHead balloonHead;
     private final UserManager userManager;
 
@@ -25,6 +27,8 @@ public class BalloonButton extends Button {
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
         User user = userManager.getUser(player.getUniqueId());
         user.applyBallon(player, balloonHead);
-        ChatUtil.sendMessage(player, "&aYou have applied the " + balloonHead.getId() + " balloon.");
+        ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.balloon.applied")
+                .replace("<balloon>", balloonHead.getId()));
+        close(player);
     }
 }

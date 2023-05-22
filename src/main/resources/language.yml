@@ -20,3 +20,12 @@ queue-message:
   position:
     - "&7You are currently in queue for &f<queue>&7."
     - "&7You are currently &f<queue-player-position>/<queue-player-size> &7in queue."
+cosmetic-message:
+  banner:
+    not-applied: "&cYou do not have any banner applied."
+    applied: "&aYou have applied &f<banner> &abanner."
+    removed: "&cYou have removed your banner."
+  ballon:
+    not-applied: "&cYou do not have any balloon applied."
+    applied: "&aYou have applied &f<balloon> &aballoon."
+    removed: "&cYou have removed your balloon."

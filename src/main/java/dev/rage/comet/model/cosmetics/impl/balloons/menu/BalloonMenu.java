@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.balloons.menu;
 
 import com.google.common.collect.Maps;
+import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonHead;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonManager;
 import dev.rage.comet.model.cosmetics.impl.balloons.menu.button.BalloonButton;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class BalloonMenu extends Menu {
 
+    private final Comet plugin;
     private final BalloonManager balloonsManager;
     private final UserManager userManager;
 
@@ -35,10 +37,10 @@ public class BalloonMenu extends Menu {
         Map<Integer, Button> buttons = Maps.newHashMap();
 
         for (BalloonHead balloonHead : balloonsManager.getBalloonHeads().values()) {
-            buttons.put(buttons.size(), new BalloonButton(balloonHead, userManager));
+            buttons.put(buttons.size(), new BalloonButton(plugin, balloonHead, userManager));
         }
 
-        buttons.put(getSize() - 5, new RemoveBalloonButton(userManager));
+        buttons.put(getSize() - 5, new RemoveBalloonButton(plugin, userManager));
         return buttons;
     }
 }

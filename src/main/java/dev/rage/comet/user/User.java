@@ -42,14 +42,9 @@ public class User {
         return this.banner != null;
     }
 
-    public boolean hasBanner(Banner banner) {
-        return this.banner != null && this.banner.equals(banner);
-    }
-
     public void applyBanner(Player player, Banner banner) {
         this.banner = banner;
         player.getInventory().setHelmet(banner.getItem());
-        player.closeInventory();
     }
 
     public void removeBanner(Player player) {

@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.banners.menu;
 
 import com.google.common.collect.Maps;
+import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.banners.Banner;
 import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.cosmetics.impl.banners.menu.button.BannerButton;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class BannerMenu extends Menu {
 
+    private final Comet plugin;
     private final BannerManager bannerManager;
     private final UserManager userManager;
 
@@ -35,10 +37,10 @@ public class BannerMenu extends Menu {
         Map<Integer, Button> buttons = Maps.newHashMap();
 
         for (Banner banner : bannerManager.getBanners().values()) {
-            buttons.put(buttons.size(), new BannerButton(banner, userManager));
+            buttons.put(buttons.size(), new BannerButton(plugin, banner, userManager));
         }
 
-        buttons.put(getSize() - 5, new RemoveBannerButton(userManager));
+        buttons.put(getSize() - 5, new RemoveBannerButton(plugin, userManager));
 
         return buttons;
     }

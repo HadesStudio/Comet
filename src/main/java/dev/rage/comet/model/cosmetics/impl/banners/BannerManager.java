@@ -20,8 +20,4 @@ public class BannerManager {
         this.banners.put("spain", new SpainBanner());
         this.banners.put("usa", new USABanner());
     }
-
-    public Banner getBanner(String id) {
-        return banners.getOrDefault(id, null);
-    }
 }

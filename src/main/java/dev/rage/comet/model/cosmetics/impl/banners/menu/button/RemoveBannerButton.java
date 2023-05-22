@@ -1,22 +1,22 @@
 package dev.rage.comet.model.cosmetics.impl.banners.menu.button;
 
 import com.cryptomorin.xseries.XMaterial;
+import dev.rage.comet.Comet;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
+@RequiredArgsConstructor
 public class RemoveBannerButton extends Button {
 
+    private final Comet plugin;
     private final UserManager userManager;
-
-    public RemoveBannerButton(UserManager userManager) {
-        this.userManager = userManager;
-    }
 
     @Override
     public ItemStack getButtonItem(Player player) {
@@ -34,12 +34,12 @@ public class RemoveBannerButton extends Button {
 
         if (!user.hasBanner()) {
             playFail(player);
-            ChatUtil.sendMessage(player, "&cYou do not have a banner applied.");
+            ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.banner.not-applied"));
             return;
         }
 
         playSuccess(player);
         user.removeBanner(player);
-        ChatUtil.sendMessage(player, "&aYou have removed your banner.");
+        ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.banner.removed"));
     }
 }

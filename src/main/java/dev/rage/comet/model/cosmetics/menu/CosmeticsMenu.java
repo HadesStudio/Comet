@@ -31,8 +31,8 @@ public class CosmeticsMenu extends Menu {
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> buttons = Maps.newHashMap();
 
-        buttons.put(getSlot(2, 1), new BannerButton(plugin.getBannerManager(), plugin.getUserManager()));
-        buttons.put(getSlot(3, 2), new BalloonButton(plugin.getBalloonManager(), plugin.getUserManager()));
+        buttons.put(getSlot(2, 1), new BannerButton(plugin, plugin.getBannerManager(), plugin.getUserManager()));
+        buttons.put(getSlot(3, 2), new BalloonButton(plugin, plugin.getBalloonManager(), plugin.getUserManager()));
 
         return buttons;
     }

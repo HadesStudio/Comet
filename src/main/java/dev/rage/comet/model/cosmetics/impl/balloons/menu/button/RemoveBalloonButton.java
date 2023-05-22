@@ -1,22 +1,22 @@
 package dev.rage.comet.model.cosmetics.impl.balloons.menu.button;
 
 import com.cryptomorin.xseries.XMaterial;
+import dev.rage.comet.Comet;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
+@RequiredArgsConstructor
 public class RemoveBalloonButton extends Button {
 
+    private final Comet plugin;
     private final UserManager userManager;
-
-    public RemoveBalloonButton(UserManager userManager) {
-        this.userManager = userManager;
-    }
 
     @Override
     public ItemStack getButtonItem(Player player) {
@@ -34,12 +34,13 @@ public class RemoveBalloonButton extends Button {
 
         if (!user.hasBalloon()) {
             playFail(player);
-            ChatUtil.sendMessage(player, "&cYou do not have a balloon applied.");
+            ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.balloon.not-applied"));
             return;
         }
 
         playSuccess(player);
         user.removeBalloon();
-        ChatUtil.sendMessage(player, "&aYou have removed your balloon.");
+        ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.balloon.removed"));
+        close(player);
     }
 }

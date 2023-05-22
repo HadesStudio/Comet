@@ -1,5 +1,6 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
+import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.cosmetics.impl.banners.menu.BannerMenu;
 import dev.rage.comet.user.UserManager;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 @RequiredArgsConstructor
 public class BannerButton extends Button {
 
+    private final Comet plugin;
     private final BannerManager bannerManager;
     private final UserManager userManager;
 
@@ -28,7 +30,7 @@ public class BannerButton extends Button {
 
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-        new BannerMenu(bannerManager, userManager)
-                .openMenu(player);
+        BannerMenu bannerMenu = new BannerMenu(plugin, bannerManager, userManager);
+        bannerMenu.openMenu(player);
     }
 }
