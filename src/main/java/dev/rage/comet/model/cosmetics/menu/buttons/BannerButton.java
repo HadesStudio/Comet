@@ -1,7 +1,8 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
-import dev.rage.comet.model.cosmetics.impl.banners.BannersManager;
-import dev.rage.comet.model.cosmetics.impl.banners.menu.BannersMenu;
+import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
+import dev.rage.comet.model.cosmetics.impl.banners.menu.BannerMenu;
+import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +12,10 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 @RequiredArgsConstructor
-public class BannersButton extends Button {
+public class BannerButton extends Button {
 
-    private final BannersManager bannersManager;
+    private final BannerManager bannerManager;
+    private final UserManager userManager;
 
     @Override
     public ItemStack getButtonItem(Player player) {
@@ -26,6 +28,7 @@ public class BannersButton extends Button {
 
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-        new BannersMenu(bannersManager).openMenu(player);
+        new BannerMenu(bannerManager, userManager)
+                .openMenu(player);
     }
 }

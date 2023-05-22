@@ -13,6 +13,11 @@ import org.bukkit.inventory.meta.BannerMeta;
 public class ColombiaBanner extends Banner {
 
     @Override
+    public String getId() {
+        return "colombia";
+    }
+
+    @Override
     public String getName() {
         return "&eCol&2omb&cia &eBanner";
     }
@@ -34,7 +39,6 @@ public class ColombiaBanner extends Banner {
         bannerMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
         banner.setItemMeta(bannerMeta);
-
         return banner;
     }
 }

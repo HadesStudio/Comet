@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 @RequiredArgsConstructor
-public class BalloonsButton extends Button {
+public class BalloonButton extends Button {
 
     private final BalloonsManager balloonsManager;
 

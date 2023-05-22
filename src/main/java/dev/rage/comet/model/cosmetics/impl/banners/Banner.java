@@ -4,12 +4,7 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class Banner {
 
-    public String getName() {
-        return null;
-    }
-
-    public ItemStack getItem() {
-        return null;
-    }
-
+    public abstract String getId();
+    public abstract String getName();
+    public abstract ItemStack getItem();
 }

@@ -13,6 +13,11 @@ import org.bukkit.inventory.meta.BannerMeta;
 public class SpainBanner extends Banner {
 
     @Override
+    public String getId() {
+        return null;
+    }
+
+    @Override
     public String getName() {
         return "&eSpa&cin &eFlag";
     }
@@ -35,7 +40,6 @@ public class SpainBanner extends Banner {
         bannerMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
         banner.setItemMeta(bannerMeta);
-
         return banner;
     }
 }

@@ -13,6 +13,11 @@ import org.bukkit.inventory.meta.BannerMeta;
 public class ChileBanner extends Banner {
 
     @Override
+    public String getId() {
+        return "chile";
+    }
+
+    @Override
     public String getName() {
         return "&1Ch&fi&cle &eFlag";
     }
@@ -34,7 +39,6 @@ public class ChileBanner extends Banner {
         bannerMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
         banner.setItemMeta(bannerMeta);
-
         return banner;
     }
 }

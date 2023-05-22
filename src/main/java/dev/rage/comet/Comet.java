@@ -23,7 +23,7 @@ import dev.rage.comet.listeners.WorldListener;
 import dev.rage.comet.listeners.hotbar.CustomHotbarListener;
 import dev.rage.comet.listeners.hotbar.NormalHotbarListener;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonsManager;
-import dev.rage.comet.model.cosmetics.impl.banners.BannersManager;
+import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.model.actionbar.ActionBarRunnable;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
@@ -42,6 +42,7 @@ import dev.rage.comet.scoreboard.ScoreboardProvider;
 import dev.rage.comet.tablist.Tablist;
 import dev.rage.comet.tablist.TablistProvider;
 import dev.rage.comet.tablist.head.HeadManager;
+import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.command.CommandManager;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.menu.ButtonListener;
@@ -73,6 +74,7 @@ public class Comet extends JavaPlugin {
             balloonsFile;
 
     private CommandManager commandManager;
+    private UserManager userManager;
     private SpawnManager spawnManager;
     private NormalHotbarManager normalHotbarManager;
     private CustomHotbarManager customHotbarManager;
@@ -85,7 +87,7 @@ public class Comet extends JavaPlugin {
     private QueueRankManager queueRankManager;
     private QueueManager queueManager;
     private ServerDataManager serverDataManager;
-    private BannersManager bannersManager;
+    private BannerManager bannerManager;
     private BalloonsManager balloonsManager;
 
     private Scoreboard scoreboard;
@@ -109,7 +111,9 @@ public class Comet extends JavaPlugin {
         this.commandManager = new CommandManager(this);
         this.serverDataManager = new ServerDataManager();
         this.spawnManager = new SpawnManager(this);
-        this.bannersManager = new BannersManager(this);
+        this.bannerManager = new BannerManager();
+        this.balloonsManager = new BalloonsManager(this);
+        this.userManager = new UserManager(this);
         this.normalHotbarManager = new NormalHotbarManager(this);
         this.customHotbarManager = new CustomHotbarManager(this);
         this.serverSelectorManager = new ServerSelectorManager(this);
@@ -120,7 +124,6 @@ public class Comet extends JavaPlugin {
         this.mongoManager = new MongoManager(this);
         this.redisManager = new RedisManager(this);
         this.lazarusManager = new LazarusManager(this);
-        this.balloonsManager = new BalloonsManager(this);
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new ButtonListener(), this);
@@ -173,6 +176,7 @@ public class Comet extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.userManager.onDisable();
         this.mongoManager.onDisable();
         this.redisManager.onDisable();
         this.tablist.onDisable();
