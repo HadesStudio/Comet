@@ -34,6 +34,7 @@ import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.model.queue.rank.QueueRankManager;
 import dev.rage.comet.model.queue.thread.QueuePositionThread;
 import dev.rage.comet.model.queue.thread.QueueReminderThread;
+import dev.rage.comet.model.rank.RankManager;
 import dev.rage.comet.model.selector.ServerSelectorManager;
 import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.model.spawn.SpawnManager;
@@ -76,6 +77,7 @@ public class Comet extends JavaPlugin {
             balloonsFile;
 
     private CommandManager commandManager;
+    private RankManager rankManager;
     private UserManager userManager;
     private SpawnManager spawnManager;
     private NormalHotbarManager normalHotbarManager;
@@ -111,6 +113,7 @@ public class Comet extends JavaPlugin {
         this.balloonsFile = new FileConfig(this, "cosmetics/balloons.yml");
 
         this.commandManager = new CommandManager(this);
+        this.rankManager = new RankManager();
         this.userManager = new UserManager(this);
         this.serverDataManager = new ServerDataManager();
         this.spawnManager = new SpawnManager(this);

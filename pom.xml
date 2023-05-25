@@ -47,6 +47,15 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.26</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- AquaCoreAPI -->
         <dependency>
             <groupId>aquacore</groupId>
             <artifactId>aquacore</artifactId>
@@ -55,11 +64,11 @@
             <systemPath>${basedir}/libs/AquaCoreAPI.jar</systemPath>
         </dependency>
 
-        <!-- Lombok -->
+        <!-- LuckPermsAPI -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
+            <groupId>net.luckperms</groupId>
+            <artifactId>api</artifactId>
+            <version>5.4</version>
             <scope>provided</scope>
         </dependency>
 
@@ -75,7 +84,7 @@
         <dependency>
             <groupId>com.mojang</groupId>
             <artifactId>authlib</artifactId>
-            <version>1.5.21</version>
+            <version>3.11.50</version>
             <scope>provided</scope>
         </dependency>
 
