@@ -2,12 +2,12 @@ tablist:
   enabled: true
   header:
     - ""
-    - "&6&lCountach Hub"
+    - "&6&lComet Hub"
     - ""
   footer:
     - ""
-    - "&bTwitter &f@CountachHub &7| &aStore &fstore.countach.hub"
-    - "&9Discord &fdiscord.countach.hub"
+    - "&bTwitter &f@CometHub &7| &aStore &fstore.comet.hub"
+    - "&9Discord &fdiscord.comet.hub"
     - ""
   lines:
     left:
@@ -69,7 +69,7 @@ tablist:
         text: "&6Store"
         head: ""
       '20':
-        text: "&fstore.countach.hub"
+        text: "&fstore.comet.hub"
         head: "<store-head>"
     middle:
       '1':
@@ -79,7 +79,7 @@ tablist:
         text: ""
         head: ""
       '3':
-        text: "&6&lCountach Hub"
+        text: "&6&lComet Hub"
         head: ""
       '4':
         text: "&f%bungee_total%/%server_max_players%"
@@ -118,10 +118,10 @@ tablist:
         text: "&6&lQueue Information"
         head: ""
       '16':
-        text: " &7▶ &eServer&7: &f%countach_queue_player_name%"
+        text: " &7▶ &eServer&7: &f%comet_queue_player_name%"
         head: ""
       '17':
-        text: " &7▶ &ePosition&7: &f%countach_queue_player_position%/&f%countach_queue_player_size%"
+        text: " &7▶ &ePosition&7: &f%comet_queue_player_position%/&f%comet_queue_player_size%"
         head: ""
       '18':
         text: ""
@@ -130,7 +130,7 @@ tablist:
         text: "&bTwitter"
         head: ""
       '20':
-        text: "&f@CountachHub"
+        text: "&f@CometHub"
         head: "<twitter-head>"
     right:
       '1':
@@ -191,7 +191,7 @@ tablist:
         text: "&9Discord"
         head: ""
       '20':
-        text: "&fdiscord.countach.hub"
+        text: "&fdiscord.comet.hub"
         head: "<discord-head>"
     far-right:
       '1':

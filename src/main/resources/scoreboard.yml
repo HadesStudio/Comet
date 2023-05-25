@@ -2,13 +2,13 @@ title-animation:
   enabled: false
   interval: 0.3
   lines:
-    - "&8&l» &6&lCountach &8&l«"
+    - "&8&l» &6&lComet &8&l«"
 
 footer-animation:
   enabled: false
   interval: 1.5
   lines:
-    - "&6countach.hub"
+    - "&6comet.hub"
 
 scoreboard:
   enabled: true
