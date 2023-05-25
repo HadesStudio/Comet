@@ -5,6 +5,7 @@ import dev.rage.comet.model.cosmetics.impl.balloons.BalloonHead;
 import dev.rage.comet.model.cosmetics.impl.banners.Banner;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -50,5 +51,9 @@ public class User {
     public void removeBanner(Player player) {
         this.banner = null;
         player.getInventory().setHelmet(null);
+    }
+
+    public Player getPlayer() {
+        return Bukkit.getPlayer(uuid);
     }
 }

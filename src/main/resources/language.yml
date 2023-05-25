@@ -25,7 +25,7 @@ cosmetic-message:
     not-applied: "&cYou do not have any banner applied."
     applied: "&aYou have applied &f<banner> &abanner."
     removed: "&cYou have removed your banner."
-  ballon:
+  balloon:
     not-applied: "&cYou do not have any balloon applied."
     applied: "&aYou have applied &f<balloon> &aballoon."
     removed: "&cYou have removed your balloon."
