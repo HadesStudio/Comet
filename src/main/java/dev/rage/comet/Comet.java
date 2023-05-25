@@ -99,8 +99,6 @@ public class Comet extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        PlaceholderAPIHook.initialize(this);
-
         this.configFile = new FileConfig(this, "config.yml");
         this.languageFile = new FileConfig(this, "language.yml");
         this.hotbarFile = new FileConfig(this, "hotbar.yml");
@@ -129,6 +127,8 @@ public class Comet extends JavaPlugin {
         this.mongoManager = new MongoManager(this);
         this.redisManager = new RedisManager(this);
         this.lazarusManager = new LazarusManager(this);
+
+        PlaceholderAPIHook.initialize(this);
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new ButtonListener(), this);
