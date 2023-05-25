@@ -32,7 +32,7 @@ public class Mount extends Gadget {
 
     @EventHandler
     public void onInteract(PlayerInteractAtEntityEvent event) {
-        if (event.getRightClicked() == null || (event.getRightClicked() instanceof Player)) return;
+        if (event.getRightClicked() == null || !(event.getRightClicked() instanceof Player)) return;
 
         Player player = event.getPlayer();
         ItemStack hand = player.getInventory().getItemInHand();
@@ -41,7 +41,7 @@ public class Mount extends Gadget {
 
         if (isItem(hand, getIcon())) {
             event.setCancelled(true);
-            player.setPassenger(event.getRightClicked());
+            event.getRightClicked().setPassenger(player);
         }
     }
 }

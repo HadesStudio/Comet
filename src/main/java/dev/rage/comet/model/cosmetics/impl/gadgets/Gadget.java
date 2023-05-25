@@ -14,6 +14,8 @@ public abstract class Gadget implements Listener {
         this.plugin = plugin;
 
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+
+        System.out.println("Gadget: " + getName() + " has been registered!");
     }
 
     public abstract String getName();
