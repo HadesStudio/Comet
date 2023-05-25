@@ -40,8 +40,9 @@ import dev.rage.comet.model.selector.ServerSelectorManager;
 import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.model.spawn.SpawnManager;
 import dev.rage.comet.model.timer.TimerManager;
-import dev.rage.comet.scoreboard.Scoreboard;
-import dev.rage.comet.scoreboard.ScoreboardProvider;
+import dev.rage.comet.scoreboard.FastBoardListener;
+import dev.rage.comet.scoreboard.FastBoardManager;
+import dev.rage.comet.scoreboard.FastBoardProvider;
 import dev.rage.comet.tablist.Tablist;
 import dev.rage.comet.tablist.TablistProvider;
 import dev.rage.comet.tablist.head.HeadManager;
@@ -94,9 +95,8 @@ public class Comet extends JavaPlugin {
     private ServerDataManager serverDataManager;
     private BannerManager bannerManager;
     private BalloonManager balloonManager;
+    private FastBoardManager fastBoardManager;
     private GadgetsManager gadgetsManager;
-
-    private Scoreboard scoreboard;
     private Tablist tablist;
 
     @Override
@@ -131,6 +131,14 @@ public class Comet extends JavaPlugin {
         this.lazarusManager = new LazarusManager(this);
         this.gadgetsManager = new GadgetsManager(this);
 
+        if (scoreboardFile.getBoolean("scoreboard.enabled")) {
+            this.fastBoardManager = new FastBoardManager(this);
+            this.fastBoardManager.setAdapter(new FastBoardProvider(this));
+        }
+        if (tablistFile.getBoolean("tablist.enabled")) {
+            this.tablist = new Tablist(this, new TablistProvider(this));
+        }
+
         PlaceholderAPIHook.initialize(this);
 
         PluginManager pluginManager = Bukkit.getPluginManager();
@@ -142,6 +150,10 @@ public class Comet extends JavaPlugin {
         pluginManager.registerEvents(new CustomHotbarListener(this), this);
         pluginManager.registerEvents(new QueueListener(this), this);
         pluginManager.registerEvents(new UserListener(this), this);
+
+        if (scoreboardFile.getBoolean("scoreboard.enabled")) {
+            pluginManager.registerEvents(new FastBoardListener(fastBoardManager), this);
+        }
 
         commandManager.registerCommands(new CometCommand(this));
         commandManager.registerCommands(new BuildModeCommand(this));
@@ -156,15 +168,6 @@ public class Comet extends JavaPlugin {
         commandManager.registerCommands(new QueueLeaveCommand(this));
         commandManager.registerCommands(new QueuePauseCommand(this));
         commandManager.registerCommands(new QueueListCommand(this));
-
-        if (scoreboardFile.getBoolean("scoreboard.enabled")) {
-            this.scoreboard = new Scoreboard(this);
-            scoreboard.setTicks(2L);
-            scoreboard.setAdapter(new ScoreboardProvider(this));
-        }
-        if (tablistFile.getBoolean("tablist.enabled")) {
-            this.tablist = new Tablist(this, new TablistProvider(this));
-        }
 
         if (configFile.getBoolean("lunar-client.enabled")) {
             Bukkit.getScheduler().runTaskTimerAsynchronously(this, new LunarClientRunnable(this), 0L, 20L);
@@ -186,10 +189,11 @@ public class Comet extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (fastBoardManager != null) this.fastBoardManager.onDisable();
+        if (tablist != null) this.tablist.onDisable();
         this.userManager.onDisable();
         this.mongoManager.onDisable();
         this.redisManager.onDisable();
-        this.tablist.onDisable();
     }
 
     public void onReload() {
@@ -207,5 +211,6 @@ public class Comet extends JavaPlugin {
         this.queueManager.loadOrRefresh();
         this.headManager.loadOrRefresh();
         this.balloonManager.loadOrRefresh();
+        if (fastBoardManager != null) this.fastBoardManager.resetBoardAnimation();
     }
 }
