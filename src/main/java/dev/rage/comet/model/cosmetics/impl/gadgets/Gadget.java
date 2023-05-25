@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets;
 
 import dev.rage.comet.Comet;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
@@ -26,4 +27,6 @@ public abstract class Gadget implements Listener {
         if (hand == null || itemStack == null) return false;
         return hand.isSimilar(itemStack);
     }
+
+    public abstract void onUsage(Player player);
 }

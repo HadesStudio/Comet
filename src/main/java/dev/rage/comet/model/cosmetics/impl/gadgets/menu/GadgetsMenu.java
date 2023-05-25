@@ -38,7 +38,6 @@ public class GadgetsMenu extends Menu {
             }
 
             buttons.put(getSlot(i, j), Button.fromItem(gadget.getIcon(), player1 -> {
-                player1.getInventory().setItem(1, gadget.getIcon());
             }));
         }
 

@@ -30,6 +30,12 @@ public class Mount extends Gadget {
                 ).build();
     }
 
+    @Override
+    public void onUsage(Player player) {
+        player.getInventory().setItem(1, getIcon());
+    }
+
+
     @EventHandler
     public void onInteract(PlayerInteractAtEntityEvent event) {
         if (event.getRightClicked() == null || !(event.getRightClicked() instanceof Player)) return;
