@@ -22,12 +22,26 @@ public class Mount extends Gadget {
     }
 
     @Override
+    public String getPermission() {
+        return "comet.gadgets.mount";
+    }
+
+    @Override
     public ItemStack getIcon() {
         return new ItemBuilder(XMaterial.SADDLE.parseMaterial())
                 .setName(ChatColor.GREEN + getName())
                 .setLore("",
-                        ChatColor.GRAY + "Right click to use this gadget!"
+                        ChatColor.GRAY + "Right click to get this gadget!"
                 ).build();
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return new ItemBuilder(XMaterial.SADDLE.parseMaterial())
+                .setName(ChatColor.GREEN + getName())
+                .setLore("",
+                        ChatColor.GRAY + "Right-click to a Player!")
+                .build();
     }
 
     @Override

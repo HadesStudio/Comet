@@ -23,10 +23,23 @@ public abstract class Gadget implements Listener {
 
     public abstract ItemStack getIcon();
 
+    public abstract void onUsage(Player player);
+
     public boolean isItem(@Nullable ItemStack hand, @Nullable ItemStack itemStack) {
         if (hand == null || itemStack == null) return false;
         return hand.isSimilar(itemStack);
     }
 
-    public abstract void onUsage(Player player);
+    public ItemStack getItem() {
+        return getIcon();
+    }
+
+    /*
+        All permissions will follow this format: comet.gadget.<gadget-name>.
+        will follow this format: comet.gadget.<gadget-name>, if the name has capital letters, it will automatically change to lowercase,
+        and if it has a space, it will be replaced by a "-".
+    */
+    public String getPermission() {
+        return "comet.gadget." + getName().replace(" ", "-").toLowerCase();
+    }
 }
