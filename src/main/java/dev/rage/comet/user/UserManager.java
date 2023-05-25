@@ -2,6 +2,7 @@ package dev.rage.comet.user;
 
 import dev.rage.comet.Comet;
 import lombok.Getter;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,14 +28,15 @@ public class UserManager {
         users.put(uuid, user);
     }
 
-    public void destroyUser(User user) {
+    public void destroyUser(User user, Player player, boolean delete) {
         if (user.hasBalloon()) user.removeBalloon();
-        users.remove(user.getUuid());
+        if (user.hasBanner()) user.removeBanner(player);
+        if (delete) users.remove(user.getUuid());
     }
 
     public void onDisable() {
         for (User user : users.values()) {
-            if (user.hasBalloon()) user.removeBalloon();
+            destroyUser(user, user.getPlayer(), false);
         }
     }
 }

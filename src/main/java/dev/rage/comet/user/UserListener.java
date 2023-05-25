@@ -2,6 +2,7 @@ package dev.rage.comet.user;
 
 import dev.rage.comet.Comet;
 import dev.rage.comet.utilities.ChatUtil;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -34,10 +35,11 @@ public class UserListener implements Listener {
 
     @EventHandler
     private void onPlayerSaveProfile(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
         User user = userManager.getUser(event.getPlayer().getUniqueId());
 
         if (user != null) {
-            userManager.destroyUser(user);
+            userManager.destroyUser(user, player, true);
         }
     }
 }
