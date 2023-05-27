@@ -30,7 +30,7 @@ public class GadgetsMenu extends Menu {
 
         for (Gadget gadget : plugin.getGadgetsManager().getGadgets()) {
             if (i++ == 3) {
-                continue;
+                i = 5;
             }
             else if (i == 8) {
                 i = 1;
