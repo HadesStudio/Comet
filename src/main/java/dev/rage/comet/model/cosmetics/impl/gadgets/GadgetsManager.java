@@ -5,7 +5,7 @@ import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.impl.Mount;
 import dev.rage.comet.model.cosmetics.impl.gadgets.impl.SnowBallHider;
 import dev.rage.comet.model.cosmetics.impl.gadgets.impl.TeleportBow;
-import dev.rage.comet.model.cosmetics.impl.gadgets.impl.firetrail.FireTrail;
+import dev.rage.comet.model.cosmetics.impl.gadgets.impl.FireTrail;
 import lombok.Getter;
 
 import java.util.List;

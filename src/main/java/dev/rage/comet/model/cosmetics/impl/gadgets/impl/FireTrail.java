@@ -1,4 +1,4 @@
-package dev.rage.comet.model.cosmetics.impl.gadgets.impl.firetrail;
+package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
