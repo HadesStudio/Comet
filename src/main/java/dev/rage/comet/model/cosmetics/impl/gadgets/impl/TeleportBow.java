@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.concurrent.TimeUnit;
 
@@ -72,6 +73,9 @@ public class TeleportBow extends Gadget {
 
             if (isItem(player.getItemInHand(), getItem())) {
                 setCooldown(player.getUniqueId(), TimeUnit.SECONDS.toMillis(3));
+
+                event.getEntity().setMetadata(plugin.getName() + getName(), new FixedMetadataValue(plugin, true));
+
                 plugin.getServer().getScheduler().runTaskLater(plugin, () -> refund(player), 2L);
             }
         }
@@ -81,10 +85,12 @@ public class TeleportBow extends Gadget {
     public void onProjectileHit(ProjectileHitEvent event) {
         if (event.getEntity().getShooter() instanceof Player) {
             Player player = (Player) event.getEntity().getShooter();
-            if (cooldowns.containsKey(player.getUniqueId())) {
+            if (event.getEntity().hasMetadata(plugin.getName())) {
                 Location location = event.getEntity().getLocation();
                 location.setDirection(player.getLocation().getDirection());
                 player.teleport(location);
+
+                event.getEntity().removeMetadata(plugin.getName() + getName(), plugin);
             }
         }
     }

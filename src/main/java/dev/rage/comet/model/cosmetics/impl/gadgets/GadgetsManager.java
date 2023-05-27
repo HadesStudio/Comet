@@ -3,6 +3,7 @@ package dev.rage.comet.model.cosmetics.impl.gadgets;
 import com.google.common.collect.Lists;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.impl.Mount;
+import dev.rage.comet.model.cosmetics.impl.gadgets.impl.SnowBallHider;
 import dev.rage.comet.model.cosmetics.impl.gadgets.impl.TeleportBow;
 import lombok.Getter;
 
@@ -24,5 +25,6 @@ public class GadgetsManager {
     private void loadOrRefresh(Comet plugin) {
         gadgets.add(new Mount(plugin));
         gadgets.add(new TeleportBow(plugin));
+        gadgets.add(new SnowBallHider(plugin));
     }
 }

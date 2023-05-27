@@ -28,14 +28,14 @@ public abstract class Gadget implements Listener {
 
     public abstract ItemStack getIcon();
 
+    public abstract ItemStack getItem();
+
     public abstract void onUsage(Player player);
 
     public boolean isItem(@Nullable ItemStack hand, @Nullable ItemStack itemStack) {
         if (hand == null || itemStack == null) return false;
         return hand.isSimilar(itemStack);
     }
-
-    public abstract ItemStack getItem();
 
     /*
         All permissions will follow this format: comet.gadget.<gadget-name>.
