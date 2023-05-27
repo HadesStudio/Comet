@@ -37,8 +37,7 @@ public class GadgetsMenu extends Menu {
                 j++;
             }
 
-            buttons.put(getSlot(i, j), Button.fromItem(gadget.getIcon(), player1 -> {
-            }));
+            buttons.put(getSlot(i, j), Button.fromItem(gadget.getIcon(), gadget::onUsage));
         }
 
         return buttons;
