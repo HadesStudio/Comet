@@ -76,7 +76,7 @@ public class SnowBallHider extends Gadget {
         Player shooter = (Player) ((Snowball) event.getDamager()).getShooter();
 
         event.setCancelled(true);
-        
+
         shooter.hidePlayer((Player) event.getEntity());
 
         shooter.sendMessage(ChatColor.GREEN + "You have hided " + event.getEntity().getName());
