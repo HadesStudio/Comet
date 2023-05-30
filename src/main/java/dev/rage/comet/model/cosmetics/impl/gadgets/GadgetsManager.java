@@ -26,5 +26,6 @@ public class GadgetsManager {
         gadgets.add(new SnowBallHider(plugin));
         gadgets.add(new FireTrail(plugin));
         gadgets.add(new GrapplingHook(plugin));
+        gadgets.add(new Trampoline(plugin));
     }
 }
