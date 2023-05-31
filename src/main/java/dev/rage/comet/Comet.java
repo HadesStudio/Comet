@@ -170,11 +170,11 @@ public class Comet extends JavaPlugin {
         commandManager.registerCommands(new QueueListCommand(this));
 
         if (configFile.getBoolean("lunar-client.enabled")) {
-            Bukkit.getScheduler().runTaskTimerAsynchronously(this, new LunarClientRunnable(this), 0L, 20L);
+            Bukkit.getScheduler().runTaskTimer(this, new LunarClientRunnable(this), 0L, 20L);
         }
         if (configFile.getBoolean("action-bar.enabled")) {
             int interval = configFile.getInt("action-bar.interval");
-            Bukkit.getScheduler().runTaskTimerAsynchronously(this, new ActionBarRunnable(this, interval), interval * 20L, interval * 20L);
+            Bukkit.getScheduler().runTaskTimer(this, new ActionBarRunnable(this, interval), interval * 20L, interval * 20L);
         }
 
         QueueReminderThread reminderThread = new QueueReminderThread(this);
