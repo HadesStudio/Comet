@@ -112,6 +112,8 @@ public class Comet extends JavaPlugin {
         this.serverSelectorFile = new FileConfig(this, "selector/server-selector.yml");
         this.balloonsFile = new FileConfig(this, "cosmetics/balloons.yml");
 
+        PlaceholderAPIHook.initialize(this);
+
         this.commandManager = new CommandManager(this);
         this.rankManager = new RankManager();
         this.userManager = new UserManager(this);
@@ -138,8 +140,6 @@ public class Comet extends JavaPlugin {
         if (tablistFile.getBoolean("tablist.enabled")) {
             this.tablist = new Tablist(this, new TablistProvider(this));
         }
-
-        PlaceholderAPIHook.initialize(this);
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new ButtonListener(), this);

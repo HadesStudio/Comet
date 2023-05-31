@@ -2,6 +2,7 @@ package dev.rage.comet.model.rank;
 
 import dev.rage.comet.model.rank.impl.AquaCore;
 import dev.rage.comet.model.rank.impl.Default;
+import dev.rage.comet.model.rank.impl.Helium;
 import dev.rage.comet.model.rank.impl.LuckPerms;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -20,6 +21,9 @@ public class RankManager {
         }
         else if (pluginManager.getPlugin("LuckPerms") != null) {
             this.rank = new LuckPerms();
+        }
+        else if (pluginManager.getPlugin("Helium") != null) {
+            this.rank = new Helium();
         }
         else {
             this.rank = new Default();

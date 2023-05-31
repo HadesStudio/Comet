@@ -64,6 +64,15 @@
             <systemPath>${basedir}/libs/AquaCoreAPI.jar</systemPath>
         </dependency>
 
+        <!-- HeliumAPI -->
+        <dependency>
+            <groupId>helium</groupId>
+            <artifactId>helium</artifactId>
+            <version>dev</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/HeliumAPI.jar</systemPath>
+        </dependency>
+
         <!-- LuckPermsAPI -->
         <dependency>
             <groupId>net.luckperms</groupId>
