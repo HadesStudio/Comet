@@ -1,7 +1,7 @@
 package dev.rage.comet.tablist;
 
 import dev.rage.comet.Comet;
-import dev.rage.comet.model.lazarus.LazarusManager;
+import dev.rage.comet.model.hcfcore.HCFCoreManager;
 import dev.rage.comet.model.server.IServerData;
 import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.tablist.head.HeadManager;
@@ -17,13 +17,13 @@ public class TablistProvider implements TablistAdapter {
 
     private final Comet plugin;
     private final HeadManager headManager;
-    private final LazarusManager lazarusManager;
+    private final HCFCoreManager hcfCoreManager;
     private final ServerDataManager serverDataManager;
 
     public TablistProvider(Comet plugin) {
         this.plugin = plugin;
         this.headManager = plugin.getHeadManager();
-        this.lazarusManager = plugin.getLazarusManager();
+        this.hcfCoreManager = plugin.getHcfCoreManager();
         this.serverDataManager = plugin.getServerDataManager();
     }
 
@@ -82,18 +82,18 @@ public class TablistProvider implements TablistAdapter {
             else return text.replace(placeholderPath, "&aOnline");
         }
 
-        if (lazarusManager.getUserDataHCF().isConnected()) {
+        if (hcfCoreManager.getHcf() != null && hcfCoreManager.getHcf().isConnected()) {
             text = text
-                    .replace("<lazarus-hcf-kills>", String.valueOf(lazarusManager.getUserDataHCF().getKills(player.getUniqueId())))
-                    .replace("<lazarus-hcf-deaths>", String.valueOf(lazarusManager.getUserDataHCF().getDeaths(player.getUniqueId())))
-                    .replace("<lazarus-hcf-lives>", String.valueOf(lazarusManager.getUserDataHCF().getLives(player.getUniqueId())))
-                    .replace("<lazarus-hcf-deathban>", lazarusManager.getUserDataHCF().getDeathban(player.getUniqueId()));
+                    .replace("<hcfcore-hcf-kills>", String.valueOf(hcfCoreManager.getHcf().getKills(player.getUniqueId())))
+                    .replace("<hcfcore-hcf-deaths>", String.valueOf(hcfCoreManager.getHcf().getDeaths(player.getUniqueId())))
+                    .replace("<hcfcore-hcf-lives>", String.valueOf(hcfCoreManager.getHcf().getLives(player.getUniqueId())))
+                    .replace("<hcfcore-hcf-deathban>", hcfCoreManager.getHcf().getDeathban(player.getUniqueId()));
         }
-        if (lazarusManager.getUserDataKitMap().isConnected()) {
+        if (hcfCoreManager.getKitmap() != null && hcfCoreManager.getKitmap().isConnected()) {
             text = text
-                    .replace("<lazarus-kitmap-kills>", String.valueOf(lazarusManager.getUserDataKitMap().getKills(player.getUniqueId())))
-                    .replace("<lazarus-kitmap-deaths>", String.valueOf(lazarusManager.getUserDataKitMap().getDeaths(player.getUniqueId())))
-                    .replace("<lazarus-kitmap-killstreak>", String.valueOf(lazarusManager.getUserDataKitMap().getKillStreak(player.getUniqueId())));
+                    .replace("<hcfcore-kitmap-kills>", String.valueOf(hcfCoreManager.getKitmap().getKills(player.getUniqueId())))
+                    .replace("<hcfcore-kitmap-deaths>", String.valueOf(hcfCoreManager.getKitmap().getDeaths(player.getUniqueId())))
+                    .replace("<hcfcore-kitmap-killstreak>", String.valueOf(hcfCoreManager.getKitmap().getKillStreak(player.getUniqueId())));
         }
 
         return text;

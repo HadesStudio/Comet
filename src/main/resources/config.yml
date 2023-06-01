@@ -1,3 +1,8 @@
+# HCFCore Type
+# "LAZARUS" or "AZURITE"
+# This option is only for the HCFCore plugin.
+hcfcore-type: ""
+
 double-jump:
   enabled: true
   effect: "EXPLOSION_HUGE"

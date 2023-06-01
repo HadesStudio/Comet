@@ -1,4 +1,4 @@
-package dev.rage.comet.model.lazarus;
+package dev.rage.comet.model.hcfcore;
 
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ import java.util.UUID;
  * GitHub: https://github.com/RisasDev
  */
 
-public interface ILazarusUserData {
+public interface IHCFCore {
 
     int getKills(UUID uuid);
     int getDeaths(UUID uuid);

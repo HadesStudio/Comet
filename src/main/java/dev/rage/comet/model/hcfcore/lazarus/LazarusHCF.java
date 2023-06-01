@@ -1,9 +1,9 @@
-package dev.rage.comet.model.lazarus.impl;
+package dev.rage.comet.model.hcfcore.lazarus;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import dev.rage.comet.database.mongo.Mongo;
-import dev.rage.comet.model.lazarus.ILazarusUserData;
+import dev.rage.comet.model.hcfcore.IHCFCore;
 import org.bson.Document;
 
 import java.util.UUID;
@@ -16,12 +16,12 @@ import java.util.UUID;
  * GitHub: https://github.com/RisasDev
  */
 
-public class UserDataHCF implements ILazarusUserData {
+public class LazarusHCF implements IHCFCore {
 
     private final Mongo mongo;
     private MongoCollection<Document> users, deathban;
 
-    public UserDataHCF(Mongo mongo) {
+    public LazarusHCF(Mongo mongo) {
         this.mongo = mongo;
 
         if (mongo.isConnected()) {
@@ -32,14 +32,14 @@ public class UserDataHCF implements ILazarusUserData {
 
     @Override
     public int getKills(UUID uuid) {
-        Document document = this.getUserData(uuid);
-        return document == null ? 0 : document.getInteger("kills");
+        Document userData = this.getUserData(uuid);
+        return userData == null ? 0 : userData.getInteger("kills");
     }
 
     @Override
     public int getDeaths(UUID uuid) {
-        Document document = this.getUserData(uuid);
-        return document == null ? 0 : document.getInteger("deaths");
+        Document userData = this.getUserData(uuid);
+        return userData == null ? 0 : userData.getInteger("deaths");
     }
 
     @Override
@@ -48,13 +48,13 @@ public class UserDataHCF implements ILazarusUserData {
     }
 
     public int getLives(UUID uuid) {
-        Document document = this.getUserData(uuid);
-        return document == null ? 0 : document.getInteger("lives");
+        Document userData = this.getUserData(uuid);
+        return userData == null ? 0 : userData.getInteger("lives");
     }
 
     public String getDeathban(UUID uuid) {
-        Document document = this.getDeathbanData(uuid);
-        return document == null ? "&aYou don't have deathban." : "&cYou have deathban.";
+        Document deathbanData = this.getDeathbanData(uuid);
+        return deathbanData == null ? "&aYou don't have deathban." : "&cYou have deathban.";
     }
 
     @Override
@@ -63,7 +63,7 @@ public class UserDataHCF implements ILazarusUserData {
     }
 
     private Document getUserData(UUID uuid) {
-        return users.find(Filters.eq("_id", uuid)).first();
+        return users.find(Filters.eq("_id", uuid.toString())).first();
     }
 
     private Document getDeathbanData(UUID uuid) {
