@@ -26,7 +26,7 @@ public class BalloonButton extends Button {
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
         User user = userManager.getUser(player.getUniqueId());
-        user.applyBallon(player, balloonHead);
+        user.applyBalloon(player, balloonHead);
         ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.balloon.applied")
                 .replace("<balloon>", balloonHead.getId()));
         close(player);

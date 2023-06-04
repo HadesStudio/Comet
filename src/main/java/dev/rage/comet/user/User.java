@@ -1,8 +1,11 @@
 package dev.rage.comet.user;
 
+import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.balloons.Balloon;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonHead;
 import dev.rage.comet.model.cosmetics.impl.banners.Banner;
+import dev.rage.comet.model.cosmetics.impl.mascots.impl.Body;
+import dev.rage.comet.model.cosmetics.impl.mascots.impl.Mascot;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -17,6 +20,7 @@ public class User {
     private String name;
     private Balloon balloon;
     private Banner banner;
+    private Mascot mascot;
 
     public User(UUID uuid, String name) {
         this.uuid = uuid;
@@ -27,7 +31,7 @@ public class User {
         return this.balloon != null;
     }
 
-    public void applyBallon(Player player, BalloonHead balloonHead) {
+    public void applyBalloon(Player player, BalloonHead balloonHead) {
         if (hasBalloon()) removeBalloon();
 
         this.balloon = new Balloon(player, balloonHead.getHead());
@@ -37,6 +41,23 @@ public class User {
     public void removeBalloon() {
         this.balloon.remove();
         this.balloon = null;
+    }
+
+    public boolean hasMascot() {
+        return this.mascot != null;
+    }
+
+    public void applyMascot(Comet plugin, Player player, Body body) {
+        if (hasMascot()) removeMascot(plugin);
+
+
+        this.mascot = new Mascot(plugin, player, body);
+        plugin.getMascotManager().getMascots().put(uuid, mascot);
+    }
+
+    public void removeMascot(Comet plugin) {
+        this.mascot = null;
+        plugin.getMascotManager().getMascots().get(uuid).die();
     }
 
     public boolean hasBanner() {

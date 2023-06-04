@@ -27,6 +27,7 @@ import dev.rage.comet.model.cosmetics.impl.balloons.BalloonManager;
 import dev.rage.comet.model.cosmetics.impl.balloons.tasks.BalloonRunnable;
 import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.cosmetics.impl.gadgets.GadgetsManager;
+import dev.rage.comet.model.cosmetics.impl.mascots.MascotManager;
 import dev.rage.comet.model.hcfcore.HCFCoreManager;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
@@ -95,6 +96,7 @@ public class Comet extends JavaPlugin {
     private ServerDataManager serverDataManager;
     private BannerManager bannerManager;
     private BalloonManager balloonManager;
+    private MascotManager mascotManager;
     private FastBoardManager fastBoardManager;
     private GadgetsManager gadgetsManager;
     private Tablist tablist;
@@ -114,6 +116,7 @@ public class Comet extends JavaPlugin {
 
         this.commandManager = new CommandManager(this);
         this.rankManager = new RankManager();
+        this.mascotManager = new MascotManager(this);
         this.userManager = new UserManager(this);
         this.serverDataManager = new ServerDataManager();
         this.spawnManager = new SpawnManager(this);
