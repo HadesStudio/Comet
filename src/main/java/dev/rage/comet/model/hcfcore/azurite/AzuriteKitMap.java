@@ -1,9 +1,9 @@
-package dev.rage.comet.model.lazarus.impl;
+package dev.rage.comet.model.hcfcore.azurite;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import dev.rage.comet.database.mongo.Mongo;
-import dev.rage.comet.model.lazarus.ILazarusUserData;
+import dev.rage.comet.model.hcfcore.IHCFCore;
 import org.bson.Document;
 
 import java.util.UUID;
@@ -16,33 +16,35 @@ import java.util.UUID;
  * GitHub: https://github.com/RisasDev
  */
 
-public class UserDataKitMap implements ILazarusUserData {
+public class AzuriteKitMap implements IHCFCore {
 
     private final Mongo mongo;
     private MongoCollection<Document> users;
 
-    public UserDataKitMap(Mongo mongo) {
+    public AzuriteKitMap(Mongo mongo) {
         this.mongo = mongo;
+
         if (mongo.isConnected()) {
-            this.users = mongo.getDatabase().getCollection("userdata");
+            this.users = mongo.getDatabase().getCollection("users");
         }
     }
 
     @Override
     public int getKills(UUID uuid) {
-        Document document = this.getUserdata(uuid);
-        return document == null ? 0 : document.getInteger("kills");
+        Document userData = this.getUserData(uuid);
+        return userData == null ? 0 : userData.getInteger("kills");
     }
 
     @Override
     public int getDeaths(UUID uuid) {
-        Document document = this.getUserdata(uuid);
-        return document == null ? 0 : document.getInteger("deaths");
+        Document userData = this.getUserData(uuid);
+        return userData == null ? 0 : userData.getInteger("deaths");
     }
 
+    @Override
     public int getKillStreak(UUID uuid) {
-        Document document = this.getUserdata(uuid);
-        return document == null ? 0 : document.getInteger("killstreak");
+        Document userData = this.getUserData(uuid);
+        return userData == null ? 0 : userData.getInteger("killstreak");
     }
 
     @Override
@@ -60,7 +62,7 @@ public class UserDataKitMap implements ILazarusUserData {
         return mongo.isConnected();
     }
 
-    private Document getUserdata(UUID uuid) {
-        return users.find(Filters.eq("_id", uuid)).first();
+    private Document getUserData(UUID uuid) {
+        return users.find(Filters.eq("_id", uuid.toString())).first();
     }
 }

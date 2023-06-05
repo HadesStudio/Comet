@@ -27,9 +27,10 @@ import dev.rage.comet.model.cosmetics.impl.balloons.BalloonManager;
 import dev.rage.comet.model.cosmetics.impl.balloons.tasks.BalloonRunnable;
 import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.cosmetics.impl.gadgets.GadgetsManager;
+import dev.rage.comet.model.cosmetics.impl.mascots.MascotManager;
+import dev.rage.comet.model.hcfcore.HCFCoreManager;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
-import dev.rage.comet.model.lazarus.LazarusManager;
 import dev.rage.comet.model.lunarclient.LunarClientRunnable;
 import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.model.queue.rank.QueueRankManager;
@@ -89,12 +90,13 @@ public class Comet extends JavaPlugin {
     private HeadManager headManager;
     private MongoManager mongoManager;
     private RedisManager redisManager;
-    private LazarusManager lazarusManager;
+    private HCFCoreManager hcfCoreManager;
     private QueueRankManager queueRankManager;
     private QueueManager queueManager;
     private ServerDataManager serverDataManager;
     private BannerManager bannerManager;
     private BalloonManager balloonManager;
+    private MascotManager mascotManager;
     private FastBoardManager fastBoardManager;
     private GadgetsManager gadgetsManager;
     private Tablist tablist;
@@ -114,6 +116,7 @@ public class Comet extends JavaPlugin {
 
         this.commandManager = new CommandManager(this);
         this.rankManager = new RankManager();
+        this.mascotManager = new MascotManager(this);
         this.userManager = new UserManager(this);
         this.serverDataManager = new ServerDataManager();
         this.spawnManager = new SpawnManager(this);
@@ -128,7 +131,7 @@ public class Comet extends JavaPlugin {
         this.queueManager = new QueueManager(this);
         this.mongoManager = new MongoManager(this);
         this.redisManager = new RedisManager(this);
-        this.lazarusManager = new LazarusManager(this);
+        this.hcfCoreManager = new HCFCoreManager(this);
         this.gadgetsManager = new GadgetsManager(this);
 
         if (scoreboardFile.getBoolean("scoreboard.enabled")) {
@@ -192,7 +195,6 @@ public class Comet extends JavaPlugin {
         if (fastBoardManager != null) this.fastBoardManager.onDisable();
         if (tablist != null) this.tablist.onDisable();
         this.userManager.onDisable();
-        this.mongoManager.onDisable();
         this.redisManager.onDisable();
     }
 

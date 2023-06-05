@@ -51,13 +51,13 @@ tablist:
         text: ""
         head: ""
       '14':
-        text: " &7▶ &eKills&7: &f<lazarus-kitmap-kills>"
+        text: " &7▶ &eKills&7: &f<hcfcore-kitmap-kills>"
         head: ""
       '15':
-        text: " &7▶ &eDeaths&7: &f<lazarus-kitmap-deaths>"
+        text: " &7▶ &eDeaths&7: &f<hcfcore-kitmap-deaths>"
         head: ""
       '16':
-        text: " &7▶ &eKillStreak&7: &f<lazarus-kitmap-killstreak>"
+        text: " &7▶ &eKillStreak&7: &f<hcfcore-kitmap-killstreak>"
         head: ""
       '17':
         text: ""
@@ -173,16 +173,16 @@ tablist:
         text: ""
         head: ""
       '14':
-        text: " &7▶ &eKills&7: &f<lazarus-hcf-kills>"
+        text: " &7▶ &eKills&7: &f<hcfcore-hcf-kills>"
         head: ""
       '15':
-        text: " &7▶ &eDeaths&7: &f<lazarus-hcf-deaths>"
+        text: " &7▶ &eDeaths&7: &f<hcfcore-hcf-deaths>"
         head: ""
       '16':
-        text: " &7▶ &eLives&7: &f<lazarus-hcf-lives>"
+        text: " &7▶ &eLives&7: &f<hcfcore-hcf-lives>"
         head: ""
       '17':
-        text: " &7▶ &eDeathbanned&7: &f<lazarus-hcf-deathban>"
+        text: " &7▶ &eDeathbanned&7: &f<hcfcore-hcf-deathban>"
         head: ""
       '18':
         text: ""

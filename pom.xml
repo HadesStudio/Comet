@@ -47,6 +47,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -62,6 +69,15 @@
             <version>dev</version>
             <scope>system</scope>
             <systemPath>${basedir}/libs/AquaCoreAPI.jar</systemPath>
+        </dependency>
+
+        <!-- HeliumAPI -->
+        <dependency>
+            <groupId>helium</groupId>
+            <artifactId>helium</artifactId>
+            <version>dev</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/HeliumAPI.jar</systemPath>
         </dependency>
 
         <!-- LuckPermsAPI -->

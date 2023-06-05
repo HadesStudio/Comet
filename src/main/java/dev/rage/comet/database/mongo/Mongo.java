@@ -48,11 +48,4 @@ public class Mongo {
             ChatUtil.logger("&c[" + plugin.getName() + "] &cMongoDB failed to connect to " + name + " database.");
         }
     }
-
-    public void disconnect() {
-        if (connected && mongoClient != null) {
-            this.connected = false;
-            this.mongoClient.close();
-        }
-    }
 }
