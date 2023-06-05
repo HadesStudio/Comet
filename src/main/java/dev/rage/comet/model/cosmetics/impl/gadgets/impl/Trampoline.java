@@ -76,12 +76,63 @@ public class Trampoline extends Gadget {
         stairs3.getState().update();
 
         Material borderMaterial = XMaterial.BLACK_WOOL.parseMaterial();
+
         Block border1 = stairs.getRelative(getBlockFace(player));
-        for (int index = 0; index < 25; index++) {
-            if (index < 5 || index >= 25 - 5 || index % 5 == 0 || index % 5 == 4) {
-                System.out.println(index);
-            }
-        }
+        border1.setType(borderMaterial);
+
+        Block border2 = border1.getRelative(getBlockFaceDirection(player, "RIGHT"));
+        border2.setType(borderMaterial);
+
+        Block border3 = border2.getRelative(getBlockFaceDirection(player, "FRONT"));
+        border3.setType(borderMaterial);
+
+        Block border4 = border3.getRelative(getBlockFaceDirection(player, "FRONT"));
+        border4.setType(borderMaterial);
+
+        Block border5 = border4.getRelative(getBlockFaceDirection(player, "FRONT"));
+        border5.setType(borderMaterial);
+
+        Block border6 = border5.getRelative(getBlockFaceDirection(player, "FRONT"));
+        border6.setType(borderMaterial);
+
+        Block border7 = border6.getRelative(getBlockFaceDirection(player, "FRONT"));
+        border7.setType(borderMaterial);
+
+        Block border8 = border7.getRelative(getBlockFaceDirection(player, "LEFT"));
+        border8.setType(borderMaterial);
+
+        Block border9 = border8.getRelative(getBlockFaceDirection(player, "LEFT"));
+        border9.setType(borderMaterial);
+
+        Block border10 = border9.getRelative(getBlockFaceDirection(player, "LEFT"));
+        border10.setType(borderMaterial);
+
+        Block border11 = border10.getRelative(getBlockFaceDirection(player, "LEFT"));
+        border11.setType(borderMaterial);
+
+        Block border12 = border11.getRelative(getBlockFaceDirection(player, "LEFT"));
+        border12.setType(borderMaterial);
+
+        Block border13 = border12.getRelative(getBlockFaceDirection(player, "BACK"));
+        border13.setType(borderMaterial);
+
+        Block border14 = border13.getRelative(getBlockFaceDirection(player, "BACK"));
+        border14.setType(borderMaterial);
+
+        Block border15 = border14.getRelative(getBlockFaceDirection(player, "BACK"));
+        border15.setType(borderMaterial);
+
+        Block border16 = border15.getRelative(getBlockFaceDirection(player, "BACK"));
+        border16.setType(borderMaterial);
+
+        Block border17 = border16.getRelative(getBlockFaceDirection(player, "BACK"));
+        border17.setType(borderMaterial);
+
+        Block border18 = border17.getRelative(getBlockFaceDirection(player, "RIGHT"));
+        border18.setType(borderMaterial);
+
+        Block border19 = border18.getRelative(getBlockFaceDirection(player, "RIGHT"));
+        border19.setType(borderMaterial);
     }
 
     private BlockFace getBlockFace(Player player) {
@@ -102,5 +153,64 @@ public class Trampoline extends Gadget {
             return BlockFace.EAST;
         else
             return null;
+    }
+
+    private BlockFace getBlockFaceDirection(Player player, String direction) {
+        BlockFace face = getBlockFace(player);
+
+        switch (direction.toUpperCase()) {
+            case "LEFT":
+                switch (face) {
+                    case NORTH:
+                        return BlockFace.WEST;
+                    case EAST:
+                        return BlockFace.NORTH;
+                    case SOUTH:
+                        return BlockFace.EAST;
+                    case WEST:
+                        return BlockFace.SOUTH;
+                }
+                break;
+            case "RIGHT":
+                switch (face) {
+                    case NORTH:
+                        return BlockFace.EAST;
+                    case EAST:
+                        return BlockFace.SOUTH;
+                    case SOUTH:
+                        return BlockFace.WEST;
+                    case WEST:
+                        return BlockFace.NORTH;
+                }
+                break;
+            case "FRONT":
+                switch (face) {
+                    case NORTH:
+                        return BlockFace.NORTH;
+                    case EAST:
+                        return BlockFace.EAST;
+                    case SOUTH:
+                        return BlockFace.SOUTH;
+                    case WEST:
+                        return BlockFace.WEST;
+                }
+                break;
+            case "BACK":
+                switch (face) {
+                    case NORTH:
+                        return BlockFace.SOUTH;
+                    case EAST:
+                        return BlockFace.WEST;
+                    case SOUTH:
+                        return BlockFace.NORTH;
+                    case WEST:
+                        return BlockFace.EAST;
+                }
+                break;
+            default:
+                return face;
+        }
+
+        return face;
     }
 }
