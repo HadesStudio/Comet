@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import dev.rage.comet.Comet;
@@ -11,21 +12,25 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Stairs;
+import org.bukkit.util.Vector;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 public class Trampoline extends Gadget {
 
-    private final ItemStack CENTER_BLOCK;
+    private final Map<UUID, List<Block>> trampolineBlocks;
 
     public Trampoline(Comet plugin) {
         super(plugin);
 
-        CENTER_BLOCK = XMaterial.BLUE_WOOL.parseItem();
+        trampolineBlocks = Maps.newHashMap();
     }
 
     @Override
@@ -54,85 +59,118 @@ public class Trampoline extends Gadget {
     public void onUsage(Player player) {
         player.getInventory().setItem(1, getItem());
 
+        List<BlockState> blocks = Lists.newArrayList();
+
         Location location = player.getLocation();
 
         Block stairs = location.add(location.getDirection()).getBlock().getRelative(BlockFace.UP);
-        stairs.setType(XMaterial.OAK_STAIRS.parseMaterial());
 
-        // set stairs look at me
-        Stairs stairsData = (Stairs) stairs.getState().getData();
-        stairsData.setFacingDirection(getBlockFace(player));
-        stairs.setData(stairsData.getData());
-        stairs.getState().update();
+        for (int i = 0; i < 2; i++) {
+            if (i != 0) {
+                stairs = stairs.getRelative(BlockFace.UP).getRelative(getBlockFace(player));
+            }
 
-        Block stairs2 = stairs.getRelative(BlockFace.UP).getRelative(getBlockFace(player));
-        stairs2.setType(XMaterial.OAK_STAIRS.parseMaterial());
-        stairs2.setData(stairsData.getData());
-        stairs2.getState().update();
+            setFacingStair(blocks, stairs, player);
+        }
 
-        Block stairs3 = stairs2.getRelative(BlockFace.UP).getRelative(getBlockFace(player));
-        stairs3.setType(XMaterial.OAK_STAIRS.parseMaterial());
-        stairs3.setData(stairsData.getData());
-        stairs3.getState().update();
+        Material woolMaterial = XMaterial.WHITE_WOOL.parseMaterial();
 
-        Material borderMaterial = XMaterial.BLACK_WOOL.parseMaterial();
+        Iterator<String> aimPoints = Iterators.forArray("RIGHT", "FRONT", "LEFT", "BACK");
+        Block border = null;
 
-        Block border1 = stairs.getRelative(getBlockFace(player));
-        border1.setType(borderMaterial);
+        String aimPoint = null;
+        for (int i = 0; i < 24; i++) {
+            if (i == 0) {
+                border = stairs.getRelative(getBlockFace(player))
+                        .getRelative(getBlockFaceDirection(player, "LEFT"))
+                        .getRelative(getBlockFaceDirection(player, "LEFT"))
+                        .getRelative(getBlockFaceDirection(player, "LEFT"));
+            }
 
-        Block border2 = border1.getRelative(getBlockFaceDirection(player, "RIGHT"));
-        border2.setType(borderMaterial);
+            if (i % 6 == 0) {
+                aimPoint = aimPoints.next();
+            }
 
-        Block border3 = border2.getRelative(getBlockFaceDirection(player, "FRONT"));
-        border3.setType(borderMaterial);
+            border = border.getRelative(getBlockFaceDirection(player, aimPoint));
+            blocks.add(border.getState());
+            border.setType(woolMaterial);
+            border.setData((byte) 15);
+        }
+        // Fill per lines
 
-        Block border4 = border3.getRelative(getBlockFaceDirection(player, "FRONT"));
-        border4.setType(borderMaterial);
+        Block startPoint = null;
+        Block fill1 = null;
+        for (int i = 0; i < 25; i++) {
+            if (i == 0) {
+                startPoint = stairs.getRelative(getBlockFace(player))
+                        .getRelative(getBlockFace(player))
+                        .getRelative(getBlockFaceDirection(player, "LEFT"))
+                        .getRelative(getBlockFaceDirection(player, "LEFT"));
+                blocks.add(startPoint.getState());
+                startPoint.setType(woolMaterial);
+                startPoint.setData((byte) 11);
 
-        Block border5 = border4.getRelative(getBlockFaceDirection(player, "FRONT"));
-        border5.setType(borderMaterial);
+                fill1 = startPoint;
+                continue;
+            }
 
-        Block border6 = border5.getRelative(getBlockFaceDirection(player, "FRONT"));
-        border6.setType(borderMaterial);
+            if (i % 5 == 0) {
+                startPoint = startPoint.getRelative(getBlockFaceDirection(player, "FRONT"));
+                blocks.add(startPoint.getState());
+                startPoint.setType(woolMaterial);
+                startPoint.setData((byte) 11);
 
-        Block border7 = border6.getRelative(getBlockFaceDirection(player, "FRONT"));
-        border7.setType(borderMaterial);
+                fill1 = startPoint;
+            } else {
+                fill1 = fill1.getRelative(getBlockFaceDirection(player, "RIGHT"));
+                blocks.add(fill1.getState());
+                fill1.setType(woolMaterial);
+                fill1.setData((byte) 11);
+            }
 
-        Block border8 = border7.getRelative(getBlockFaceDirection(player, "LEFT"));
-        border8.setType(borderMaterial);
+            if (!trampolineBlocks.containsKey(player.getUniqueId())) {
+                trampolineBlocks.put(player.getUniqueId(), Lists.newArrayList());
+            }
 
-        Block border9 = border8.getRelative(getBlockFaceDirection(player, "LEFT"));
-        border9.setType(borderMaterial);
+            List<Block> playerTrampolineBlocks = trampolineBlocks.get(player.getUniqueId());
+            playerTrampolineBlocks.add(fill1);
 
-        Block border10 = border9.getRelative(getBlockFaceDirection(player, "LEFT"));
-        border10.setType(borderMaterial);
+            trampolineBlocks.put(player.getUniqueId(), playerTrampolineBlocks);
+        }
 
-        Block border11 = border10.getRelative(getBlockFaceDirection(player, "LEFT"));
-        border11.setType(borderMaterial);
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            for (BlockState block : blocks) {
+                block.update(true);
+            }
 
-        Block border12 = border11.getRelative(getBlockFaceDirection(player, "LEFT"));
-        border12.setType(borderMaterial);
+            trampolineBlocks.remove(player.getUniqueId());
+        }, 20L*15L);
+    }
 
-        Block border13 = border12.getRelative(getBlockFaceDirection(player, "BACK"));
-        border13.setType(borderMaterial);
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        if ((int) event.getTo().getX() == (int) event.getFrom().getX() &&
+                (int) event.getTo().getY() == (int) event.getFrom().getZ() &&
+                (int) event.getTo().getZ() == (int) event.getFrom().getZ())
+            return;
 
-        Block border14 = border13.getRelative(getBlockFaceDirection(player, "BACK"));
-        border14.setType(borderMaterial);
+        Player player = event.getPlayer();
 
-        Block border15 = border14.getRelative(getBlockFaceDirection(player, "BACK"));
-        border15.setType(borderMaterial);
+        if (checkTrampoline(player).join()) {
+            player.setVelocity(new Vector(0, 15, 0));
+        }
+    }
 
-        Block border16 = border15.getRelative(getBlockFaceDirection(player, "BACK"));
-        border16.setType(borderMaterial);
+    private CompletableFuture<Boolean> checkTrampoline(Player player) {
+        return CompletableFuture.supplyAsync(() -> {
+            for (List<Block> value : trampolineBlocks.values()) {
+                if (value.contains(player.getLocation().getBlock().getRelative(BlockFace.DOWN))) {
+                    return true;
+                }
+            }
 
-        Block border17 = border16.getRelative(getBlockFaceDirection(player, "BACK"));
-        border17.setType(borderMaterial);
-
-        Block border18 = border17.getRelative(getBlockFaceDirection(player, "RIGHT"));
-        border18.setType(borderMaterial);
-
-        Block border19 = border18.getRelative(getBlockFaceDirection(player, "RIGHT"));
-        border19.setType(borderMaterial);
+            return false;
+        });
     }
 
     private BlockFace getBlockFace(Player player) {
@@ -212,5 +250,17 @@ public class Trampoline extends Gadget {
         }
 
         return face;
+    }
+
+    private void setFacingStair(List<BlockState> list, Block block, Player player) {
+        list.add(block.getState());
+
+        block.setType(XMaterial.OAK_STAIRS.parseMaterial());
+
+        Stairs stairsData = (Stairs) block.getState().getData();
+        stairsData.setFacingDirection(getBlockFace(player));
+
+        block.setData(stairsData.getData());
+        block.getState().update();
     }
 }
