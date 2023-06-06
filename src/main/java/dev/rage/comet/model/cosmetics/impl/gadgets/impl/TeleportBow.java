@@ -56,6 +56,11 @@ public class TeleportBow extends Gadget {
         player.getInventory().setItem(9, new ItemStack(XMaterial.ARROW.parseMaterial(), 1));
     }
 
+    @Override
+    public void onDisable() {
+
+    }
+
     private void refund(Player player) {
         player.getInventory().getItemInHand().setDurability((short) 0);
         player.getInventory().setItem(9, new ItemStack(XMaterial.ARROW.parseMaterial(), 1));

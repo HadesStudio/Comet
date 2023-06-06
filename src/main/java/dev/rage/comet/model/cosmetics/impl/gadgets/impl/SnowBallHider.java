@@ -55,6 +55,11 @@ public class SnowBallHider extends Gadget {
         player.getInventory().setItem(1, getItem());
     }
 
+    @Override
+    public void onDisable() {
+
+    }
+
     @EventHandler
     public void onProjectileThrow(ProjectileLaunchEvent event) {
         if (!(event.getEntity().getShooter() instanceof Player) || !(event.getEntity() instanceof Snowball))

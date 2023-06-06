@@ -44,6 +44,11 @@ public class GrapplingHook extends Gadget {
         player.getInventory().setItem(1, getItem());
     }
 
+    @Override
+    public void onDisable() {
+
+    }
+
     @EventHandler
     public void onPlayerFish(PlayerFishEvent event) {
         if (event.getState() == PlayerFishEvent.State.IN_GROUND) {

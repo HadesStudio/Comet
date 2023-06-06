@@ -75,6 +75,11 @@ public class FireTrail extends Gadget {
         players.add(player);
     }
 
+    @Override
+    public void onDisable() {
+
+    }
+
     private void apply(Location loc) {
         Block block = loc.getBlock();
         if (block.getType() == XMaterial.AIR.parseMaterial()) {

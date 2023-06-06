@@ -49,6 +49,11 @@ public class Mount extends Gadget {
         player.getInventory().setItem(1, getIcon());
     }
 
+    @Override
+    public void onDisable() {
+
+    }
+
 
     @EventHandler
     public void onInteract(PlayerInteractAtEntityEvent event) {

@@ -28,4 +28,10 @@ public class GadgetsManager {
         gadgets.add(new GrapplingHook(plugin));
         gadgets.add(new Trampoline(plugin));
     }
+
+    public void onDisable() {
+        for (Gadget gadget : gadgets) {
+            gadget.onDisable();
+        }
+    }
 }
