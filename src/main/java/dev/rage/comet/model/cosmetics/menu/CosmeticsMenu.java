@@ -2,10 +2,7 @@ package dev.rage.comet.model.cosmetics.menu;
 
 import com.google.common.collect.Maps;
 import dev.rage.comet.Comet;
-import dev.rage.comet.model.cosmetics.menu.buttons.BalloonButton;
-import dev.rage.comet.model.cosmetics.menu.buttons.BannerButton;
-import dev.rage.comet.model.cosmetics.menu.buttons.GadgetsButton;
-import dev.rage.comet.model.cosmetics.menu.buttons.MascotButton;
+import dev.rage.comet.model.cosmetics.menu.buttons.*;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.Menu;
@@ -37,6 +34,7 @@ public class CosmeticsMenu extends Menu {
         buttons.put(getSlot(3, 2), new BalloonButton(plugin, plugin.getBalloonManager(), plugin.getUserManager()));
         buttons.put(getSlot(4, 1), new GadgetsButton(plugin));
         buttons.put(getSlot(5, 2), new MascotButton(plugin, plugin.getMascotManager()));
+        buttons.put(getSlot(6, 1), new OutfitButton(plugin, plugin.getOutfitManager()));
 
         return buttons;
     }

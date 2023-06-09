@@ -6,30 +6,21 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-public abstract class LeatherOutfit {
-
-    public abstract String getName();
+public abstract class LeatherOutfit extends Outfit{
 
     public abstract ChatColor getColor();
 
     public abstract Color getArmorColor();
 
-    public ItemStack[] getArmor() {
-        ItemStack[] armors = new ItemStack[3];
-
-        armors[0] = new ItemStack(Material.LEATHER_BOOTS);
-        armors[1] = new ItemStack(Material.LEATHER_LEGGINGS);
-        armors[2] = new ItemStack(Material.LEATHER_CHESTPLATE);
-
-        return armors;
-    }
-
+    @Override
     public String getPermission() {
-        return "comet.outfit." + getName().toLowerCase().replace(" ", "_");
+        return "comet.outfit.leather." + getName().toLowerCase().replace(" ", "_");
     }
 
-    private ItemStack[] getColoredArmor() {
-        ItemStack[] armor = getArmor();
+    @Override
+    public ItemStack[] getArmor() {
+        ItemStack[] armor = getLeatherArmor();
+
         for (ItemStack item : armor) {
             if (item != null) {
                 LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();

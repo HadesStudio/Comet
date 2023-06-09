@@ -43,7 +43,7 @@ public class MascotManager {
         heads = Lists.newArrayList();
         particles = Lists.newArrayList();*/
 
-        init(plugin);
+        loadOrRefresh(plugin);
 
         plugin.getServer().getPluginManager().registerEvents(new MascotListener(plugin, this), plugin);
 
@@ -51,7 +51,7 @@ public class MascotManager {
                 1L, 1L);
     }
 
-    private void init(Comet plugin) {
+    private void loadOrRefresh(Comet plugin) {
         Body testBody = new Body(
                 new Heads("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjAyMzI5Mzg5YWM4NmIzNjVmNGQzZmEyNDJlZmZiYmU1ZGUyYzY3ZWVhZjkxZjVhNjM0ZmVmODU1MmNhMzhlOCJ9fX0="),
                 "Batman",
