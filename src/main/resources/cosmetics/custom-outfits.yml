@@ -1,0 +1,8 @@
+outfits:
+  Sonic:
+    displayName: "&1Sonic"
+    description:
+      - "&7Run fast!"
+    helmet:
+      type: "SKULL_ITEM"
+      texture: "" # Add texture if this is a player_skull

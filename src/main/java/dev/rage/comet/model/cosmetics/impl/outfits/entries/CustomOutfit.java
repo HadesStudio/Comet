@@ -26,7 +26,7 @@ public abstract class CustomOutfit extends Outfit {
         for (ItemStack item : armor) {
             if (item != null) {
                 LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
-                meta.setColor(Color.getColor());
+                meta.setColor();
                 item.setItemMeta(meta);
             }
         }
