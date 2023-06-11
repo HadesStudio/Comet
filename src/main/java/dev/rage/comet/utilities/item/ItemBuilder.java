@@ -4,11 +4,13 @@ import com.cryptomorin.xseries.XMaterial;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import dev.rage.comet.utilities.ChatUtil;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.lang.reflect.Field;
@@ -123,6 +125,13 @@ public class ItemBuilder {
 
     public ItemBuilder addUnsafeEnchantment(Enchantment enchantment, int level) {
         this.itemStack.addUnsafeEnchantment(enchantment, level);
+        return this;
+    }
+
+    public ItemBuilder setRGBColor(int red, int green, int blue) {
+        if (this.itemMeta instanceof LeatherArmorMeta) {
+            ((LeatherArmorMeta) this.itemMeta).setColor(Color.fromRGB(red, green, blue));
+        }
         return this;
     }
 
