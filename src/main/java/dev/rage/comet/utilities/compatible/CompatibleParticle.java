@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-public enum Particle {
+public enum CompatibleParticle {
     EXPLOSION_NORMAL("explode", 0, -1, ParticleProperty.DIRECTIONAL),
     EXPLOSION_LARGE("largeexplode", 1, -1),
     EXPLOSION_HUGE("hugeexplosion", 2, -1),
@@ -61,9 +61,9 @@ public enum Particle {
     ITEM_TAKE("take", 40, 8),
     MOB_APPEARANCE("mobappearance", 41, 8);
 
-    private static final Map<String, Particle> NAME_MAP = Maps.newHashMap();
+    private static final Map<String, CompatibleParticle> NAME_MAP = Maps.newHashMap();
 
-    private static final Map<Integer, Particle> ID_MAP = Maps.newHashMap();
+    private static final Map<Integer, CompatibleParticle> ID_MAP = Maps.newHashMap();
 
     private final String name;
 
@@ -73,7 +73,7 @@ public enum Particle {
 
     private final List<ParticleProperty> properties;
 
-    Particle(String name, int id, int requiredVersion, ParticleProperty... properties) {
+    CompatibleParticle(String name, int id, int requiredVersion, ParticleProperty... properties) {
         this.name = name;
         this.id = id;
         this.requiredVersion = requiredVersion;
@@ -81,7 +81,7 @@ public enum Particle {
     }
 
     static {
-        for (Particle effect : values()) {
+        for (CompatibleParticle effect : values()) {
             NAME_MAP.put(effect.name, effect);
             ID_MAP.put(effect.id, effect);
         }
@@ -96,8 +96,8 @@ public enum Particle {
         return (ParticlePacket.getVersion() >= this.requiredVersion);
     }
 
-    public static Particle fromName(String name) {
-        for (Map.Entry<String, Particle> entry : NAME_MAP.entrySet()) {
+    public static CompatibleParticle fromName(String name) {
+        for (Map.Entry<String, CompatibleParticle> entry : NAME_MAP.entrySet()) {
             if (!entry.getKey().equalsIgnoreCase(name))
                 continue;
             return entry.getValue();
@@ -105,8 +105,8 @@ public enum Particle {
         return null;
     }
 
-    public static Particle fromId(int id) {
-        for (Map.Entry<Integer, Particle> entry : ID_MAP.entrySet()) {
+    public static CompatibleParticle fromId(int id) {
+        for (Map.Entry<Integer, CompatibleParticle> entry : ID_MAP.entrySet()) {
             if (entry.getKey() != id)
                 continue;
             return entry.getValue();
@@ -130,11 +130,11 @@ public enum Particle {
         return false;
     }
 
-    private static boolean isDataCorrect(Particle effect, ParticleData data) {
+    private static boolean isDataCorrect(CompatibleParticle effect, ParticleData data) {
         return (((effect == BLOCK_CRACK || effect == BLOCK_DUST) && data instanceof BlockData) || (effect == ITEM_CRACK && data instanceof ItemData));
     }
 
-    private static boolean isColorCorrect(Particle effect, ParticleColor color) {
+    private static boolean isColorCorrect(CompatibleParticle effect, ParticleColor color) {
         return (((effect == SPELL_MOB || effect == SPELL_MOB_AMBIENT || effect == REDSTONE) && color instanceof OrdinaryColor) || (effect == NOTE && color instanceof NoteColor));
     }
 
@@ -435,7 +435,7 @@ public enum Particle {
 
         private static boolean initialized;
 
-        private final Particle effect;
+        private final CompatibleParticle effect;
 
         private float offsetX;
 
@@ -453,7 +453,7 @@ public enum Particle {
 
         private Object packet;
 
-        public ParticlePacket(Particle effect, float offsetX, float offsetY, float offsetZ, float speed, int amount, boolean longDistance, ParticleData data) throws IllegalArgumentException {
+        public ParticlePacket(CompatibleParticle effect, float offsetX, float offsetY, float offsetZ, float speed, int amount, boolean longDistance, ParticleData data) throws IllegalArgumentException {
             initialize();
             if (speed < 0.0F)
                 throw new IllegalArgumentException("The speed is lower than 0");
@@ -469,13 +469,13 @@ public enum Particle {
             this.data = data;
         }
 
-        public ParticlePacket(Particle effect, Vector direction, float speed, boolean longDistance, ParticleData data) throws IllegalArgumentException {
+        public ParticlePacket(CompatibleParticle effect, Vector direction, float speed, boolean longDistance, ParticleData data) throws IllegalArgumentException {
             this(effect, (float)direction.getX(), (float)direction.getY(), (float)direction.getZ(), speed, 0, longDistance, data);
         }
 
-        public ParticlePacket(Particle effect, ParticleColor color, boolean longDistance) {
+        public ParticlePacket(CompatibleParticle effect, ParticleColor color, boolean longDistance) {
             this(effect, color.getValueX(), color.getValueY(), color.getValueZ(), 1.0F, 0, longDistance, null);
-            if (effect == Particle.REDSTONE && color instanceof OrdinaryColor && ((OrdinaryColor)color).getRed() == 0)
+            if (effect == CompatibleParticle.REDSTONE && color instanceof OrdinaryColor && ((OrdinaryColor)color).getRed() == 0)
                 this.offsetX = 1.17549435E-38F;
         }
 
@@ -523,7 +523,7 @@ public enum Particle {
                     if (this.data != null) {
                         int[] packetData = this.data.getPacketData();
                         (new int[1])[0] = packetData[0] | packetData[1] << 12;
-                        ParticleReflection.setValue(this.packet, true, "k", (this.effect == Particle.ITEM_CRACK) ? packetData : new int[1]);
+                        ParticleReflection.setValue(this.packet, true, "k", (this.effect == CompatibleParticle.ITEM_CRACK) ? packetData : new int[1]);
                     }
                 }
                 ParticleReflection.setValue(this.packet, true, "b", Float.valueOf((float)center.getX()));

@@ -10,7 +10,7 @@ import dev.rage.comet.model.cosmetics.impl.mascots.impl.Mascot;
 import dev.rage.comet.model.cosmetics.impl.mascots.listener.MascotListener;
 import dev.rage.comet.model.cosmetics.impl.mascots.task.MascotRunnable;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.utilities.compatible.Particle;
+import dev.rage.comet.utilities.compatible.CompatibleParticle;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -58,7 +58,7 @@ public class MascotManager {
                 ChatUtil.translate("&a&lI'm Batman"),
                 new ItemStack(XMaterial.DIAMOND_CHESTPLATE.parseMaterial()));
 
-        testBody.setParticleEffect(Particle.CLOUD);
+        testBody.setCompatibleParticleEffect(CompatibleParticle.CLOUD);
         testBody.setParticle(true);
 
         setBodies.add(testBody);

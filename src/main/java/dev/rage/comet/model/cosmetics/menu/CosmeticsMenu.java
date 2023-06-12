@@ -35,6 +35,7 @@ public class CosmeticsMenu extends Menu {
         buttons.put(getSlot(4, 1), new GadgetsButton(plugin));
         buttons.put(getSlot(5, 2), new MascotButton(plugin, plugin.getMascotManager()));
         buttons.put(getSlot(6, 1), new OutfitButton(plugin, plugin.getOutfitManager()));
+        buttons.put(getSlot(4, 3), new ParticlesButton(plugin.getParticlesManager()));
 
         return buttons;
     }

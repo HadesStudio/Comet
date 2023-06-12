@@ -63,7 +63,7 @@ public class Mascot {
 
         updateHeadPose().join();
 
-        if (body.isParticle() && body.getParticleEffect() != null)
+        if (body.isParticle() && body.getCompatibleParticleEffect() != null)
             playParticles().join();
 
         return true;
@@ -89,7 +89,7 @@ public class Mascot {
     private CompletableFuture<Void> playParticles() {
         return CompletableFuture.runAsync(() -> {
             Location location = armorStand.getLocation().add(0, 0.3, 0);
-            body.getParticleEffect().display(0, 0, 0, 0, 1, location, 30);
+            body.getCompatibleParticleEffect().display(0, 0, 0, 0, 1, location, 30);
         });
     }
 

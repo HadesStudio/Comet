@@ -4,7 +4,7 @@ import com.cryptomorin.xseries.XMaterial;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.utilities.compatible.Particle;
+import dev.rage.comet.utilities.compatible.CompatibleParticle;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
@@ -23,7 +23,7 @@ public class Body {
     private ItemStack chestPlate;
 
     @Setter private boolean particle = false;
-    @Setter private Particle particleEffect;
+    @Setter private CompatibleParticle compatibleParticleEffect;
 
     public Body(Heads head, String name, String displayName, @Nullable ItemStack chestPlate) {
         this.head = head;

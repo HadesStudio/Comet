@@ -29,6 +29,7 @@ import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.cosmetics.impl.gadgets.GadgetsManager;
 import dev.rage.comet.model.cosmetics.impl.mascots.MascotManager;
 import dev.rage.comet.model.cosmetics.impl.outfits.OutfitManager;
+import dev.rage.comet.model.cosmetics.impl.particles.ParticlesManager;
 import dev.rage.comet.model.hcfcore.HCFCoreManager;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
@@ -102,6 +103,7 @@ public class Comet extends JavaPlugin {
     private FastBoardManager fastBoardManager;
     private GadgetsManager gadgetsManager;
     private OutfitManager outfitManager;
+    private ParticlesManager particlesManager;
     private Tablist tablist;
 
     @Override
@@ -138,6 +140,7 @@ public class Comet extends JavaPlugin {
         this.hcfCoreManager = new HCFCoreManager(this);
         this.gadgetsManager = new GadgetsManager(this);
         this.outfitManager = new OutfitManager(this);
+        this.particlesManager = new ParticlesManager(this);
 
         if (scoreboardFile.getBoolean("scoreboard.enabled")) {
             this.fastBoardManager = new FastBoardManager(this);
