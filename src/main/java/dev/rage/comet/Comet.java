@@ -78,7 +78,8 @@ public class Comet extends JavaPlugin {
             databaseFile,
             queueFile,
             serverSelectorFile,
-            balloonsFile;
+            balloonsFile,
+            customOutfitsFile;
 
     private CommandManager commandManager;
     private RankManager rankManager;
@@ -115,6 +116,7 @@ public class Comet extends JavaPlugin {
         this.tablistHeadsFile = new FileConfig(this, "tablist/heads.yml");
         this.serverSelectorFile = new FileConfig(this, "selector/server-selector.yml");
         this.balloonsFile = new FileConfig(this, "cosmetics/balloons.yml");
+        this.customOutfitsFile = new FileConfig(this, "cosmetics/custom-outfits.yml");
 
         this.commandManager = new CommandManager(this);
         this.rankManager = new RankManager();

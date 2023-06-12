@@ -2,7 +2,7 @@ package dev.rage.comet.model.cosmetics.impl.outfits.menus;
 
 import com.google.common.collect.Maps;
 import dev.rage.comet.model.cosmetics.impl.outfits.OutfitManager;
-import dev.rage.comet.model.cosmetics.impl.outfits.entries.LeatherOutfit;
+import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.LeatherOutfit;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.Menu;
@@ -26,42 +26,41 @@ public class LeatherOutfitMenu extends Menu {
 
     @Override
     public int getSize() {
-        return 9 * 5;
+        return 9 * (int) (Math.ceil(outfitManager.getLeatherOutfits().size() / 7.0) + 2);
     }
 
     @Override
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> buttons = Maps.newHashMap();
 
-        int f = 1;
-        int c = 1;
+        int f = 1, c = 1;
         for (LeatherOutfit leatherOutfit : outfitManager.getLeatherOutfits()) {
             if (c == 8) {
                 c = 1;
                 f++;
             }
 
-            buttons.put(getSlot(f, c++), new LeatherButton(leatherOutfit));
+            buttons.put(getSlot(c++, f), new LeatherOutfitButton(leatherOutfit));
         }
 
         return buttons;
     }
 
     @RequiredArgsConstructor
-    private class LeatherButton extends Button {
+    private static class LeatherOutfitButton extends Button {
 
         private final LeatherOutfit leatherOutfit;
 
         @Override
         public ItemStack getButtonItem(Player player) {
             return new ItemBuilder(leatherOutfit.getArmor()[2])
-                    .setName(leatherOutfit.getColor() + leatherOutfit.getName() + " Outfit")
+                    .setName(leatherOutfit.getDisplayName())
                     .build();
         }
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            outfitManager.apply(player, leatherOutfit);
+            leatherOutfit.apply(player);
         }
     }
 }
