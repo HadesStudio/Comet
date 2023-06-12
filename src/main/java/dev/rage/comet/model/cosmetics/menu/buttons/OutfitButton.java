@@ -20,7 +20,7 @@ public class OutfitButton extends Button {
     @Override
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(XMaterial.GOLDEN_CHESTPLATE.parseItem())
-                .setName("&aOutfit")
+                .setName("&6&lOutfit")
                 .setLore("",
                         "&7Select a outfit to use")
                 .build();

@@ -18,7 +18,7 @@ public class GadgetsButton extends Button {
     @Override
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(Material.ENDER_CHEST)
-                .setName("&aGadgets")
+                .setName("&6&lGadgets")
                 .setLore("",
                         "&7Click to view your gadgets!")
                 .build();

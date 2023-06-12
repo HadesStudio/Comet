@@ -23,7 +23,7 @@ public class CosmeticsMenu extends Menu {
 
     @Override
     public int getSize() {
-        return 9 * 4;
+        return 9 * 5;
     }
 
     @Override
