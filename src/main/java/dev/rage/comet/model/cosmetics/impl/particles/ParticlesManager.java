@@ -7,7 +7,6 @@ import dev.rage.comet.model.cosmetics.impl.particles.impl.Test;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ public class ParticlesManager {
 
                 particle.getValue().tick(particle.getKey()).join();
             }
-        }, 0L, 1L);
+        }, 0L, 4L);
     }
 
     private void loadOrRefresh() {
