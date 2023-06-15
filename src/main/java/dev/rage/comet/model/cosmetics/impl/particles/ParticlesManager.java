@@ -20,21 +20,10 @@ public class ParticlesManager {
         this.particles = Lists.newLinkedList();
         this.playerParticles = Maps.newHashMap();
 
-        loadOrRefresh();
-
-        plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-            for (Map.Entry<Player, Particle> particle : playerParticles.entrySet()) {
-                if (particle.getKey() == null || !particle.getKey().isOnline()) {
-                    playerParticles.remove(particle.getKey());
-                    continue;
-                }
-
-                particle.getValue().tick(particle.getKey()).join();
-            }
-        }, 0L, 4L);
+        loadOrRefresh(plugin);
     }
 
-    private void loadOrRefresh() {
-        particles.add(new Test(this));
+    private void loadOrRefresh(Comet plugin) {
+        particles.add(new Test(plugin, this));
     }
 }

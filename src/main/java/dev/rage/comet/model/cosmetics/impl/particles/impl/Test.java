@@ -1,19 +1,62 @@
 package dev.rage.comet.model.cosmetics.impl.particles.impl;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.particles.Particle;
 import dev.rage.comet.model.cosmetics.impl.particles.ParticlesManager;
 import dev.rage.comet.utilities.compatible.CompatibleParticle;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class Test extends Particle {
 
-    public Test(ParticlesManager particlesManager) {
-        super(particlesManager);
+    private final double radius;
+    private final int numPoints;
+    private final List<CompatibleParticle.ParticleColor> colors;
+
+    private final Map<UUID, Integer> playerVectors;
+    private final Map<UUID, Integer> playerColors;
+
+    public Test(Comet plugin, ParticlesManager particlesManager) {
+        super(plugin, particlesManager);
+
+        radius = 0.6;
+        numPoints = 28;
+
+        playerVectors = Maps.newHashMap();
+        playerColors = Maps.newHashMap();
+
+        colors = Lists.newArrayList();
+        Arrays.asList(new int[]{255, 0, 0}, new int[]{255, 127, 0}, new int[]{255, 255, 0},
+                        new int[]{127, 255, 0}, new int[]{0, 255, 0}, new int[]{0, 255, 127},
+                        new int[]{0, 255, 255}, new int[]{0, 127, 255}, new int[]{0, 0, 255},
+                        new int[]{127, 0, 255}, new int[]{255, 0, 255}, new int[]{255, 0, 127},
+                        new int[]{255, 0, 63}, new int[]{255, 63, 0}, new int[]{255, 127, 63},
+                        new int[]{255, 191, 63}, new int[]{255, 255, 63}, new int[]{191, 255, 63},
+                        new int[]{127, 255, 63}, new int[]{63, 255, 63}, new int[]{63, 255, 127},
+                        new int[]{63, 255, 191}, new int[]{63, 255, 255}, new int[]{63, 191, 255},
+                        new int[]{63, 127, 255}, new int[]{63, 63, 255}, new int[]{127, 63, 255},
+                        new int[]{191, 63, 255}, new int[]{255, 63, 255}, new int[]{255, 63, 191},
+                        new int[]{255, 63, 127}, new int[]{255, 95, 95}, new int[]{255, 127, 127},
+                        new int[]{255, 159, 159}, new int[]{255, 191, 191})
+                .forEach(ints ->
+                    colors.add(new CompatibleParticle.OrdinaryColor(ints[0], ints[1], ints[2])));
+    }
+
+    @Override
+    public long getDelay() {
+        return 2;
     }
 
     @Override
@@ -23,38 +66,43 @@ public class Test extends Particle {
 
     @Override
     public CompatibleParticle getParticle() {
-        return CompatibleParticle.CLOUD;
+        return CompatibleParticle.REDSTONE;
     }
 
     @Override
     public CompletableFuture<Void> tick(Player player) {
         return CompletableFuture.runAsync(() -> {
-            Location test = player.getLocation();
-            Vector direction = test.getDirection();
+            Location playerLocation = player.getLocation();
 
-            // get upper head
-            Location playerLocation = test.clone().add(direction.clone()).add(0, 1.5, 0);
+            World world = playerLocation.getWorld();
+            double centerX = playerLocation.getX();
+            double centerY = playerLocation.getY();
+            double centerZ = playerLocation.getZ();
 
-            double radius = 0.5; // Radio del diamante
-            double height = 0.8; // Altura del diamante
+            int ticks = playerVectors.getOrDefault(player.getUniqueId(), 0);
 
-            int centerX = playerLocation.getBlockX();
-            int centerY = playerLocation.getBlockY();
-            int centerZ = playerLocation.getBlockZ();
-
-            for (double y = centerY; y < centerY + height; y+=0.2) {
-                double currentHeight = y - centerY;
-                double radiusOffset = radius - currentHeight;
-
-                for (double x = centerX - radiusOffset; x <= centerX + radiusOffset; x+=0.2) {
-                    for (double z = centerZ - radiusOffset; z <= centerZ + radiusOffset; z+=0.2) {
-                        // Crea una partícula en las coordenadas (x, y, z) con el tipo de partícula deseado
-                        Location newLoc = new Location(playerLocation.getWorld(), x, y, z);
-                        getParticle().display(0, 0, 0, 0, 1, newLoc, 50);
-                    }
-                }
+            if (ticks >= numPoints) {
+                ticks = 0;
             }
 
+            int colorIndex = playerColors.getOrDefault(player.getUniqueId(), 0);
+
+            if (colorIndex >= colors.size()) {
+                colorIndex = 0;
+            }
+
+            CompatibleParticle.ParticleColor color = colors.get(colorIndex);
+
+            double angle = 2 * Math.PI * ticks / numPoints;
+            double x = centerX + radius * Math.cos(angle);
+            double z = centerZ + radius * Math.sin(angle);
+            double y = centerY + 2.5; // Altura de la circunferencia
+
+            Location pointLocation = new Location(world, x, y, z);
+            getParticle().display(color, pointLocation, 50);
+
+            playerColors.put(player.getUniqueId(), colorIndex + 1);
+            playerVectors.put(player.getUniqueId(), ticks + 1);
         });
     }
 }
