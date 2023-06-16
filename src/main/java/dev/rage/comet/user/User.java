@@ -6,6 +6,8 @@ import dev.rage.comet.model.cosmetics.impl.balloons.BalloonHead;
 import dev.rage.comet.model.cosmetics.impl.banners.Banner;
 import dev.rage.comet.model.cosmetics.impl.mascots.impl.Body;
 import dev.rage.comet.model.cosmetics.impl.mascots.impl.Mascot;
+import dev.rage.comet.model.cosmetics.impl.outfits.entries.Outfit;
+import dev.rage.comet.model.cosmetics.impl.particles.Particle;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -16,11 +18,13 @@ import java.util.UUID;
 @Getter @Setter
 public class User {
 
-    private UUID uuid;
-    private String name;
+    private final UUID uuid;
+    private final String name;
     private Balloon balloon;
     private Banner banner;
     private Mascot mascot;
+    private Outfit outfit;
+    private Particle particle;
 
     public User(UUID uuid, String name) {
         this.uuid = uuid;
