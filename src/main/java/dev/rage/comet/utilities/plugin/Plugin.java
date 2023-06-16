@@ -33,7 +33,7 @@ public class Plugin {
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(mediaType, "{\n    \"license\": \""+ licenseKey +"\",\n    \"product\": \""+ product +"\",\n    \"version\": \""+ version +"\"\n}");
             Request request = new Request.Builder()
-                    .url("http://89.117.76.130/api/client")
+                    .url("http://89.117.76.130:8080/api/client")
                     .method("POST", body)
                     .addHeader("Authorization", "4298a21b7b8489b61700339e03883e8a0b5416ab")
                     .build();

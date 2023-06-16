@@ -54,6 +54,7 @@ import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.command.CommandManager;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.menu.ButtonListener;
+import dev.rage.comet.utilities.plugin.Plugin;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -71,6 +72,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Comet extends JavaPlugin {
 
     private FileConfig configFile,
+            licenseFile,
             languageFile,
             hotbarFile,
             scoreboardFile,
@@ -108,6 +110,14 @@ public class Comet extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        this.licenseFile = new FileConfig(this, "license.yml");
+        if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
+            Bukkit.getServer().getPluginManager().disablePlugin(this);
+            Bukkit.getServer().getScheduler().cancelAllTasks();
+            System.out.println("[COMET] License key is invalid!");
+            return;
+        }
+
         this.configFile = new FileConfig(this, "config.yml");
         this.languageFile = new FileConfig(this, "language.yml");
         this.hotbarFile = new FileConfig(this, "hotbar.yml");
