@@ -1,2 +1,4 @@
-package dev.rage.comet.user.impl;public class FlatType {
+package dev.rage.comet.user.impl;
+
+public class FlatType {
 }
