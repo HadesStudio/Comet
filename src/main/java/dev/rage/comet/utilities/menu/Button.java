@@ -5,12 +5,26 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.function.Consumer;
+
 public abstract class Button {
 
-    public static Button placeholder(ItemStack itemStack) {
+    public static Button fromItem(ItemStack itemStack) {
         return (new Button() {
             public ItemStack getButtonItem(Player player) {
                 return itemStack.clone();
+            }
+        });
+    }
+
+    public static Button fromItem(ItemStack itemStack, Consumer<Player> consumer) {
+        return (new Button() {
+            public ItemStack getButtonItem(Player player) {
+                return itemStack.clone();
+            }
+
+            public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+                consumer.accept(player);
             }
         });
     }

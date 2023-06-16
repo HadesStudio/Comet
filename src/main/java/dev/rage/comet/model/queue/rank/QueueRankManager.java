@@ -1,9 +1,8 @@
 package dev.rage.comet.model.queue.rank;
 
-import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.Comet;
-import me.activated.core.api.player.PlayerData;
-import me.activated.core.plugin.AquaCoreAPI;
+import dev.rage.comet.model.rank.RankManager;
+import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.*;
@@ -21,11 +20,13 @@ public class QueueRankManager {
     private final Comet plugin;
     private final Map<String, QueueRank> queueRanks;
     private final Set<String> queueRankNames;
+    private final RankManager rankManager;
 
     public QueueRankManager(Comet plugin) {
         this.plugin = plugin;
         this.queueRanks = new HashMap<>();
         this.queueRankNames = new HashSet<>();
+        this.rankManager = plugin.getRankManager();
         this.loadOrRefresh();
     }
 
@@ -38,8 +39,7 @@ public class QueueRankManager {
     }
 
     public QueueRank getQueueRankByRank(UUID uuid) {
-        PlayerData playerData = AquaCoreAPI.INSTANCE.getPlayerData(uuid);
-        return queueRanks.get(playerData.getHighestRank().getName());
+        return queueRanks.get(rankManager.getRank().getRankName(uuid));
     }
 
     public void loadOrCreate(String name, ConfigurationSection section) {

@@ -2112,7 +2112,6 @@ public enum XMaterial {
      * @since 2.0.0
      */
     @Nullable
-    @SuppressWarnings("deprecation")
     public ItemStack parseItem() {
         Material material = this.parseMaterial();
         if (material == null) return null;

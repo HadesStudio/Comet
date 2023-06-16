@@ -1,0 +1,7 @@
+balloons:
+  default:
+    displayName: "&7Default"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjA3MDc4NjE5MmVlOTlhNDI0OTYwNzUzN2VjMjg5YjE5YmVmMGRjZTJhNTUzZWMxZDFlZDg1ZGJjYTkyMTU0ZiJ9fX0="
+  pepe:
+    displayName: "&aPepe"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2M5MWVjMDhjNzQ2MTQ1MzgxNzg0OWJmYjgzMTJhY2E5NDU2NmU1ZjZjMTlmODQ5NGVjMTk0NWJlZTBjYjRjZiJ9fX0="

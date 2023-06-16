@@ -40,6 +40,8 @@ public class WorldListener implements Listener {
 
     @EventHandler
     private void onMobSpawn(CreatureSpawnEvent event) {
-        event.setCancelled(true);
+        if (event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.CUSTOM) {
+            event.setCancelled(true);
+        }
     }
 }

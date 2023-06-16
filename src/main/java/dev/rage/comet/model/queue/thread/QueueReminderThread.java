@@ -4,6 +4,7 @@ import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
+import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -18,10 +19,12 @@ import org.bukkit.entity.Player;
 public class QueueReminderThread extends Thread {
 
     private final Comet plugin;
+    private final FileConfig languageFile;
     private final QueueManager queueManager;
 
     public QueueReminderThread(Comet plugin) {
         this.plugin = plugin;
+        this.languageFile = plugin.getLanguageFile();
         this.queueManager = plugin.getQueueManager();
     }
 
@@ -32,8 +35,12 @@ public class QueueReminderThread extends Thread {
                 Queue queue = queueManager.getQueueByPlayer(player);
 
                 if (queue != null) {
-                    ChatUtil.sendMessage(player, "&7You are currently in queue for &f" + queue.getServer() + "&7.");
-                    ChatUtil.sendMessage(player, "&7You are currently &f" + queueManager.getQueuePlayerPosition(queue, player.getUniqueId()) + "/" + queue.getPlayers().size() + " &7in queue.");
+                    for (String message : languageFile.getStringList("queue-message.position")) {
+                        ChatUtil.sendMessage(player, message
+                                .replace("<queue>", queue.getServer())
+                                .replace("<queue-player-position>", String.valueOf(queueManager.getQueuePlayerPosition(queue, player.getUniqueId())))
+                                .replace("<queue-player-size>", String.valueOf(queue.getPlayers().size())));
+                    }
                 }
             }
 

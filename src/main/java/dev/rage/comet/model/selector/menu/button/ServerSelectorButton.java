@@ -2,10 +2,11 @@ package dev.rage.comet.model.selector.menu.button;
 
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.selector.ServerSelector;
+import dev.rage.comet.model.selector.menu.SubServerSelectorMenu;
 import dev.rage.comet.utilities.BungeeUtil;
+import dev.rage.comet.utilities.ChatUtil;
+import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -22,26 +23,25 @@ public class ServerSelectorButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return serverSelector.getIcon();
+        ItemStack itemStack = serverSelector.getIcon().clone();
+        return new ItemBuilder(itemStack)
+                .setName(ChatUtil.placeholder(player, itemStack.getItemMeta().getDisplayName()))
+                .setLore(ChatUtil.placeholder(player, itemStack.getItemMeta().getLore()))
+                .build();
     }
 
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        if (!serverSelector.getSubServerSelectors().isEmpty()) {
+            SubServerSelectorMenu subServerSelectorMenu = new SubServerSelectorMenu(plugin, serverSelector);
+            subServerSelectorMenu.openMenu(player);
+            return;
+        }
+
         String server = serverSelector.getServer();
 
         if (!server.isEmpty()) BungeeUtil.sendBungeeServer(plugin, player, server);
 
-        for (String command : serverSelector.getCommands()) {
-            CommandSender sender = Bukkit.getConsoleSender();
-            boolean isPlayer = command.contains("player:");
-
-            if (isPlayer) {
-                sender = player;
-                command = command.replace("player:", "");
-            }
-
-            Bukkit.dispatchCommand(sender, command
-                    .replace("<player>", player.getName()));
-        }
+        serverSelector.executeCommands(player);
     }
 }

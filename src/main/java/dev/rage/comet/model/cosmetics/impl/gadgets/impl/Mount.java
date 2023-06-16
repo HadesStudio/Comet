@@ -1,0 +1,72 @@
+package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
+
+import com.cryptomorin.xseries.XMaterial;
+import dev.rage.comet.Comet;
+import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
+import dev.rage.comet.utilities.item.ItemBuilder;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.inventory.ItemStack;
+
+public class Mount extends Gadget {
+
+    public Mount(Comet plugin) {
+        super(plugin);
+    }
+
+    @Override
+    public String getName() {
+        return "Mount";
+    }
+
+    @Override
+    public String getPermission() {
+        return "comet.gadgets.mount";
+    }
+
+    @Override
+    public ItemStack getIcon() {
+        return new ItemBuilder(XMaterial.SADDLE.parseMaterial())
+                .setName(ChatColor.GREEN + getName())
+                .setLore("",
+                        ChatColor.GRAY + "Right click to get this gadget!"
+                ).build();
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return new ItemBuilder(XMaterial.SADDLE.parseMaterial())
+                .setName(ChatColor.GREEN + getName())
+                .setLore("",
+                        ChatColor.GRAY + "Right-click to a Player!")
+                .build();
+    }
+
+    @Override
+    public void onUsage(Player player) {
+        player.getInventory().setItem(1, getIcon());
+    }
+
+    @Override
+    public void onDisable() {
+
+    }
+
+
+    @EventHandler
+    public void onInteract(PlayerInteractAtEntityEvent event) {
+        if (event.getRightClicked() == null || !(event.getRightClicked() instanceof Player)) return;
+
+        Player player = event.getPlayer();
+        ItemStack hand = player.getInventory().getItemInHand();
+
+        if (hand == null) return;
+
+        if (isItem(hand, getIcon())) {
+            event.setCancelled(true);
+            event.getRightClicked().setPassenger(player);
+        }
+    }
+}

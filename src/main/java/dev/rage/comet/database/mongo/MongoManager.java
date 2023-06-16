@@ -22,8 +22,4 @@ public class MongoManager {
     public Mongo getMongo(String name) {
         return mongoMap.get(name);
     }
-
-    public void onDisable() {
-        mongoMap.values().forEach(Mongo::disconnect);
-    }
 }

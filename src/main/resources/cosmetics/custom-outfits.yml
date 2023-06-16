@@ -1,0 +1,18 @@
+outfits:
+  Sonic:
+    displayName: "&1Sonic"
+    description:
+      - "&7Run fast!"
+    helmet:
+      type: "SKULL_ITEM"
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTNjNTgyMThmMjA3NWE1NjhlY2ZmZTVkZmNiNzk2NzZiMzIxMDFkNzE3MmUxNWZjZWRhMWMwNjY4NTdjNDNiMCJ9fX0=" # Add texture if this is a player_skull
+      rgb: "0,0,0" # Add RGB if this is a leather helmet
+    chestplate:
+      type: "LEATHER_CHESTPLATE"
+      rgb: "51,51,255"
+    leggings:
+      type: "LEATHER_LEGGINGS"
+      rgb: "51,51,255"
+    boots:
+      type: "LEATHER_BOOTS"
+      rgb: "51,51,255"

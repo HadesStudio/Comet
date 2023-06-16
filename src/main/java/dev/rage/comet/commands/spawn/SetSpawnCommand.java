@@ -6,13 +6,16 @@ import dev.rage.comet.utilities.command.Command;
 import dev.rage.comet.utilities.command.CommandArgs;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.spawn.SpawnManager;
+import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.entity.Player;
 
 public class SetSpawnCommand extends BaseCommand {
 
+	private final FileConfig languageFile;
 	private final SpawnManager spawnManager;
 
 	public SetSpawnCommand(Comet plugin) {
+		this.languageFile = plugin.getLanguageFile();
 		this.spawnManager = plugin.getSpawnManager();
 	}
 
@@ -22,6 +25,6 @@ public class SetSpawnCommand extends BaseCommand {
 		Player player = command.getPlayer();
 
 		spawnManager.setLocation(player.getLocation());
-		ChatUtil.sendMessage(player, "&aSpawn location has been set.");
+		ChatUtil.sendMessage(player, languageFile.getString("spawn-message.set"));
 	}
 }
