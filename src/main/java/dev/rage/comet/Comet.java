@@ -13,6 +13,7 @@ import dev.rage.comet.commands.timer.TimerCommand;
 import dev.rage.comet.commands.timer.subcommand.TimerListCommand;
 import dev.rage.comet.commands.timer.subcommand.TimerStartCommand;
 import dev.rage.comet.commands.timer.subcommand.TimerStopCommand;
+import dev.rage.comet.database.mongo.Mongo;
 import dev.rage.comet.database.mongo.MongoManager;
 import dev.rage.comet.database.redis.RedisManager;
 import dev.rage.comet.integrations.PlaceholderAPIHook;
@@ -133,7 +134,7 @@ public class Comet extends JavaPlugin {
         this.commandManager = new CommandManager(this);
         this.rankManager = new RankManager();
         this.mascotManager = new MascotManager(this);
-        this.userManager = new UserManager(this);
+        this.userManager = new UserManager(this, );
         this.serverDataManager = new ServerDataManager();
         this.spawnManager = new SpawnManager(this);
         this.bannerManager = new BannerManager();
@@ -232,5 +233,10 @@ public class Comet extends JavaPlugin {
         this.headManager.loadOrRefresh();
         this.balloonManager.loadOrRefresh();
         if (fastBoardManager != null) this.fastBoardManager.resetBoardAnimation();
+    }
+
+    
+    private Mongo getMongo() {
+        return mongoManager.getMongo();
     }
 }

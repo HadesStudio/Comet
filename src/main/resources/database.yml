@@ -1,4 +1,5 @@
 mongo-uri:
+  comet: ""
   hcf: ""
   kitmap: ""
 

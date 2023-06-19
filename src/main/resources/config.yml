@@ -3,6 +3,9 @@
 # This option is only for the HCFCore plugin.
 hcfcore-type: ""
 
+# Use "FILE" or "MONGO"
+save_method: "FILE"
+
 double-jump:
   enabled: true
   effect: "EXPLOSION_HUGE"
