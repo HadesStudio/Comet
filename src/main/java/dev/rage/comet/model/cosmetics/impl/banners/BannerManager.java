@@ -20,4 +20,12 @@ public class BannerManager {
         this.banners.put("spain", new SpainBanner());
         this.banners.put("usa", new USABanner());
     }
+
+    public boolean exists(String name) {
+        return banners.containsKey(name);
+    }
+
+    public Banner getBanner(String name) {
+        return banners.getOrDefault(name, null);
+    }
 }

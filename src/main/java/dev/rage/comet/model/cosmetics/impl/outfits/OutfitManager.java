@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Table;
 import dev.rage.comet.Comet;
+import dev.rage.comet.model.cosmetics.impl.outfits.entries.Outfit;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.CustomOutfit;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.LeatherOutfit;
 import dev.rage.comet.utilities.item.ItemBuilder;
@@ -113,5 +114,14 @@ public class OutfitManager {
             throw new IllegalArgumentException("Invalid RGB color format, please fix it or contact with the developer.");
         }
         return rgb;
+    }
+
+    public boolean exists(String name) {
+        return leatherOutfits.stream().anyMatch(outfit -> outfit.getName().equalsIgnoreCase(name))
+                || customOutfits.stream().anyMatch(outfit -> outfit.getName().equalsIgnoreCase(name));
+    }
+
+    public Outfit getOutfit(String name) {
+        return leatherOutfits.stream().filter(outfit -> outfit.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 }

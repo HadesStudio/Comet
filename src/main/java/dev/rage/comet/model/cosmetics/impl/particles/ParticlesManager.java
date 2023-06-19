@@ -26,4 +26,12 @@ public class ParticlesManager {
     private void loadOrRefresh(Comet plugin) {
         particles.add(new Test(plugin, this));
     }
+
+    public boolean exists(String name) {
+        return particles.stream().anyMatch(particle -> particle.getName().equalsIgnoreCase(name));
+    }
+
+    public Particle getParticle(String name) {
+        return particles.stream().filter(particle -> particle.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+    }
 }

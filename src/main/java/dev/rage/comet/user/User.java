@@ -20,11 +20,15 @@ public class User {
 
     private final UUID uuid;
     private final String name;
-    private Balloon balloon;
+    /*private String balloon, banner, mascot, outfit, particle;*/
+    private BalloonHead balloon;
     private Banner banner;
-    private Mascot mascot;
+    private Body mascot;
     private Outfit outfit;
     private Particle particle;
+
+    private Balloon balloonModel;
+    private Mascot mascotModel;
 
     public User(UUID uuid, String name) {
         this.uuid = uuid;
@@ -35,7 +39,7 @@ public class User {
         return this.balloon != null;
     }
 
-    public void applyBalloon(Player player, BalloonHead balloonHead) {
+    /*public void applyBalloon(Player player, BalloonHead balloonHead) {
         if (hasBalloon()) removeBalloon();
 
         this.balloon = new Balloon(player, balloonHead.getHead());
@@ -45,13 +49,13 @@ public class User {
     public void removeBalloon() {
         this.balloon.remove();
         this.balloon = null;
-    }
+    }*/
 
     public boolean hasMascot() {
         return this.mascot != null;
     }
 
-    public void applyMascot(Comet plugin, Player player, Body body) {
+    /*public void applyMascot(Comet plugin, Player player, Body body) {
         if (hasMascot()) removeMascot(plugin);
 
 
@@ -62,13 +66,13 @@ public class User {
     public void removeMascot(Comet plugin) {
         this.mascot = null;
         plugin.getMascotManager().getMascots().get(uuid).die();
-    }
+    }*/
 
     public boolean hasBanner() {
         return this.banner != null;
     }
 
-    public void applyBanner(Player player, Banner banner) {
+    /*public void applyBanner(Player player, Banner banner) {
         this.banner = banner;
         player.getInventory().setHelmet(banner.getItem());
     }
@@ -76,6 +80,14 @@ public class User {
     public void removeBanner(Player player) {
         this.banner = null;
         player.getInventory().setHelmet(null);
+    }*/
+
+    public boolean hasOutfit() {
+        return this.outfit != null;
+    }
+
+    public boolean hasParticle() {
+        return this.particle != null;
     }
 
     public Player getPlayer() {

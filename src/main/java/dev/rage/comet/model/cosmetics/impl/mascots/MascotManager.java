@@ -110,4 +110,12 @@ public class MascotManager {
                 "&cDefault Head",
                 new ItemStack(Material.DIAMOND_CHESTPLATE));
     }
+
+    public boolean exists(String name) {
+        return getSetBodies().stream().anyMatch(body -> body.getName().equalsIgnoreCase(name));
+    }
+
+    public Body getBody(String name) {
+        return getSetBodies().stream().filter(body -> body.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+    }
 }

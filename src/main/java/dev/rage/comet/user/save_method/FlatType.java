@@ -17,7 +17,7 @@ public abstract class FlatType {
 
     public abstract void save(User user);
 
-    public abstract User getUser(String name);
+    public abstract User getUserFromDB(String name);
 
-    public abstract User getUser(UUID uuid);
+    public abstract User getUserFromDB(UUID uuid);
 }
