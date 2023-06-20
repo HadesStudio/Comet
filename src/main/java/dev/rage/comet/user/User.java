@@ -88,7 +88,7 @@ public class User {
         if (this.mascotModel != null) this.mascotModel.die();
     }
 
-    /*public void applyBanner(Player player, Banner banner) {
+    public void applyBanner(Player player, Banner banner) {
         this.banner = banner;
         player.getInventory().setHelmet(banner.getItem());
     }
@@ -96,7 +96,7 @@ public class User {
     public void removeBanner(Player player) {
         this.banner = null;
         player.getInventory().setHelmet(null);
-    }*/
+    }
 
     public Player getPlayer() {
         return Bukkit.getPlayer(uuid);

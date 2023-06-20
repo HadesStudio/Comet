@@ -32,7 +32,7 @@ public class RemoveBannerButton extends Button {
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
         User user = userManager.getUser(player.getUniqueId());
 
-        if (!user.hasBanner()) {
+        if (user.getBanner() == null) {
             playFail(player);
             ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.banner.not-applied"));
             return;
