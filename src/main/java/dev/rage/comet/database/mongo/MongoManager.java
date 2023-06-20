@@ -17,6 +17,10 @@ public class MongoManager {
         this.mongoMap = new HashMap<>();
         this.mongoMap.put("hcf", new Mongo(plugin, "hcf"));
         this.mongoMap.put("kitmap", new Mongo(plugin, "kitmap"));
+
+        if (plugin.getConfigFile().getString("save_method").equalsIgnoreCase("MONGO")) {
+            this.mongoMap.put("comet", new Mongo(plugin, "comet"));
+        }
     }
 
     public Mongo getMongo(String name) {

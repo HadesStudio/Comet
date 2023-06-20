@@ -35,11 +35,10 @@ public class UserListener implements Listener {
 
     @EventHandler
     private void onPlayerSaveProfile(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
         User user = userManager.getUser(event.getPlayer().getUniqueId());
 
         if (user != null) {
-            userManager.destroyUser(user, player, true);
+            userManager.destroyUser(user, true);
         }
     }
 }

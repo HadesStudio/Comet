@@ -14,7 +14,7 @@ public class BalloonRunnable implements Runnable {
         for (User user : userManager.getUsers().values()) {
             if (!user.hasBalloon()) continue;
 
-            if (!user.getBalloon().tick()) {
+            if (!user.getBalloonModel().tick()) {
                 user.removeBalloon();
             }
         }

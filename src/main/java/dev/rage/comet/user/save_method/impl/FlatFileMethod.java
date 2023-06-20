@@ -23,71 +23,75 @@ public class FlatFileMethod extends FlatType {
     }
 
     @Override
-    public void load(User user) {
-        String path = "users." + user.getUuid().toString() + ".";
+    public CompletableFuture<Void> load(User user) {
+        return CompletableFuture.runAsync(() -> {
+            String path = "users." + user.getUuid().toString() + ".";
 
-        if (configuration.contains(path + "balloon")) {
-            String balloonName = configuration.getString(path + "balloon");
-            if (!plugin.getBalloonManager().exists(balloonName)) {
-                configuration.set(path + "balloon", null);
-                return;
+            if (configuration.contains(path + "balloon")) {
+                String balloonName = configuration.getString(path + "balloon");
+                if (!plugin.getBalloonManager().exists(balloonName)) {
+                    configuration.set(path + "balloon", null);
+                    return;
+                }
+
+                user.setBalloon(plugin.getBalloonManager().getBalloonHead(balloonName));
             }
 
-            user.setBalloon(plugin.getBalloonManager().getBalloonHead(fileConfig.getString(path + "balloon")));
-        }
+            if (configuration.contains(path + "banner")) {
+                String bannerName = configuration.getString(path + "banner");
+                if (!plugin.getBannerManager().exists(bannerName)) {
+                    configuration.set(path + "banner", null);
+                    return;
+                }
 
-        if (configuration.contains(path + "banner")) {
-            String bannerName = configuration.getString(path + "banner");
-            if (!plugin.getBannerManager().exists(bannerName)) {
-                configuration.set(path + "banner", null);
-                return;
+                user.setBanner(plugin.getBannerManager().getBanner(bannerName));
             }
 
-            user.setBanner(plugin.getBannerManager().getBanner(fileConfig.getString(path + "banner")));
-        }
+            if (configuration.contains(path + "mascot")) {
+                String mascotName = configuration.getString(path + "mascot");
+                if (!plugin.getMascotManager().exists(mascotName)) {
+                    configuration.set(path + "mascot", null);
+                    return;
+                }
 
-        if (configuration.contains(path + "mascot")) {
-            String mascotName = configuration.getString(path + "mascot");
-            if (!plugin.getMascotManager().exists(mascotName)) {
-                configuration.set(path + "mascot", null);
-                return;
+                user.setMascot(plugin.getMascotManager().getBody(mascotName));
             }
 
-            user.setMascot(plugin.getMascotManager().getBody(fileConfig.getString(path + "mascot")));
-        }
+            if (configuration.contains(path + "outfit")) {
+                String outfitName = configuration.getString(path + "outfit");
+                if (!plugin.getOutfitManager().exists(outfitName)) {
+                    configuration.set(path + "outfit", null);
+                    return;
+                }
 
-        if (configuration.contains(path + "outfit")) {
-            String outfitName = configuration.getString(path + "outfit");
-            if (!plugin.getOutfitManager().exists(outfitName)) {
-                configuration.set(path + "outfit", null);
-                return;
+                user.setOutfit(plugin.getOutfitManager().getOutfit(outfitName));
             }
 
-            user.setOutfit(plugin.getOutfitManager().getOutfit(fileConfig.getString(path + "outfit")));
-        }
+            if (configuration.contains(path + "particle")) {
+                String particleName = configuration.getString(path + "particle");
+                if (!plugin.getParticlesManager().exists(particleName)) {
+                    configuration.set(path + "particle", null);
+                    return;
+                }
 
-        if (configuration.contains(path + "particle")) {
-            String particleName = configuration.getString(path + "particle");
-            if (!plugin.getParticlesManager().exists(particleName)) {
-                configuration.set(path + "particle", null);
-                return;
+                user.setParticle(plugin.getParticlesManager().getParticle(particleName));
             }
-
-            user.setParticle(plugin.getParticlesManager().getParticle(fileConfig.getString(path + "particle")));
-        }
+        });
     }
 
     @Override
-    public void save(User user) {
-        String path = "users." + user.getUuid().toString() + ".";
+    public CompletableFuture<Void> save(User user) {
+        return CompletableFuture.runAsync(() -> {
+            String path = "users." + user.getUuid().toString() + ".";
 
-        if (user.hasBalloon()) configuration.set(path + "balloon", user.getBalloon());
-        if (user.hasBanner()) configuration.set(path + "banner", user.getBanner());
-        if (user.hasMascot()) configuration.set(path + "mascot", user.getMascot());
-        if (user.hasOutfit()) configuration.set(path + "outfit", user.getOutfit());
-        if (user.hasParticle()) configuration.set(path + "particle", user.getParticle());
+            if (user.getBalloon() != null) configuration.set(path + "balloon", user.getBalloon());
+            if (user.getBanner() != null) configuration.set(path + "banner", user.getBanner());
+            if (user.getMascot() != null) configuration.set(path + "mascot", user.getMascot());
+            if (user.getOutfit() != null) configuration.set(path + "outfit", user.getOutfit());
+            if (user.getParticle() != null) configuration.set(path + "particle", user.getParticle());
 
-        fileConfig.save();
+            fileConfig.save();
+        });
     }
 
     @Override

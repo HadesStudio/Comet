@@ -13,7 +13,6 @@ import dev.rage.comet.commands.timer.TimerCommand;
 import dev.rage.comet.commands.timer.subcommand.TimerListCommand;
 import dev.rage.comet.commands.timer.subcommand.TimerStartCommand;
 import dev.rage.comet.commands.timer.subcommand.TimerStopCommand;
-import dev.rage.comet.database.mongo.Mongo;
 import dev.rage.comet.database.mongo.MongoManager;
 import dev.rage.comet.database.redis.RedisManager;
 import dev.rage.comet.integrations.PlaceholderAPIHook;
@@ -131,10 +130,12 @@ public class Comet extends JavaPlugin {
         this.balloonsFile = new FileConfig(this, "cosmetics/balloons.yml");
         this.customOutfitsFile = new FileConfig(this, "cosmetics/custom-outfits.yml");
 
+        this.mongoManager = new MongoManager(this);
+        this.redisManager = new RedisManager(this);
         this.commandManager = new CommandManager(this);
         this.rankManager = new RankManager();
         this.mascotManager = new MascotManager(this);
-        this.userManager = new UserManager(this, );
+        this.userManager = new UserManager(this, mongoManager.getMongo("comet"));
         this.serverDataManager = new ServerDataManager();
         this.spawnManager = new SpawnManager(this);
         this.bannerManager = new BannerManager();
@@ -146,8 +147,6 @@ public class Comet extends JavaPlugin {
         this.headManager = new HeadManager(this);
         this.queueRankManager = new QueueRankManager(this);
         this.queueManager = new QueueManager(this);
-        this.mongoManager = new MongoManager(this);
-        this.redisManager = new RedisManager(this);
         this.hcfCoreManager = new HCFCoreManager(this);
         this.gadgetsManager = new GadgetsManager(this);
         this.outfitManager = new OutfitManager(this);
@@ -233,10 +232,5 @@ public class Comet extends JavaPlugin {
         this.headManager.loadOrRefresh();
         this.balloonManager.loadOrRefresh();
         if (fastBoardManager != null) this.fastBoardManager.resetBoardAnimation();
-    }
-
-    
-    private Mongo getMongo() {
-        return mongoManager.getMongo();
     }
 }

@@ -14,6 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @Getter @Setter
 public class User {
@@ -36,40 +37,55 @@ public class User {
     }
 
     public boolean hasBalloon() {
-        return this.balloon != null;
+        return this.balloonModel != null;
     }
 
-    /*public void applyBalloon(Player player, BalloonHead balloonHead) {
+    public boolean hasMascot() {
+        return this.mascotModel != null;
+    }
+
+    /*
+        I will keep it with the Void supply as I may have problems when switching lobbies directly
+        when swapping lobbies directly
+    */
+    public CompletableFuture<Void> load(UserManager userManager) {
+        return userManager.getFlatType().load(this);
+    }
+
+    public CompletableFuture<Void> save(UserManager userManager) {
+        return userManager.getFlatType().save(this);
+    }
+
+    public void applyBalloon(Player player, BalloonHead balloonHead) {
         if (hasBalloon()) removeBalloon();
 
-        this.balloon = new Balloon(player, balloonHead.getHead());
-        this.balloon.spawn();
+        if (this.balloon.getId().equals(balloonHead.getId())) return;
+        else this.balloon = balloonHead;
+
+        this.balloonModel = new Balloon(player, balloonHead.getHead());
+        this.balloonModel.spawn();
     }
 
     public void removeBalloon() {
-        this.balloon.remove();
+        this.balloonModel.remove();
+        this.balloonModel = null;
         this.balloon = null;
-    }*/
-
-    public boolean hasMascot() {
-        return this.mascot != null;
     }
 
-    /*public void applyMascot(Comet plugin, Player player, Body body) {
+    public void applyMascot(Comet plugin, Player player, Body body) {
         if (hasMascot()) removeMascot(plugin);
 
+        if (this.mascot.getName().equals(body.getName())) return;
+        else this.mascot = body;
 
-        this.mascot = new Mascot(plugin, player, body);
-        plugin.getMascotManager().getMascots().put(uuid, mascot);
+        this.mascotModel = new Mascot(plugin, player, body);
+        plugin.getMascotManager().getMascots().put(uuid, mascotModel);
     }
 
     public void removeMascot(Comet plugin) {
         this.mascot = null;
-        plugin.getMascotManager().getMascots().get(uuid).die();
-    }*/
 
-    public boolean hasBanner() {
-        return this.banner != null;
+        if (this.mascotModel != null) this.mascotModel.die();
     }
 
     /*public void applyBanner(Player player, Banner banner) {
@@ -81,14 +97,6 @@ public class User {
         this.banner = null;
         player.getInventory().setHelmet(null);
     }*/
-
-    public boolean hasOutfit() {
-        return this.outfit != null;
-    }
-
-    public boolean hasParticle() {
-        return this.particle != null;
-    }
 
     public Player getPlayer() {
         return Bukkit.getPlayer(uuid);
