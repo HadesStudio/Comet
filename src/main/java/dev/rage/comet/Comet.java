@@ -51,6 +51,7 @@ import dev.rage.comet.tablist.TablistProvider;
 import dev.rage.comet.tablist.head.HeadManager;
 import dev.rage.comet.user.UserListener;
 import dev.rage.comet.user.UserManager;
+import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.command.CommandManager;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.menu.ButtonListener;
@@ -59,6 +60,8 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Arrays;
 
 /**
  * Created by Risas
@@ -111,12 +114,20 @@ public class Comet extends JavaPlugin {
     @Override
     public void onEnable() {
         this.licenseFile = new FileConfig(this, "license.yml");
-        /*if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
+        if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
             Bukkit.getServer().getPluginManager().disablePlugin(this);
             Bukkit.getServer().getScheduler().cancelAllTasks();
-            System.out.println("[COMET] License key is invalid!");
+            Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
+                    "",
+                    " &f&l* &bAuthors&7: &f" + getDescription().getAuthors(),
+                    " &f&l* &bPlugin Version&7: &f" + getDescription().getVersion(),
+                    " &f&l* &bLicense Status&7: &aVALID",
+                    " &f&l* &bThanks for using Comet Hubcore <3",
+                    " &f&l* &bIf u have support join to &ndiscord.gg/6GpV8ARYsG")
+                    .forEach(s ->
+                        Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
             return;
-        }*/
+        }
 
         this.configFile = new FileConfig(this, "config.yml");
         this.languageFile = new FileConfig(this, "language.yml");
