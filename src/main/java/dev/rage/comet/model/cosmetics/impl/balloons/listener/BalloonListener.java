@@ -1,5 +1,6 @@
-package dev.rage.comet.model.cosmetics.impl.balloons;
+package dev.rage.comet.model.cosmetics.impl.balloons.listener;
 
+import dev.rage.comet.model.cosmetics.impl.balloons.BalloonManager;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.event.EventHandler;

@@ -2,6 +2,7 @@ package dev.rage.comet.model.cosmetics.impl.balloons;
 
 import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
+import dev.rage.comet.model.cosmetics.impl.balloons.listener.BalloonListener;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
