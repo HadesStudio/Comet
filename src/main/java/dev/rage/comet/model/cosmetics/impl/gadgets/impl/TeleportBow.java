@@ -72,6 +72,7 @@ public class TeleportBow extends Gadget {
             Player player = (Player) event.getEntity().getShooter();
 
             if (hasCooldown(player.getUniqueId())) {
+                refund(player);
                 player.sendMessage(ChatColor.RED + "You are still on cooldown!");
                 return;
             }
@@ -79,7 +80,7 @@ public class TeleportBow extends Gadget {
             if (isItem(player.getItemInHand(), getItem())) {
                 setCooldown(player.getUniqueId(), TimeUnit.SECONDS.toMillis(3));
 
-                event.getEntity().setMetadata(plugin.getName() + getName(), new FixedMetadataValue(plugin, true));
+                event.getEntity().setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
 
                 plugin.getServer().getScheduler().runTaskLater(plugin, () -> refund(player), 2L);
             }
@@ -95,7 +96,7 @@ public class TeleportBow extends Gadget {
                 location.setDirection(player.getLocation().getDirection());
                 player.teleport(location);
 
-                event.getEntity().removeMetadata(plugin.getName() + getName(), plugin);
+                event.getEntity().removeMetadata(plugin.getName(), plugin);
             }
         }
     }
