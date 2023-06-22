@@ -37,7 +37,11 @@ public class GadgetsMenu extends Menu {
                 j++;
             }
 
-            buttons.put(getSlot(i, j), Button.fromItem(gadget.getIcon(), gadget::onUsage));
+            buttons.put(getSlot(i, j), Button.fromItem(gadget.getIcon(), player1 -> {
+                plugin.getNormalHotbarManager().giveHotbar(player);
+                plugin.getCustomHotbarManager().giveHotbar(player);
+                gadget.onUsage(player1);
+            }));
         }
 
         return buttons;

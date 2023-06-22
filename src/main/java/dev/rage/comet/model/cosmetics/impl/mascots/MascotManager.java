@@ -102,6 +102,10 @@ public class MascotManager {
         }*/
     }
 
+    public void onDisable() {
+        mascots.values().forEach(Mascot::die);
+    }
+
     public Body getDefaultBody() {
         return new Body(
                 new Heads(
