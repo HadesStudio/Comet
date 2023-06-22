@@ -111,12 +111,12 @@ public class Comet extends JavaPlugin {
     @Override
     public void onEnable() {
         this.licenseFile = new FileConfig(this, "license.yml");
-        if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
+        /*if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
             Bukkit.getServer().getPluginManager().disablePlugin(this);
             Bukkit.getServer().getScheduler().cancelAllTasks();
             System.out.println("[COMET] License key is invalid!");
             return;
-        }
+        }*/
 
         this.configFile = new FileConfig(this, "config.yml");
         this.languageFile = new FileConfig(this, "language.yml");

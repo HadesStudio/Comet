@@ -36,12 +36,16 @@ public class User {
         this.name = name;
     }
 
-    public boolean hasBalloon() {
+    public boolean hasBalloonModel() {
         return this.balloonModel != null;
     }
 
-    public boolean hasMascot() {
+    public boolean hasMascotModel() {
         return this.mascotModel != null;
+    }
+
+    public boolean hasBannerModel() {
+        return this.getPlayer() != null && this.getPlayer().getInventory().getHelmet() != null;
     }
 
     /*
@@ -57,10 +61,10 @@ public class User {
     }
 
     public void applyBalloon(Player player, BalloonHead balloonHead) {
-        if (hasBalloon()) removeBalloon();
+        if (hasBalloonModel()) removeBalloon();
 
-        if (this.balloon.getId().equals(balloonHead.getId())) return;
-        else this.balloon = balloonHead;
+        if (this.balloon == null || !this.balloon.getId().equals(balloonHead.getId()))
+            this.balloon = balloonHead;
 
         this.balloonModel = new Balloon(player, balloonHead.getHead());
         this.balloonModel.spawn();
@@ -73,10 +77,10 @@ public class User {
     }
 
     public void applyMascot(Comet plugin, Player player, Body body) {
-        if (hasMascot()) removeMascot(plugin);
+        if (hasMascotModel()) removeMascot(plugin);
 
-        if (this.mascot.getName().equals(body.getName())) return;
-        else this.mascot = body;
+        if (this.mascot == null || !this.mascot.getName().equals(body.getName()))
+            this.mascot = body;
 
         this.mascotModel = new Mascot(plugin, player, body);
         plugin.getMascotManager().getMascots().put(uuid, mascotModel);
@@ -89,6 +93,11 @@ public class User {
     }
 
     public void applyBanner(Player player, Banner banner) {
+        if (hasBannerModel()) removeBanner(player);
+
+        if (this.banner == null || !this.banner.getId().equals(banner.getId()))
+            this.banner = banner;
+
         this.banner = banner;
         player.getInventory().setHelmet(banner.getItem());
     }

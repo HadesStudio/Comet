@@ -31,6 +31,10 @@ public class ParticlesManager {
         return particles.stream().anyMatch(particle -> particle.getName().equalsIgnoreCase(name));
     }
 
+    public void apply(Player player, Particle particle) {
+        playerParticles.put(player, particle);
+    }
+
     public Particle getParticle(String name) {
         return particles.stream().filter(particle -> particle.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }

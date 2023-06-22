@@ -12,7 +12,7 @@ public class BalloonRunnable implements Runnable {
     @Override
     public void run() {
         for (User user : userManager.getUsers().values()) {
-            if (!user.hasBalloon()) continue;
+            if (!user.hasBalloonModel()) continue;
 
             if (!user.getBalloonModel().tick()) {
                 user.removeBalloon();

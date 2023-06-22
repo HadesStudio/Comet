@@ -30,9 +30,7 @@ public class ParticlesMenu extends Menu {
         for (Particle particle : particlesManager.getParticles()) {
             buttons.put(buttons.size(), Button.fromItem(new ItemBuilder(Material.SLIME_BALL)
                         .setName("&a" + particle.getName())
-                        .build(), player1 -> {
-                    particlesManager.getPlayerParticles().put(player1, particle);
-            }));
+                        .build(), player1 -> particlesManager.apply(player1, particle)));
         }
 
         return buttons;

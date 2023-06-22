@@ -1,13 +1,11 @@
 package dev.rage.comet.user;
 
-import com.mongodb.client.MongoCollection;
 import dev.rage.comet.Comet;
 import dev.rage.comet.database.mongo.Mongo;
 import dev.rage.comet.user.save_method.FlatType;
 import dev.rage.comet.user.save_method.impl.FlatFileMethod;
 import dev.rage.comet.user.save_method.impl.FlatMongoMethod;
 import lombok.Getter;
-import org.bson.Document;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
@@ -28,31 +26,41 @@ public class UserManager {
         this.plugin = plugin;
         this.users = new HashMap<>();
 
-        if (mongo != null) {
+        if (mongo != null)
             this.flatType = new FlatMongoMethod(plugin, this, mongo);
-        } else {
+        else
             this.flatType = new FlatFileMethod(plugin, this);
-        }
     }
 
     public User getUser(UUID uuid) {
         return users.getOrDefault(uuid, null);
     }
 
-    public void createUser(UUID uuid, String name) {
+    public User createUser(UUID uuid, String name) {
         User user = new User(uuid, name);
 
         user.load(this);
 
         users.put(uuid, user);
+
+        return user;
+    }
+
+    public User createUser(Player player) {
+        User user = new User(player.getUniqueId(), player.getName());
+
+        user.load(this).join();
+
+        users.put(player.getUniqueId(), user);
+        return user;
     }
 
     public void destroyUser(User user, boolean delete) {
-        if (user.hasBalloon()) user.removeBalloon();
-        //if (user.hasBanner()) user.removeBanner(player);
-        if (delete) users.remove(user.getUuid());
-
-        user.save(this).join();
+        user.save(this).thenAccept(unused -> {
+            if (user.hasBalloonModel()) user.removeBalloon();
+            //if (user.hasBanner()) user.removeBanner(player);
+            if (delete) users.remove(user.getUuid());
+        });
     }
 
     public void onDisable() {

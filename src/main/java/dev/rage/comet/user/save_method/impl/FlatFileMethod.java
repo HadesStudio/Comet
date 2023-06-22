@@ -84,11 +84,13 @@ public class FlatFileMethod extends FlatType {
         return CompletableFuture.runAsync(() -> {
             String path = "users." + user.getUuid().toString() + ".";
 
-            if (user.getBalloon() != null) configuration.set(path + "balloon", user.getBalloon());
-            if (user.getBanner() != null) configuration.set(path + "banner", user.getBanner());
-            if (user.getMascot() != null) configuration.set(path + "mascot", user.getMascot());
-            if (user.getOutfit() != null) configuration.set(path + "outfit", user.getOutfit());
-            if (user.getParticle() != null) configuration.set(path + "particle", user.getParticle());
+            configuration.set(path + "name", user.getName());
+
+            configuration.set(path + "balloon", user.getBalloon() == null ? null : user.getBalloon().getId());
+            configuration.set(path + "banner", user.getBanner() == null ? null : user.getBanner().getId());
+            configuration.set(path + "mascot", user.getMascot() == null ? null : user.getMascot().getName());
+            configuration.set(path + "outfit", user.getOutfit() == null ? null : user.getOutfit().getName());
+            configuration.set(path + "particle", user.getParticle() == null ? null : user.getParticle().getName());
 
             fileConfig.save();
         });
@@ -98,7 +100,7 @@ public class FlatFileMethod extends FlatType {
     public User getUserFromDB(String name) {
         User user = new User(findUUID(name).join(), name);
 
-        load(user);
+        load(user).join();
 
         return user;
     }
@@ -107,7 +109,7 @@ public class FlatFileMethod extends FlatType {
     public User getUserFromDB(UUID uuid) {
         User user = new User(uuid, findName(uuid));
 
-        load(user);
+        load(user).join();
 
         return user;
     }

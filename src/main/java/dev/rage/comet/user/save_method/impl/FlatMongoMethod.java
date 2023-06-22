@@ -96,13 +96,15 @@ public class FlatMongoMethod extends FlatType {
     public CompletableFuture<Void> save(User user) {
         return CompletableFuture.runAsync(() -> {
             Document document = new Document();
-            String path = "users." + user.getUuid().toString() + ".";
 
-            if (user.getBalloon() != null) document.put(path + "balloon", user.getBalloon());
-            if (user.getBanner() != null) document.put(path + "banner", user.getBanner());
-            if (user.getMascot() != null) document.put(path + "mascot", user.getMascot());
-            if (user.getOutfit() != null) document.put(path + "outfit", user.getOutfit());
-            if (user.getParticle() != null) document.put(path + "particle", user.getParticle());
+            document.put("uuid", user.getUuid().toString());
+            document.put("name", user.getName());
+
+            if (user.getBalloon() != null) document.put("balloon", user.getBalloon().getId());
+            if (user.getBanner() != null) document.put("banner", user.getBanner().getId());
+            if (user.getMascot() != null) document.put("mascot", user.getMascot().getName());
+            if (user.getOutfit() != null) document.put("outfit", user.getOutfit().getName());
+            if (user.getParticle() != null) document.put("particle", user.getParticle().getName());
 
             collection.insertOne(document, new InsertOneOptions().bypassDocumentValidation(true));
             //collection.insertOne(plugin.getUserManager(), document, new InsertOneOptions().bypassDocumentValidation(true));
@@ -113,7 +115,7 @@ public class FlatMongoMethod extends FlatType {
     public User getUserFromDB(String name) {
         User user = new User(findUUID(name).join(), name);
 
-        load(user);
+        load(user).join();
 
         return user;
     }
@@ -122,7 +124,7 @@ public class FlatMongoMethod extends FlatType {
     public User getUserFromDB(UUID uuid) {
         User user = new User(uuid, findName(uuid).join());
 
-        load(user);
+        load(user).join();
 
         return user;
     }

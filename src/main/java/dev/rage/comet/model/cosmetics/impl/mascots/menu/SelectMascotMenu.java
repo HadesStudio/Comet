@@ -62,7 +62,7 @@ public class SelectMascotMenu extends PaginatedMenu {
             @Override
             public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
                 User user = plugin.getUserManager().getUser(player.getUniqueId());
-                if (!user.hasMascot()) {
+                if (!user.hasMascotModel()) {
                     player.sendMessage(ChatColor.RED + "You do not have a mascot.");
                     return;
                 }
@@ -136,7 +136,7 @@ public class SelectMascotMenu extends PaginatedMenu {
             User user = plugin.getUserManager().getUser(player.getUniqueId());
             player.sendMessage("You have selected " + body.getName() + " as your mascot.");
 
-            if (user.hasMascot()) {
+            if (user.hasMascotModel()) {
                 user.removeMascot(plugin);
             }
 

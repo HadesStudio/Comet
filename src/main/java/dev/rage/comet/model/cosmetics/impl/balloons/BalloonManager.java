@@ -47,13 +47,13 @@ public class BalloonManager {
     public void loadOrRefresh() {
         ConfigurationSection section = balloonsFile.getConfiguration().getConfigurationSection("balloons");
 
-        for (String ballonHeadId : section.getKeys(false)) {
-            loadOrCreate(ballonHeadId, section);
+        for (String balloonHeadId : section.getKeys(false)) {
+            loadOrCreate(balloonHeadId, section);
         }
 
         for (BalloonHead balloonHead : balloonHeads.values()) {
-            String ballonHeadId = balloonHead.getId();
-            if (!section.contains(ballonHeadId)) balloonHeadNames.add(ballonHeadId);
+            String balloonHeadId = balloonHead.getId();
+            if (!section.contains(balloonHeadId)) balloonHeadNames.add(balloonHeadId);
         }
 
         balloonHeadNames.forEach(balloonHeads::remove);

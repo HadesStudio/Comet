@@ -32,7 +32,7 @@ public class RemoveBalloonButton extends Button {
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
         User user = userManager.getUser(player.getUniqueId());
 
-        if (!user.hasBalloon()) {
+        if (!user.hasBalloonModel()) {
             playFail(player);
             ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.balloon.not-applied"));
             return;
