@@ -23,6 +23,9 @@ public class BalloonManager {
         this.balloonsFile = plugin.getBalloonsFile();
         this.balloonHeads = new HashMap<>();
         this.balloonHeadNames = new ArrayList<>();
+
+        plugin.getServer().getPluginManager().registerEvents(new BalloonListener(this), plugin);
+
         this.loadOrRefresh();
     }
 
