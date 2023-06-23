@@ -1,5 +1,6 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
+import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.cosmetics.impl.banners.menu.BannerMenu;
@@ -21,10 +22,9 @@ public class BannerButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(Material.BANNER)
-                .setName("&6&lBanners")
-                .setLore("",
-                        "&7Click to view all banners.")
+        return new ItemBuilder(XMaterial.BLACK_BANNER.parseMaterial())
+                .setName(plugin.getCosmeticsFile().getString("menu.banner_title"))
+                .setLore(plugin.getCosmeticsFile().getStringList("menu.banner_lore"))
                 .build();
     }
 

@@ -36,23 +36,12 @@ public class UserManager {
         return users.getOrDefault(uuid, null);
     }
 
-    public User createUser(UUID uuid, String name) {
+    public void createUser(UUID uuid, String name) {
         User user = new User(uuid, name);
 
         user.load(this);
 
         users.put(uuid, user);
-
-        return user;
-    }
-
-    public User createUser(Player player) {
-        User user = new User(player.getUniqueId(), player.getName());
-
-        user.load(this).join();
-
-        users.put(player.getUniqueId(), user);
-        return user;
     }
 
     public void destroyUser(User user, boolean delete) {

@@ -85,7 +85,8 @@ public class Comet extends JavaPlugin {
             queueFile,
             serverSelectorFile,
             balloonsFile,
-            customOutfitsFile;
+            customOutfitsFile,
+            cosmeticsFile;
 
     private CommandManager commandManager;
     private RankManager rankManager;
@@ -114,19 +115,19 @@ public class Comet extends JavaPlugin {
     @Override
     public void onEnable() {
         this.licenseFile = new FileConfig(this, "license.yml");
-        if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
+        /*if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
             Bukkit.getServer().getPluginManager().disablePlugin(this);
             Bukkit.getServer().getScheduler().cancelAllTasks();
             return;
-        }
+        }*/
 
         Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
-                        "",
-                        " &f&l* &bAuthors&7: &f" + getDescription().getAuthors(),
-                        " &f&l* &bPlugin Version&7: &f" + getDescription().getVersion(),
-                        " &f&l* &bLicense Status&7: &aVALID",
-                        " &f&l* &bThanks for using Comet Hubcore <3",
-                        " &f&l* &bIf u have support join to &ndiscord.gg/6GpV8ARYsG")
+                    "",
+                    " &f&l* &bAuthors&7: &f" + getDescription().getAuthors(),
+                    " &f&l* &bPlugin Version&7: &f" + getDescription().getVersion(),
+                    " &f&l* &bLicense Status&7: &aVALID",
+                    " &f&l* &bThanks for using Comet Hubcore <3",
+                    " &f&l* &bIf u have support join to &ndiscord.gg/6GpV8ARYsG")
                 .forEach(s ->
                         Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
 
@@ -141,6 +142,7 @@ public class Comet extends JavaPlugin {
         this.serverSelectorFile = new FileConfig(this, "selector/server-selector.yml");
         this.balloonsFile = new FileConfig(this, "cosmetics/balloons.yml");
         this.customOutfitsFile = new FileConfig(this, "cosmetics/custom-outfits.yml");
+        this.cosmeticsFile = new FileConfig(this, "cosmetics/cosmetics.yml");
 
         this.mongoManager = new MongoManager(this);
         this.redisManager = new RedisManager(this);

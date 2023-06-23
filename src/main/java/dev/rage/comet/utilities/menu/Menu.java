@@ -1,5 +1,6 @@
 package dev.rage.comet.utilities.menu;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
@@ -117,7 +118,10 @@ public abstract class Menu {
     }
 
     public Button getPlaceholderButton() {
-        return null;
+        return Button.fromItem(new ItemBuilder(XMaterial.BLACK_STAINED_GLASS_PANE.parseItem())
+                .setName("")
+                .setLore("")
+                .build());
     }
 
     public abstract String getTitle(Player player);

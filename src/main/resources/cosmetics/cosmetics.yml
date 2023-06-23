@@ -1,0 +1,27 @@
+menu:
+  placeholder: true
+  title: "&aCosmetics"
+  balloon_title: "&aBalloons"
+  balloon_lore:
+    - ""
+    - "&7Click to view all balloons."
+  banner_title: "&aBanner"
+  banner_lore:
+    - ""
+    - "&7Click to view all banners."
+  gadgets_title: "&aGadgets"
+  gadgets_lore:
+    - ""
+    - "&7Click to view all gadgets."
+  mascot_title: "&aMascots"
+  mascot_lore:
+    - ""
+    - "&7Click to view all mascots."
+  outfit_title: "&aOutfits"
+  outfit_lore:
+    - ""
+    - "&7Click to view all outfits."
+  particles_title: "&aParticles"
+  particles_lore:
+    - ""
+    - "&cComing Soon..."

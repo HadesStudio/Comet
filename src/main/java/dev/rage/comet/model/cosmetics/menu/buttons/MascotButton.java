@@ -20,9 +20,8 @@ public class MascotButton extends Button {
     @Override
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(XMaterial.ARMOR_STAND.parseItem())
-                .setName("&6&lMascots")
-                .setLore("",
-                        "&7Select a mascot to use")
+                .setName(plugin.getCosmeticsFile().getString("menu.mascot_title"))
+                .setLore(plugin.getCosmeticsFile().getStringList("menu.mascot_lore"))
                 .build();
     }
 

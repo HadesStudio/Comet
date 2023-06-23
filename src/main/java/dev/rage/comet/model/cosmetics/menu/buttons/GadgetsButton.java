@@ -1,11 +1,11 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
+import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.menu.GadgetsMenu;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -17,10 +17,9 @@ public class GadgetsButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(Material.ENDER_CHEST)
-                .setName("&6&lGadgets")
-                .setLore("",
-                        "&7Click to view your gadgets!")
+        return new ItemBuilder(XMaterial.ENDER_CHEST.parseMaterial())
+                .setName(plugin.getCosmeticsFile().getString("menu.gadgets_title"))
+                .setLore(plugin.getCosmeticsFile().getStringList("menu.gadgets_lore"))
                 .build();
     }
 
