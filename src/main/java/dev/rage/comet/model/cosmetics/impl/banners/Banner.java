@@ -1,5 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.banners;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class Banner {

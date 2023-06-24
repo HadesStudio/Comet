@@ -1,0 +1,61 @@
+banners:
+  argentina:
+    display-name: "&bArg&fent&bina &eFlag"
+    base-color: "WHITE"
+    patterns:
+      - "0:vhr"
+      - "0:vh"
+      - "3:rs"
+      - "3:ls"
+      - "4:flo"
+      - "4:mc"
+      - "4:mc"
+  chile:
+    display-name: "&1Ch&fi&cle &eFlag"
+    base-color: "WHITE"
+    patterns:
+      - "14:vh"
+      - "11:tr"
+      - "0:vhr"
+      - "11:tr"
+      - "14:vh"
+  colombia:
+    display-name: "&eCol&2omb&cia &eBanner"
+    base-color: "BLUE"
+    patterns:
+      - "4:ts"
+      - "14:bs"
+      - "4:ts"
+      - "14:bs"
+      - "14:bs"
+  mexico:
+    display-name: "&aMex&cico &eFlag"
+    base-color: "WHITE"
+    patterns:
+      - "12:flo"
+      - "0:ls"
+      - "0:rs"
+      - "0:bt"
+      - "0:tt"
+      - "13:bs"
+      - "14:ts"
+  spain:
+    display-name: "&eSpa&cin &eFlag"
+    base-color: "YELLOW"
+    patterns:
+      - "1:flo"
+      - "4:hhb"
+      - "14:rs"
+      - "14:rs"
+      - "14:ls"
+      - "14:ls"
+  usa:
+    display-name: "&2Unit&fedSt&cates &eFlag"
+    base-color: "WHITE"
+    patterns:
+      - "11:bri"
+      - "11:ss"
+      - "14:ms"
+      - "14:hhb"
+      - "14:vh"
+      - "0:ss"
