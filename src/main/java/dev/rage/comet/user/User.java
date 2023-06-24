@@ -60,13 +60,13 @@ public class User {
         return userManager.getFlatType().save(this);
     }
 
-    public void applyBalloon(Player player, BalloonHead balloonHead) {
+    public void applyBalloon(Comet plugin, Player player, BalloonHead balloonHead) {
         if (hasBalloonModel()) removeBalloon();
 
         if (this.balloon == null || !this.balloon.getId().equals(balloonHead.getId()))
             this.balloon = balloonHead;
 
-        this.balloonModel = new Balloon(player, balloonHead.getHead());
+        this.balloonModel = new Balloon(plugin, player, balloonHead.getHead());
         this.balloonModel.spawn();
     }
 

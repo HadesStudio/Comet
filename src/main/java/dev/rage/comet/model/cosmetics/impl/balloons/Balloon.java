@@ -1,5 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.balloons;
 
+import dev.rage.comet.Comet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Bat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.EulerAngle;
@@ -22,6 +24,7 @@ import java.util.concurrent.ExecutionException;
 @RequiredArgsConstructor
 public class Balloon {
 
+    private final Comet plugin;
     private final Player player;
     private final ItemStack head;
     private ArmorStand armorStandLow, armorStandHigh;
@@ -43,6 +46,7 @@ public class Balloon {
         armorStandLow.setVisible(false);
         armorStandLow.setCustomNameVisible(false);
         armorStandLow.setSmall(true);
+        armorStandLow.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
 
         this.armorStandHigh = player.getWorld().spawn(location.add(0, 2, 0), ArmorStand.class);
         armorStandHigh.setGravity(false);
@@ -50,9 +54,11 @@ public class Balloon {
         armorStandHigh.setCustomNameVisible(false);
         armorStandHigh.setSmall(true);
         armorStandHigh.setHelmet(head);
+        armorStandHigh.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
 
         this.bat = player.getWorld().spawn(location, Bat.class);
         bat.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, false, false));
+        bat.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
 
         armorStandHigh.setPassenger(bat);
 

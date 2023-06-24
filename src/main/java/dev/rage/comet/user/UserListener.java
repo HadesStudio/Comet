@@ -41,27 +41,22 @@ public class UserListener implements Listener {
         User user = userManager.getUser(player.getUniqueId());
 
         if (user.getBalloon() != null) {
-            System.out.println("Applying balloon");
-            user.applyBalloon(event.getPlayer(), user.getBalloon());
+            user.applyBalloon(plugin, event.getPlayer(), user.getBalloon());
         }
 
         if (user.getMascot() != null) {
-            System.out.println("Applying mascot");
             user.applyMascot(plugin, event.getPlayer(), user.getMascot());
         }
 
         if (user.getOutfit() != null) {
-            System.out.println("Applying outfit");
             user.getOutfit().apply(player);
         }
 
         if (user.getBanner() != null) {
-            System.out.println();
             user.applyBanner(event.getPlayer(), user.getBanner());
         }
 
         if (user.getParticle() != null) {
-            System.out.println("Applying particle");
             plugin.getParticlesManager().apply(event.getPlayer(), user.getParticle());
         }
     }

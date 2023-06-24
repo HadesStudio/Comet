@@ -21,8 +21,6 @@ public abstract class Gadget implements Listener {
         this.cooldowns = Maps.newHashMap();
 
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-
-        System.out.println("Gadget: " + getName() + " has been registered!");
     }
 
     public abstract String getName();

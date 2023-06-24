@@ -39,7 +39,6 @@ public class BannerManager {
 
                 @Override
                 public String getName() {
-                    System.out.println(config.getString(path + "display-name"));
                     return config.getString(path + "display-name");
                 }
 

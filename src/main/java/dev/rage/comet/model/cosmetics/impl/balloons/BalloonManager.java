@@ -7,6 +7,9 @@ import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Bat;
+import org.bukkit.entity.Entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +28,7 @@ public class BalloonManager {
         this.balloonHeads = new HashMap<>();
         this.balloonHeadNames = new ArrayList<>();
 
-        plugin.getServer().getPluginManager().registerEvents(new BalloonListener(this), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new BalloonListener(plugin, this), plugin);
 
         this.loadOrRefresh();
     }
@@ -62,5 +65,9 @@ public class BalloonManager {
 
         balloonHeadNames.forEach(balloonHeads::remove);
         balloonHeadNames.clear();
+    }
+
+    public boolean isBalloon(Comet plugin, Entity entity) {
+        return entity.hasMetadata(plugin.getName()) && (entity instanceof ArmorStand || entity instanceof Bat);
     }
 }
