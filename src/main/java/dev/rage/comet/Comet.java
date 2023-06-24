@@ -87,7 +87,8 @@ public class Comet extends JavaPlugin {
             balloonsFile,
             customOutfitsFile,
             cosmeticsFile,
-            bannersFile;
+            bannersFile,
+            gadgetsFile;
 
     private CommandManager commandManager;
     private RankManager rankManager;
@@ -145,6 +146,7 @@ public class Comet extends JavaPlugin {
         this.customOutfitsFile = new FileConfig(this, "cosmetics/custom-outfits.yml");
         this.cosmeticsFile = new FileConfig(this, "cosmetics/cosmetics.yml");
         this.bannersFile = new FileConfig(this, "cosmetics/banners.yml");
+        this.gadgetsFile = new FileConfig(this, "cosmetics/gadgets.yml");
 
         this.mongoManager = new MongoManager(this);
         this.redisManager = new RedisManager(this);

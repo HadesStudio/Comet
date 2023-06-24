@@ -57,10 +57,10 @@ public class FireTrail extends Gadget {
     @Override
     public ItemStack getIcon() {
         return new ItemBuilder(XMaterial.BLAZE_POWDER.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("",
-                        ChatColor.GRAY + "Right click to use this gadget!"
-                ).build();
+                .setName(plugin.getGadgetsFile().getString("menu.name_format")
+                        .replace("<name>", getName()))
+                .setLore(plugin.getGadgetsFile().getStringList("menu.fire_trail_lore"))
+                .build();
     }
 
     @Override

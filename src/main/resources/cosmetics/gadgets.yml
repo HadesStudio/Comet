@@ -1,0 +1,55 @@
+menu:
+  title: "&aGadgets"
+  name_format: "&a<name>"
+  fire_trail_lore:
+    - ""
+    - "&7Right click to use this gadget!"
+  grappling_hook_lore:
+    - ""
+    - "&7Right click to use this gadget!"
+  mount_lore:
+    - ""
+    - "&7Right click to use this gadget!"
+  snowball_hider_lore:
+    - ""
+    - "&7Right click to use this gadget!"
+  teleport_bow_lore:
+    - ""
+    - "&7Right click to use this gadget!"
+  trampoline_lore:
+    - ""
+    - "&7Right click to use this gadget!"
+
+grappling-hook:
+  boost: 1.5
+  item-name: "&aGrappling Hook"
+  item-lore:
+    - ""
+    - "&7Right click to use it!"
+
+mount:
+  item-name: "&aMount"
+  item-lore:
+    - ""
+    - "&7Right click to a Player!"
+
+snowball-hider:
+  item-name: "&aSnowball Hider"
+  item-lore:
+    - ""
+    - "&7Right click to throw!"
+  hit-message:
+    - "&aYou have hided &e<player>&a!"
+
+teleport-bow:
+  cooldown: "3s"
+  item-name: "&aTeleport Bow"
+  item-lore:
+    - ""
+    - "&7Hold Right Click to lunch arrow!"
+  still-cooldown:
+    - "&cYou're still in cooldown!" # <time>
+
+trampoline:
+  cant-use:
+    - "&cYou cannot place a trampoline here!"

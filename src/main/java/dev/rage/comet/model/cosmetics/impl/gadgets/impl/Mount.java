@@ -29,18 +29,17 @@ public class Mount extends Gadget {
     @Override
     public ItemStack getIcon() {
         return new ItemBuilder(XMaterial.SADDLE.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("",
-                        ChatColor.GRAY + "Right click to get this gadget!"
-                ).build();
+                .setName(plugin.getGadgetsFile().getString("menu.name_format")
+                        .replace("<name>", getName()))
+                .setLore(plugin.getGadgetsFile().getStringList("menu.mount_lore"))
+                .build();
     }
 
     @Override
     public ItemStack getItem() {
         return new ItemBuilder(XMaterial.SADDLE.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("",
-                        ChatColor.GRAY + "Right-click to a Player!")
+                .setName(plugin.getGadgetsFile().getString("mount.item-name"))
+                .setLore(plugin.getGadgetsFile().getString("mount.item-lore"))
                 .build();
     }
 

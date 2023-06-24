@@ -2,6 +2,7 @@ package dev.rage.comet.model.cosmetics.impl.gadgets;
 
 import com.google.common.collect.Maps;
 import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.JavaUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -62,5 +63,9 @@ public abstract class Gadget implements Listener {
 
     public void removeCooldown(UUID uuid) {
         cooldowns.remove(uuid);
+    }
+
+    public String getFormattedCooldown(UUID uuid) {
+        return JavaUtil.formatMillis(getCooldown(uuid));
     }
 }

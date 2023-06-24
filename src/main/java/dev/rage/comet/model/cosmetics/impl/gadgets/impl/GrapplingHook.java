@@ -12,8 +12,14 @@ import org.bukkit.inventory.ItemStack;
 
 public class GrapplingHook extends Gadget {
 
+    private final double multiply, yBoost;
+
     public GrapplingHook(Comet plugin) {
         super(plugin);
+
+        double gHookBoost = plugin.getGadgetsFile().getDouble("grappling-hook.boost");
+        this.multiply = gHookBoost * 2.0;
+        this.yBoost = gHookBoost * 0.75;
     }
 
     @Override
@@ -24,18 +30,17 @@ public class GrapplingHook extends Gadget {
     @Override
     public ItemStack getIcon() {
         return new ItemBuilder(XMaterial.FISHING_ROD.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("",
-                        ChatColor.GRAY + "Right click to use this gadget!")
+                .setName(plugin.getGadgetsFile().getString("menu.name_format")
+                        .replace("<name>", getName()))
+                .setLore(plugin.getGadgetsFile().getStringList("menu.grappling_hook_lore"))
                 .build();
     }
 
     @Override
     public ItemStack getItem() {
         return new ItemBuilder(XMaterial.FISHING_ROD.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("",
-                        ChatColor.GRAY + "Right click to use it!")
+                .setName(plugin.getGadgetsFile().getString("grappling-hook.item-name"))
+                .setLore(plugin.getGadgetsFile().getStringList("grappling-hook.item-lore"))
                 .build();
     }
 
@@ -53,7 +58,7 @@ public class GrapplingHook extends Gadget {
     public void onPlayerFish(PlayerFishEvent event) {
         if (event.getState() == PlayerFishEvent.State.IN_GROUND) {
             event.getPlayer().setVelocity(event.getHook().getLocation().toVector().subtract(event.getPlayer().getLocation().toVector())
-                    .normalize().multiply(3.0).setY(0.4));
+                    .normalize().multiply(multiply).setY(yBoost));
         }
     }
 }

@@ -3,6 +3,7 @@ package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
+import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -27,19 +28,18 @@ public class SnowBallHider extends Gadget {
     @Override
     public ItemStack getIcon() {
         return new ItemBuilder(XMaterial.SNOWBALL.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("",
-                        ChatColor.GRAY + "Right click to use this gadget!"
-                ).build();
+                .setName(plugin.getGadgetsFile().getString("menu.name_format")
+                        .replace("<name>", getName()))
+                .setLore(plugin.getGadgetsFile().getStringList("menu.snowball_hider_lore"))
+                .build();
     }
 
     @Override
     public ItemStack getItem() {
         return new ItemBuilder(XMaterial.SNOWBALL.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("",
-                        ChatColor.GRAY + "Right click to throw!"
-                ).build();
+                .setName(plugin.getGadgetsFile().getString("snowball-hider.item-name"))
+                .setLore(plugin.getGadgetsFile().getString("snowball-hider.item-lore"))
+                .build();
     }
 
     /*
@@ -84,6 +84,8 @@ public class SnowBallHider extends Gadget {
 
         shooter.hidePlayer((Player) event.getEntity());
 
-        shooter.sendMessage(ChatColor.GREEN + "You have hided " + event.getEntity().getName());
+        for (String s : plugin.getGadgetsFile().getStringList("snowball-hider.hit-message")) {
+            shooter.sendMessage(ChatUtil.translate(s.replace("<player>", event.getEntity().getName())));
+        }
     }
 }

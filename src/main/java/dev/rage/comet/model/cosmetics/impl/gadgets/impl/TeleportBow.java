@@ -4,6 +4,8 @@ import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Sets;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
+import dev.rage.comet.utilities.ChatUtil;
+import dev.rage.comet.utilities.JavaUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -20,9 +22,12 @@ import java.util.concurrent.TimeUnit;
 
 public class TeleportBow extends Gadget {
 
+    private final long cooldown;
 
     public TeleportBow(Comet plugin) {
         super(plugin);
+
+        this.cooldown = JavaUtil.formatLong(plugin.getGadgetsFile().getString("teleport-bow.cooldown"));
     }
 
     @Override
@@ -33,19 +38,17 @@ public class TeleportBow extends Gadget {
     @Override
     public ItemStack getIcon() {
         return new ItemBuilder(XMaterial.BOW.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("",
-                        ChatColor.GRAY + "Right click to use this gadget!"
-                ).build();
+                .setName(plugin.getGadgetsFile().getString("menu.name_format")
+                        .replace("<name>", getName()))
+                .setLore(plugin.getGadgetsFile().getStringList("menu.teleport_bow_lore"))
+                .build();
     }
 
     @Override
     public ItemStack getItem() {
         return new ItemBuilder(XMaterial.BOW.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("",
-                        ChatColor.GRAY + "Hold Right Click to lunch arrow!"
-                )
+                .setName(plugin.getGadgetsFile().getString("teleport-bow.item-name"))
+                .setLore(plugin.getGadgetsFile().getString("teleport-bow.item-lore"))
                 .addEnchantment(Enchantment.ARROW_INFINITE, 1)
                 .build();
     }
@@ -73,12 +76,15 @@ public class TeleportBow extends Gadget {
 
             if (hasCooldown(player.getUniqueId())) {
                 refund(player);
-                player.sendMessage(ChatColor.RED + "You are still on cooldown!");
+                for (String s : plugin.getGadgetsFile().getStringList("teleport-bow.still-cooldown")) {
+                    player.sendMessage(ChatUtil.translate(s
+                            .replace("<time>", String.valueOf(getCooldown(player.getUniqueId())))));
+                }
                 return;
             }
 
             if (isItem(player.getItemInHand(), getItem())) {
-                setCooldown(player.getUniqueId(), TimeUnit.SECONDS.toMillis(3));
+                setCooldown(player.getUniqueId(), cooldown);
 
                 event.getEntity().setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
 

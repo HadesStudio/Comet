@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
+import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -44,18 +45,15 @@ public class Trampoline extends Gadget {
     @Override
     public ItemStack getIcon() {
         return new ItemBuilder(XMaterial.BLACK_BED.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("",
-                        ChatColor.GRAY + "Right click to use this gadget!")
+                .setName(plugin.getGadgetsFile().getString("menu.name_format")
+                        .replace("<name>", getName()))
+                .setLore(plugin.getGadgetsFile().getStringList("menu.trampoline_lore"))
                 .build();
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemBuilder(XMaterial.BLACK_BED.parseMaterial())
-                .setName(ChatColor.GREEN + getName())
-                .setLore("")
-                .build();
+        return null;
     }
 
     @Override
@@ -69,7 +67,9 @@ public class Trampoline extends Gadget {
         // detect if you can place a trampoline in their location
         for (Block block : unsetBlocks.keySet()) {
             if (block.getType() != Material.AIR) {
-                player.sendMessage(ChatColor.RED + "You cannot place a trampoline here!");
+                for (String s : plugin.getGadgetsFile().getStringList("trampoline.cant-use")) {
+                    player.sendMessage(ChatUtil.translate(s));
+                }
                 return;
             }
         }
