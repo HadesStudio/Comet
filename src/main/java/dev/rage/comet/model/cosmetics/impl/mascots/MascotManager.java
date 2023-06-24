@@ -16,7 +16,10 @@ import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
@@ -36,21 +39,14 @@ public class MascotManager {
 
     private final List<Body> setBodies;
 
-    // Possible future method to customize your mascots
-    /*private final Map<String , ItemStack> bodies;
-    private final List<Heads> heads;
-    private final List<Particle> particles;*/
-
     public MascotManager(Comet plugin) {
         this.plugin = plugin;
         mascots = Maps.newHashMap();
         setBodies = Lists.newArrayList();
 
-        /*bodies = Maps.newHashMap();
-        heads = Lists.newArrayList();
-        particles = Lists.newArrayList();*/
-
         loadOrRefresh(plugin);
+
+        removeBuggedMascots(plugin);
 
         plugin.getServer().getPluginManager().registerEvents(new MascotListener(plugin, this), plugin);
 
@@ -59,18 +55,6 @@ public class MascotManager {
     }
 
     private void loadOrRefresh(Comet plugin) {
-        /*Body testBody = new Body(
-                new Heads("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjAyMzI5Mzg5YWM4NmIzNjVmNGQzZmEyNDJlZmZiYmU1ZGUyYzY3ZWVhZjkxZjVhNjM0ZmVmODU1MmNhMzhlOCJ9fX0="),
-                "Batman",
-                ChatUtil.translate("&a&lI'm Batman"),
-                new ItemStack(XMaterial.DIAMOND_CHESTPLATE.parseMaterial()));
-
-        testBody.setCompatibleParticleEffect(CompatibleParticle.CLOUD);
-        testBody.setParticle(true);
-
-        setBodies.add(testBody);*/
-
-        // Possible method to load the mascots from a config file
         FileConfiguration config = plugin.getMascotsFile().getConfiguration();
 
         for (String key : config.getConfigurationSection("mascots").getKeys(false)) {
@@ -164,5 +148,15 @@ public class MascotManager {
         }
 
         return leggings;
+    }
+
+    private void removeBuggedMascots(Comet plugin) {
+        for (World world : plugin.getServer().getWorlds()) {
+            for (Entity entity : world.getEntities()) {
+                if (entity instanceof ArmorStand && entity.hasMetadata(plugin.getName())) {
+                    entity.remove();
+                }
+            }
+        }
     }
 }

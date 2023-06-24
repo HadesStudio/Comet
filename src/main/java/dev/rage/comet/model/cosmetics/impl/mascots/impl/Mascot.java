@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
@@ -33,6 +34,8 @@ public class Mascot {
         else this.body = plugin.getMascotManager().getDefaultBody();
 
         this.armorStand = player.getWorld().spawn(calcLoc(player).join(), ArmorStand.class);
+
+        armorStand.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, this));
 
         armorStand.setCustomNameVisible(true);
 
