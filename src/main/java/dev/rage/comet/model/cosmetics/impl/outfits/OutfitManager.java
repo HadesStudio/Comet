@@ -8,6 +8,7 @@ import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.Outfit;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.CustomOutfit;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.LeatherOutfit;
+import dev.rage.comet.utilities.JavaUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
 import org.bukkit.ChatColor;
@@ -84,7 +85,7 @@ public class OutfitManager {
                             .build();
                 }
                 else if (itemStack.getType().name().contains("LEATHER")) {
-                    int[] rgb = getRGB(config.getString(path + type + ".rgb"));
+                    int[] rgb = JavaUtil.getRGB(config.getString(path + type + ".rgb"));
                     armor[i] = new ItemBuilder(itemStack)
                             .setRGBColor(rgb[0], rgb[1], rgb[2])
                             .build();
@@ -96,24 +97,6 @@ public class OutfitManager {
         }
 
         return armor;
-    }
-
-    private int[] getRGB(String color) {
-        int[] rgb = new int[3];
-        try {
-            String[] split = color.replace(" ", "").split(",");
-            for (int i = 0; i < split.length; i++) {
-                rgb[i] = Integer.parseInt(split[i]);
-            }
-        } catch (NumberFormatException e) {
-            for (int i = 0; i < 3; i++) {
-                rgb[i] = 255;
-            }
-        }
-        catch (Exception e) {
-            throw new IllegalArgumentException("Invalid RGB color format, please fix it or contact with the developer.");
-        }
-        return rgb;
     }
 
     public boolean exists(String name) {

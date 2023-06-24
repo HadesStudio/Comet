@@ -85,4 +85,22 @@ public class JavaUtil {
             }
         }
     }
+
+    public int[] getRGB(String color) {
+        int[] rgb = new int[3];
+        try {
+            String[] split = color.replace(" ", "").split(",");
+            for (int i = 0; i < split.length; i++) {
+                rgb[i] = Integer.parseInt(split[i]);
+            }
+        } catch (NumberFormatException e) {
+            for (int i = 0; i < 3; i++) {
+                rgb[i] = 255;
+            }
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException("Invalid RGB color format, please fix it or contact with the developer.");
+        }
+        return rgb;
+    }
 }

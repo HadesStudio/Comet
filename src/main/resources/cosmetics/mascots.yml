@@ -1,0 +1,24 @@
+select-mascot-message:
+  - "&a&lYou have selected the &e<name> &amascot!"
+
+mascots:
+  batman:
+    title: "&a&lI'm Batman"
+    lore:
+      - "&7Sometimes the truth is not good enough"
+      - "&7sometimes people deserve more."
+      - "&7Sometimes people deserve to have their faith rewarded."
+    particle: "CLOUD"
+    head-texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjAyMzI5Mzg5YWM4NmIzNjVmNGQzZmEyNDJlZmZiYmU1ZGUyYzY3ZWVhZjkxZjVhNjM0ZmVmODU1MmNhMzhlOCJ9fX0="
+    chestplate-item:
+      material: "LEATHER_CHESTPLATE"
+      enchanted: true
+      color: "0,0,0"
+    leggings-item:
+      material: "LEATHER_LEGGINGS"
+      enchanted: true
+      color: "0,0,0"
+    boots-item:
+      material: "LEATHER_BOOTS"
+      enchanted: true
+      color: "0,0,0"

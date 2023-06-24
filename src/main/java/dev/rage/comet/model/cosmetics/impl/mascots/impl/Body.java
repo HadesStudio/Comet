@@ -6,6 +6,7 @@ import com.mojang.authlib.properties.Property;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.compatible.CompatibleParticle;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -13,31 +14,38 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
+@RequiredArgsConstructor
 public class Body {
 
     private final Heads head;
     private final String name, displayName;
-    private ItemStack chestPlate;
+    private final ItemStack[] armor;
+    private final List<String> lore;
 
     @Setter private boolean particle = false;
     @Setter private CompatibleParticle compatibleParticleEffect;
 
-    public Body(Heads head, String name, String displayName, @Nullable ItemStack chestPlate) {
-        this.head = head;
-        this.name = name;
-        this.displayName = displayName;
-
-        if (chestPlate != null)
-            this.chestPlate = chestPlate;
-    }
-
     public void apply(Mascot mascot) {
         mascot.getArmorStand().setHelmet(getHeadSkull());
 
-        if (chestPlate != null) mascot.getArmorStand().setChestplate(chestPlate);
+        //if (armor != null) {
+            for (ItemStack itemStack : armor) {
+                if (itemStack == null) continue;
+                if (itemStack.getType().name().contains("CHESTPLATE")) {
+                    mascot.getArmorStand().setChestplate(itemStack);
+                }
+                else if (itemStack.getType().name().contains("LEGGINGS")) {
+                    mascot.getArmorStand().setLeggings(itemStack);
+                }
+                else if (itemStack.getType().name().contains("BOOTS")) {
+                    mascot.getArmorStand().setBoots(itemStack);
+                }
+            }
+        //}
     }
 
     public ItemStack getHeadSkull() {

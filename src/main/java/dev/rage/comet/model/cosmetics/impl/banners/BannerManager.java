@@ -52,7 +52,6 @@ public class BannerManager {
                     meta.setBaseColor(DyeColor.valueOf(config.getString(path + "base-color")));
 
                     config.getStringList(path + "patterns").forEach(pattern -> {
-                        System.out.println(pattern);
                         meta.addPattern(new Pattern(DyeColor.getByData(getByteFromString(pattern)), PatternType.getByIdentifier(getIdFromString(pattern))));
                     });
 
@@ -62,8 +61,6 @@ public class BannerManager {
                     return banner;
                 }
             });
-
-            System.out.println("Loaded banner: " + key);
         }
     }
 

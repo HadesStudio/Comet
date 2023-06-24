@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.mascots.impl;
 
 import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.ChatUtil;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -36,7 +37,7 @@ public class Mascot {
         armorStand.setCustomNameVisible(true);
 
         if (body != null)
-            armorStand.setCustomName(body.getDisplayName());
+            armorStand.setCustomName(ChatUtil.translate(body.getDisplayName()));
 
         armorStand.setGravity(false);
         armorStand.setSmall(true);

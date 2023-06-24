@@ -5,6 +5,7 @@ import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.mascots.MascotManager;
 import dev.rage.comet.model.cosmetics.impl.mascots.impl.Body;
 import dev.rage.comet.user.User;
+import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.buttons.PageButton;
@@ -104,41 +105,20 @@ public class SelectMascotMenu extends PaginatedMenu {
             }*/
 
             return new ItemBuilder(body.getHeadSkull())
-                    .setLore("Test lore")
+                    .setLore(body.getLore())
                     .build();
         }
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            /*if (mascotManager.isSpecificUsing(player.getUniqueId(), body.getName())) {
-                mascotManager.getMascots().get(player.getUniqueId()).die();
-                for (String s : plugin.getMessagesConfig().getStringList("mascots_message.unequipped")) {
-                    player.sendMessage(CC.translate(s
-                            .replace("{mascot}", body.getName())
-                            .replace("{mascot-displayname}", body.getDisplayName())));
-                }
-            }
-            else if (!body.isUnlocked(player)) {
-                for (String s : plugin.getMessagesConfig().getStringList("mascots_message.remove")) {
-                    player.sendMessage(CC.translate(s
-                            .replace("{mascot}", body.getName())
-                            .replace("{mascot-displayname}", body.getDisplayName())));
-                }
-            } else {
-                mascotManager.setMascot(player.getUniqueId(), new Mascot(plugin, player, body));
-                for (String s : plugin.getMessagesConfig().getStringList("mascots_message.equip")) {
-                    player.sendMessage(CC.translate(s
-                            .replace("{mascot}", body.getName())
-                            .replace("{mascot-displayname}", body.getDisplayName())));
-                }
-            }*/
-
             User user = plugin.getUserManager().getUser(player.getUniqueId());
-            player.sendMessage("You have selected " + body.getName() + " as your mascot.");
 
-            if (user.hasMascotModel()) {
-                user.removeMascot(plugin);
+            for (String s : plugin.getMascotsFile().getStringList("select-mascot-message")) {
+                player.sendMessage(ChatUtil.translate(s.replace("<name>", body.getName())));
             }
+
+            if (user.hasMascotModel())
+                user.removeMascot(plugin);
 
             user.applyMascot(plugin, player, body);
 
