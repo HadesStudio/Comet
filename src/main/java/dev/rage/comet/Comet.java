@@ -58,6 +58,8 @@ import dev.rage.comet.utilities.menu.ButtonListener;
 import dev.rage.comet.utilities.plugin.Plugin;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -224,6 +226,8 @@ public class Comet extends JavaPlugin {
         QueuePositionThread positionThread = new QueuePositionThread(this);
         positionThread.start();
 
+        removeBuggedEntities();
+
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, new BalloonRunnable(userManager), 0L, 1L);
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     }
@@ -253,5 +257,16 @@ public class Comet extends JavaPlugin {
         this.headManager.loadOrRefresh();
         this.balloonManager.loadOrRefresh();
         if (fastBoardManager != null) this.fastBoardManager.resetBoardAnimation();
+    }
+
+    private void removeBuggedEntities() {
+        for (World world : getServer().getWorlds()) {
+            for (Entity entity : world.getEntities()) {
+                System.out.println(entity.getType().name());
+                if (mascotManager.getSetBodies().stream().anyMatch(body -> entity.getCustomName() != null && entity.getCustomName().equals(ChatUtil.translate(body.getDisplayName())))) {
+                    entity.remove();
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.outfits.entries;
 
+import dev.rage.comet.Comet;
 import dev.rage.comet.utilities.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,17 +21,19 @@ public abstract class Outfit {
     }
 
     public ItemStack[] getLeatherArmor() {
-        ItemStack[] armor = new ItemStack[3];
+        ItemStack[] armor = new ItemStack[4];
 
         armor[0] = new ItemStack(Material.LEATHER_BOOTS);
         armor[1] = new ItemStack(Material.LEATHER_LEGGINGS);
         armor[2] = new ItemStack(Material.LEATHER_CHESTPLATE);
+        armor[3] = new ItemStack(Material.AIR);
 
         return armor;
     }
 
-    public void apply(Player player) {
+    public void apply(Comet plugin, Player player) {
         player.getInventory().setArmorContents(getArmor());
-        player.sendMessage(ChatUtil.translate("&aYou have equipped the " + getName() + " &aOutfit."));
+        player.sendMessage(ChatUtil.translate(plugin.getLanguageFile().getString("cosmetic-message.outfit.applied")
+                .replace("<outfit>", getName())));
     }
 }

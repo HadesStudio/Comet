@@ -49,7 +49,7 @@ public class UserListener implements Listener {
         }
 
         if (user.getOutfit() != null) {
-            user.getOutfit().apply(player);
+            user.getOutfit().apply(plugin, player);
         }
 
         if (user.getBanner() != null) {

@@ -35,7 +35,7 @@ public class Mascot {
 
         this.armorStand = player.getWorld().spawn(calcLoc(player).join(), ArmorStand.class);
 
-        armorStand.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, this));
+        armorStand.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
 
         armorStand.setCustomNameVisible(true);
 

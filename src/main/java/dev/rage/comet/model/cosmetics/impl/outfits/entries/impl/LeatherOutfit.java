@@ -31,7 +31,7 @@ public class LeatherOutfit extends Outfit {
         ItemStack[] armor = getLeatherArmor();
 
         for (ItemStack item : armor) {
-            if (item != null) {
+            if (item != null && item.getItemMeta() instanceof LeatherArmorMeta) {
                 LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
                 meta.setColor(armorColor);
                 item.setItemMeta(meta);

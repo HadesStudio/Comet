@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.outfits.menu;
 
 import com.google.common.collect.Maps;
+import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.OutfitManager;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.LeatherOutfit;
 import dev.rage.comet.utilities.item.ItemBuilder;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class LeatherOutfitMenu extends Menu {
 
+    private final Comet plugin;
     private final OutfitManager outfitManager;
 
     @Override
@@ -47,7 +49,7 @@ public class LeatherOutfitMenu extends Menu {
     }
 
     @RequiredArgsConstructor
-    private static class LeatherOutfitButton extends Button {
+    private class LeatherOutfitButton extends Button {
 
         private final LeatherOutfit leatherOutfit;
 
@@ -60,7 +62,7 @@ public class LeatherOutfitMenu extends Menu {
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            leatherOutfit.apply(player);
+            leatherOutfit.apply(plugin, player);
         }
     }
 }

@@ -29,7 +29,8 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getAuthor() {
-        return "Risas";
+        return plugin.getDescription().getAuthors().toString()
+                .replace("[", "").replace("]", "");
     }
 
     @Override

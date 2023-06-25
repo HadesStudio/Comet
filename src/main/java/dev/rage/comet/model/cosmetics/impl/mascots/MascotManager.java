@@ -14,14 +14,11 @@ import dev.rage.comet.utilities.JavaUtil;
 import dev.rage.comet.utilities.compatible.CompatibleParticle;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -45,8 +42,6 @@ public class MascotManager {
         setBodies = Lists.newArrayList();
 
         loadOrRefresh(plugin);
-
-        removeBuggedMascots(plugin);
 
         plugin.getServer().getPluginManager().registerEvents(new MascotListener(plugin, this), plugin);
 
@@ -148,15 +143,5 @@ public class MascotManager {
         }
 
         return leggings;
-    }
-
-    private void removeBuggedMascots(Comet plugin) {
-        for (World world : plugin.getServer().getWorlds()) {
-            for (Entity entity : world.getEntities()) {
-                if (entity instanceof ArmorStand && entity.hasMetadata(plugin.getName())) {
-                    entity.remove();
-                }
-            }
-        }
     }
 }

@@ -7,6 +7,7 @@ import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.menu.Button;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -26,6 +27,12 @@ public class BannerButton extends Button {
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
         User user = userManager.getUser(player.getUniqueId());
+
+        if (player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getType() != Material.AIR) {
+            ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.banner.cant-use")
+                    .replace("<banner>", banner.getId()));
+            return;
+        }
 
         playSuccess(player);
         user.applyBanner(player, banner);

@@ -2,6 +2,7 @@ package dev.rage.comet.model.cosmetics.impl.outfits.menu;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
+import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.OutfitManager;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.CustomOutfit;
 import dev.rage.comet.utilities.item.ItemBuilder;
@@ -18,6 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CustomOutfitMenu extends Menu {
 
+    private final Comet plugin;
     private final OutfitManager outfitManager;
 
     @Override
@@ -48,7 +50,7 @@ public class CustomOutfitMenu extends Menu {
     }
 
     @RequiredArgsConstructor
-    private static class CustomOutfitButton extends Button {
+    private class CustomOutfitButton extends Button {
 
         private final CustomOutfit customOutfit;
 
@@ -62,7 +64,7 @@ public class CustomOutfitMenu extends Menu {
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            customOutfit.apply(player);
+            customOutfit.apply(plugin, player);
         }
     }
 }

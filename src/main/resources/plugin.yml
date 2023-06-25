@@ -1,6 +1,7 @@
 main: dev.rage.comet.Comet
 name: ${project.name}
 version: ${project.version}
+authors: ["Rage Development Team"]
 api-version: 1.13
 softdepend: ["PlaceholderAPI"]
 depend: ["PlaceholderAPI"]

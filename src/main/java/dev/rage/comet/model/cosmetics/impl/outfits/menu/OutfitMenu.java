@@ -2,6 +2,7 @@ package dev.rage.comet.model.cosmetics.impl.outfits.menu;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
+import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.OutfitManager;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class OutfitMenu extends Menu {
 
+    private final Comet plugin;
     private final OutfitManager outfitManager;
 
     @Override
@@ -51,7 +53,7 @@ public class OutfitMenu extends Menu {
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            new LeatherOutfitMenu(outfitManager).openMenu(player);
+            new LeatherOutfitMenu(plugin, outfitManager).openMenu(player);
         }
     }
 
@@ -59,7 +61,7 @@ public class OutfitMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem()) // falta por arreglar
+            return new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
                     .setSkullOwner("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTNjNTgyMThmMjA3NWE1NjhlY2ZmZTVkZmNiNzk2NzZiMzIxMDFkNzE3MmUxNWZjZWRhMWMwNjY4NTdjNDNiMCJ9fX0=")
                     .setName(ChatColor.GREEN + "Custom Outfits")
                     .build();
@@ -67,7 +69,7 @@ public class OutfitMenu extends Menu {
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-            new CustomOutfitMenu(outfitManager).openMenu(player);
+            new CustomOutfitMenu(plugin, outfitManager).openMenu(player);
         }
     }
 }

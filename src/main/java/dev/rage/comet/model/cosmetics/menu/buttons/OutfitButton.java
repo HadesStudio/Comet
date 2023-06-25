@@ -27,6 +27,6 @@ public class OutfitButton extends Button {
 
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
-        new OutfitMenu(outfitManager).openMenu(player);
+        new OutfitMenu(plugin, outfitManager).openMenu(player);
     }
 }
