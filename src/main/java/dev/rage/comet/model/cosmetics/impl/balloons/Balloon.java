@@ -77,7 +77,7 @@ public class Balloon {
 
     public boolean tick() {
         if (armorStandLow == null || armorStandLow.isDead() || armorStandHigh == null || armorStandHigh.isDead()
-                || bat == null || bat.isDead() || !player.isLeashed()) return false;
+                || bat == null || bat.isDead()/* || !player.isLeashed()*/) return false;
 
         moveArmorStand().join();
         updateHeadAngle().join();
