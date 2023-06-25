@@ -48,7 +48,7 @@ public class TeleportBow extends Gadget {
     public ItemStack getItem() {
         return new ItemBuilder(XMaterial.BOW.parseMaterial())
                 .setName(plugin.getGadgetsFile().getString("teleport-bow.item-name"))
-                .setLore(plugin.getGadgetsFile().getString("teleport-bow.item-lore"))
+                .setLore(plugin.getGadgetsFile().getStringList("teleport-bow.item-lore"))
                 .addEnchantment(Enchantment.ARROW_INFINITE, 1)
                 .build();
     }
@@ -75,7 +75,10 @@ public class TeleportBow extends Gadget {
             Player player = (Player) event.getEntity().getShooter();
 
             if (hasCooldown(player.getUniqueId())) {
-                refund(player);
+                event.setCancelled(true);
+
+                plugin.getServer().getScheduler().runTaskLater(plugin, () -> refund(player), 2L);
+
                 for (String s : plugin.getGadgetsFile().getStringList("teleport-bow.still-cooldown")) {
                     player.sendMessage(ChatUtil.translate(s
                             .replace("<time>", String.valueOf(getCooldown(player.getUniqueId())))));
@@ -102,7 +105,9 @@ public class TeleportBow extends Gadget {
                 location.setDirection(player.getLocation().getDirection());
                 player.teleport(location);
 
-                event.getEntity().removeMetadata(plugin.getName(), plugin);
+                //event.getEntity().removeMetadata(plugin.getName(), plugin);
+
+                event.getEntity().remove();
             }
         }
     }
