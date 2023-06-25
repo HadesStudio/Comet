@@ -262,8 +262,8 @@ public class Comet extends JavaPlugin {
     private void removeBuggedEntities() {
         for (World world : getServer().getWorlds()) {
             for (Entity entity : world.getEntities()) {
-                System.out.println(entity.getType().name());
-                if (mascotManager.getSetBodies().stream().anyMatch(body -> entity.getCustomName() != null && entity.getCustomName().equals(ChatUtil.translate(body.getDisplayName())))) {
+                if (mascotManager.getSetBodies().stream().anyMatch(body ->
+                        entity.getCustomName() != null && entity.getCustomName().equals(ChatUtil.translate(body.getDisplayName())))) {
                     entity.remove();
                 }
             }

@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.EntityUnleashEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 @RequiredArgsConstructor
@@ -37,11 +38,4 @@ public class BalloonListener implements Listener {
             event.setCancelled(true);
         }
     }
-
-    /*@EventHandler
-    public void onUnleashEntity(EntityUnleashEvent event) {
-        if (balloonManager.isBalloon(plugin, event.getEntity())) {
-            event.
-        }
-    }*/
 }
