@@ -1,4 +1,5 @@
 main: dev.rage.comet.Comet
+author: RageDev
 name: ${project.name}
 version: ${project.version}
 api-version: 1.13
