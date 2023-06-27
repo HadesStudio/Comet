@@ -94,9 +94,17 @@ public class Balloon {
                 throw new RuntimeException(e);
             }
 
-            armorStandLow.teleport(newLoc);
-            bat.teleport(newLoc.add(0, 2, 0));
-            armorStandHigh.teleport(newLoc);
+            if (newLoc.getWorld() != armorStandLow.getWorld()) {
+                plugin.getServer().getScheduler().runTask(plugin, () -> {
+                    armorStandLow.teleport(newLoc);
+                    bat.teleport(newLoc.add(0, 2, 0));
+                    armorStandHigh.teleport(newLoc);
+                });
+            } else {
+                armorStandLow.teleport(newLoc);
+                bat.teleport(newLoc.add(0, 2, 0));
+                armorStandHigh.teleport(newLoc);
+            }
         });
     }
 
