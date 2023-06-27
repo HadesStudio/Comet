@@ -120,11 +120,11 @@ public class Comet extends JavaPlugin {
     @Override
     public void onEnable() {
         this.licenseFile = new FileConfig(this, "license.yml");
-        /*if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
+        if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
             Bukkit.getServer().getPluginManager().disablePlugin(this);
             Bukkit.getServer().getScheduler().cancelAllTasks();
             return;
-        }*/
+        }
 
         Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
                     "",
