@@ -236,9 +236,9 @@ public class Comet extends JavaPlugin {
     public void onDisable() {
         if (fastBoardManager != null) this.fastBoardManager.onDisable();
         if (tablist != null) this.tablist.onDisable();
-        this.userManager.onDisable();
-        this.redisManager.onDisable();
-        this.mascotManager.onDisable();
+        if (userManager != null) this.userManager.onDisable();
+        if (redisManager != null) this.redisManager.onDisable();
+        if (mascotManager != null) this.mascotManager.onDisable();
     }
 
     public void onReload() {
