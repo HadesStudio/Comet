@@ -101,7 +101,7 @@ public class MascotManager {
     }
 
     public void onDisable() {
-        mascots.values().forEach(Mascot::die);
+        mascots.values().forEach(Mascot::onDisable);
     }
 
     public Body getDefaultBody() {

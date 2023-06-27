@@ -109,4 +109,8 @@ public class Mascot {
         armorStand.remove();
         plugin.getMascotManager().getMascots().remove(player.getUniqueId());
     }
+
+    public void onDisable() {
+        armorStand.remove();
+    }
 }
