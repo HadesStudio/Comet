@@ -67,7 +67,7 @@ public class SelectMascotMenu extends PaginatedMenu {
                     player.sendMessage(ChatColor.RED + "You do not have a mascot.");
                     return;
                 }
-                user.removeMascot(plugin);
+                user.removeMascot();
                 player.sendMessage(ChatColor.GREEN + "You have removed your mascot.");
                 player.closeInventory();
             }
@@ -118,7 +118,7 @@ public class SelectMascotMenu extends PaginatedMenu {
             }
 
             if (user.hasMascotModel())
-                user.removeMascot(plugin);
+                user.removeMascot();
 
             user.applyMascot(plugin, player, body);
 

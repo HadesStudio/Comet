@@ -46,8 +46,6 @@ public class UserManager {
 
     public void destroyUser(User user, boolean delete) {
         user.save(this).thenAccept(unused -> {
-            if (user.hasBalloonModel()) user.removeBalloon();
-            //if (user.hasBanner()) user.removeBanner(player);
             if (delete) users.remove(user.getUuid());
         });
     }

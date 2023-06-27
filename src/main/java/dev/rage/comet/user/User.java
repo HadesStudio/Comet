@@ -77,7 +77,7 @@ public class User {
     }
 
     public void applyMascot(Comet plugin, Player player, Body body) {
-        if (hasMascotModel()) removeMascot(plugin);
+        if (hasMascotModel()) removeMascot();
 
         if (this.mascot == null || !this.mascot.getName().equals(body.getName()))
             this.mascot = body;
@@ -86,7 +86,7 @@ public class User {
         plugin.getMascotManager().getMascots().put(uuid, mascotModel);
     }
 
-    public void removeMascot(Comet plugin) {
+    public void removeMascot() {
         this.mascot = null;
 
         if (this.mascotModel != null) this.mascotModel.die();

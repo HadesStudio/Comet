@@ -66,6 +66,9 @@ public class UserListener implements Listener {
         User user = userManager.getUser(event.getPlayer().getUniqueId());
 
         if (user != null) {
+            if (user.hasBalloonModel()) user.getBalloonModel().remove();
+            if (user.hasMascotModel()) user.getMascotModel().die();
+
             userManager.destroyUser(user, true);
         }
     }
