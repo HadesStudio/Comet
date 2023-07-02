@@ -2,6 +2,7 @@ package dev.rage.comet.user;
 
 import dev.rage.comet.Comet;
 import dev.rage.comet.database.mongo.Mongo;
+import dev.rage.comet.model.cosmetics.impl.balloons.Balloon;
 import dev.rage.comet.user.database.Database;
 import dev.rage.comet.user.database.impl.FlatFileDatabase;
 import dev.rage.comet.user.database.impl.MongoDatabase;
@@ -44,6 +45,10 @@ public class UserManager {
         user.save(this).thenAccept(unused -> {
             if (delete) users.remove(user.getUuid());
         });
+        Balloon balloonModel = user.getBalloonModel();
+        if (balloonModel != null) {
+            balloonModel.remove();
+        }
     }
 
     public void onDisable() {
