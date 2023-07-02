@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 
 @UtilityClass
 public class ChatUtil {
-
     public String NORMAL_LINE = "&7&m-----------------------------";
 
     public String translate(String text) {

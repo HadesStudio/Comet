@@ -32,7 +32,7 @@ public class Mascot {
         if (body != null) this.body = body;
         else this.body = plugin.getMascotManager().getDefaultBody();
 
-        this.armorStand = player.getWorld().spawn(calcLoc(player), ArmorStand.class);
+        this.armorStand = player.getWorld().spawn(player.getLocation(), ArmorStand.class);
 
         armorStand.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
 
@@ -80,15 +80,28 @@ public class Mascot {
 
     private Location calcLoc(Player player) {
         Location location = player.getLocation();
-        double x = location.getX(), y = location.getY() + 0.5, z = location.getZ();
+        double x = location.getX();
+        double y = location.getY() + 0.5;
+        double z = location.getZ();
+
         float yaw = location.getYaw();
+        double radians = Math.toRadians(yaw + 135);
+        double xDirection = -Math.sin(radians);
+        double zDirection = Math.cos(radians);
 
-        double radians = Math.toRadians(yaw), xDirection = -Math.sin(radians), zDirection = Math.cos(radians);
-        double teleportX = x + (xDirection * -1), teleportZ = z + (zDirection * -1);
-
-        // Calculate 'Y' movement for more smooth
+        double teleportX = x + (xDirection * -1);
         double teleportY = y + (i * 0.075);
-        return new Location(location.getWorld(), teleportX, teleportY, teleportZ, yaw, 0);
+        double teleportZ = z + (zDirection * -1);
+
+        Location armorStandLocation = armorStand.getLocation();
+        armorStandLocation.setX(teleportX);
+        armorStandLocation.setY(teleportY);
+        armorStandLocation.setZ(teleportZ);
+        org.bukkit.util.Vector dirBetweenLocations = location.toVector().subtract(armorStandLocation.toVector());
+        armorStandLocation.setDirection(dirBetweenLocations);
+        armorStandLocation.setPitch(0);
+
+        return armorStandLocation;
     }
 
     private void playParticles() {
