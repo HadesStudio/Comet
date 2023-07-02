@@ -5,7 +5,9 @@ import com.google.common.collect.Maps;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.particles.Particle;
 import dev.rage.comet.model.cosmetics.impl.particles.ParticlesManager;
-import dev.rage.comet.utilities.compatible.CompatibleParticle;
+import fr.mrmicky.fastparticles.ParticleData;
+import fr.mrmicky.fastparticles.ParticleType;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -18,7 +20,7 @@ import java.util.UUID;
 public class Test extends Particle {
     private final double radius;
     private final int numPoints;
-    private final List<CompatibleParticle.ParticleColor> colors;
+    private final List<ParticleData.DustOptions> colors;
 
     private final Map<UUID, Integer> playerVectors;
     private final Map<UUID, Integer> playerColors;
@@ -45,8 +47,7 @@ public class Test extends Particle {
                         new int[]{191, 63, 255}, new int[]{255, 63, 255}, new int[]{255, 63, 191},
                         new int[]{255, 63, 127}, new int[]{255, 95, 95}, new int[]{255, 127, 127},
                         new int[]{255, 159, 159}, new int[]{255, 191, 191})
-                .forEach(ints ->
-                        colors.add(new CompatibleParticle.OrdinaryColor(ints[0], ints[1], ints[2])));
+                .forEach(ints -> colors.add(ParticleData.createDustOptions(Color.fromBGR(ints[0], ints[1], ints[2]), 1)));
     }
 
     @Override
@@ -60,8 +61,8 @@ public class Test extends Particle {
     }
 
     @Override
-    public CompatibleParticle getParticle() {
-        return CompatibleParticle.REDSTONE;
+    public ParticleType getParticle() {
+        return ParticleType.of("REDSTONE");
     }
 
     @Override
@@ -85,7 +86,7 @@ public class Test extends Particle {
             colorIndex = 0;
         }
 
-        CompatibleParticle.ParticleColor color = colors.get(colorIndex);
+        ParticleData.DustOptions color = colors.get(colorIndex);
 
         double angle = 2 * Math.PI * ticks / numPoints;
         double x = centerX + radius * Math.cos(angle);
@@ -93,7 +94,7 @@ public class Test extends Particle {
         double y = centerY + 2.5; // Altura de la circunferencia
 
         Location pointLocation = new Location(world, x, y, z);
-        getParticle().display(color, pointLocation, 50);
+        getParticle().spawn(world, pointLocation, 50, color);
 
         playerColors.put(player.getUniqueId(), colorIndex + 1);
         playerVectors.put(player.getUniqueId(), ticks + 1);

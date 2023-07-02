@@ -72,7 +72,7 @@ public class Mascot {
 
         armorStand.teleport(calcLoc(player));
         updateHeadPose();
-        if (body.isParticle() && body.getCompatibleParticleEffect() != null)
+        if (body.isParticle() && body.getParticleType() != null)
             playParticles();
 
         return true;
@@ -93,7 +93,8 @@ public class Mascot {
 
     private void playParticles() {
         Location location = armorStand.getLocation().add(0, 0.3, 0);
-        body.getCompatibleParticleEffect().display(0, 0, 0, 0, 1, location, 30);
+
+        body.getParticleType().spawn(location.getWorld(), location, 1, 0, 0, 0, 0, 1);
     }
 
     private void updateHeadPose() {

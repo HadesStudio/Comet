@@ -10,8 +10,8 @@ import dev.rage.comet.model.cosmetics.impl.mascots.listener.MascotListener;
 import dev.rage.comet.model.cosmetics.impl.mascots.task.MascotRunnable;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.JavaUtil;
-import dev.rage.comet.utilities.compatible.CompatibleParticle;
 import dev.rage.comet.utilities.item.ItemBuilder;
+import fr.mrmicky.fastparticles.ParticleType;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -53,10 +53,10 @@ public class MascotManager {
             String path = "mascots." + key + ".";
             String title = config.getString(path + "title");
 
-            CompatibleParticle particle = null;
+            ParticleType particleType = null;
             if (config.getString(path + "particle") != null && !config.getString(path + "particle").isEmpty()) {
                 try {
-                    particle = CompatibleParticle.valueOf(config.getString(path + "particle"));
+                    particleType = ParticleType.of(config.getString(path + "particle"));
                 } catch (Exception e) {
                     ChatUtil.logger("&cFailed to load particle for " + key);
                 }
@@ -88,9 +88,9 @@ public class MascotManager {
 
             Body body = new Body(head, key, title, armors.toArray(new ItemStack[0]), lore);
 
-            if (particle != null) {
+            if (particleType != null) {
                 body.setParticle(true);
-                body.setCompatibleParticleEffect(particle);
+                body.setParticleType(particleType);
             }
 
             this.setBodies.add(body);

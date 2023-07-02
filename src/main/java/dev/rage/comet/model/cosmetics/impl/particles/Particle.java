@@ -1,7 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.particles;
 
 import dev.rage.comet.Comet;
-import dev.rage.comet.utilities.compatible.CompatibleParticle;
+import fr.mrmicky.fastparticles.ParticleType;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
@@ -32,7 +32,7 @@ public abstract class Particle {
 
     public abstract String getName();
 
-    public abstract CompatibleParticle getParticle();
+    public abstract ParticleType getParticle();
 
     public abstract void tick(Player player);
 }

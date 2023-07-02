@@ -4,7 +4,7 @@ import com.cryptomorin.xseries.XMaterial;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.utilities.compatible.CompatibleParticle;
+import fr.mrmicky.fastparticles.ParticleType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -26,7 +26,7 @@ public class Body {
     private final List<String> lore;
 
     @Setter private boolean particle = false;
-    @Setter private CompatibleParticle compatibleParticleEffect;
+    @Setter private ParticleType particleType;
 
     public void apply(Mascot mascot) {
         mascot.getArmorStand().setHelmet(getHeadSkull());
