@@ -35,16 +35,12 @@ public class UserManager {
 
     public void createUser(UUID uuid, String name) {
         User user = new User(uuid, name);
-
         user.load(this);
-
         users.put(uuid, user);
     }
 
-    public void destroyUser(User user, boolean delete) {
-        user.save(this).thenAccept(unused -> {
-            if (delete) users.remove(user.getUuid());
-        });
+    public void destroyUser(User user) {
+        user.save(this);
         Balloon balloonModel = user.getBalloonModel();
         if (balloonModel != null) {
             balloonModel.remove();
@@ -53,7 +49,7 @@ public class UserManager {
 
     public void onDisable() {
         for (User user : users.values()) {
-            destroyUser(user, false);
+            destroyUser(user);
         }
     }
 }

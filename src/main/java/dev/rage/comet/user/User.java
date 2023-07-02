@@ -14,9 +14,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
-@Getter @Setter
+@Getter
+@Setter
 public class User {
 
     private final UUID uuid;
@@ -52,12 +52,12 @@ public class User {
         I will keep it with the Void supply as I may have problems when switching lobbies directly
         when swapping lobbies directly
     */
-    public CompletableFuture<Void> load(UserManager userManager) {
-        return userManager.getDatabase().load(this);
+    public void load(UserManager userManager) {
+        userManager.getDatabase().load(this);
     }
 
-    public CompletableFuture<Void> save(UserManager userManager) {
-        return userManager.getDatabase().save(this);
+    public void save(UserManager userManager) {
+        userManager.getDatabase().save(this);
     }
 
     public void applyBalloon(Comet plugin, Player player, BalloonHead balloonHead) {

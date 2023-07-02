@@ -5,7 +5,6 @@ import dev.rage.comet.utilities.compatible.CompatibleParticle;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 public abstract class Particle {
 
@@ -24,7 +23,7 @@ public abstract class Particle {
                     continue;
                 }
 
-                tick(playerParticleEntry.getKey()).join();
+                tick(playerParticleEntry.getKey());
             }
         }, 0L, getDelay());
     }
@@ -35,5 +34,5 @@ public abstract class Particle {
 
     public abstract CompatibleParticle getParticle();
 
-    public abstract CompletableFuture<Void> tick(Player player);
+    public abstract void tick(Player player);
 }

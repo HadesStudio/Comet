@@ -103,7 +103,7 @@ public class Trampoline extends Gadget {
             }
 
             this.blocks.remove(player.getUniqueId());
-        }, 20L*15L);
+        }, 20L * 15L);
     }
 
     @Override
@@ -115,79 +115,77 @@ public class Trampoline extends Gadget {
         allBlocks.clear();
     }
 
-    private CompletableFuture<Map<Block, String>> checkBlocks(Player player) {
-        return CompletableFuture.supplyAsync(() -> {
-            Map<Block, String> unsetBlocks = Maps.newHashMap();
+    private Map<Block, String> checkBlocks(Player player) {
+        Map<Block, String> unsetBlocks = Maps.newHashMap();
 
-            Location location = player.getLocation();
-            Block stairs = location.add(location.getDirection()).getBlock().getRelative(BlockFace.UP);
+        Location location = player.getLocation();
+        Block stairs = location.add(location.getDirection()).getBlock().getRelative(BlockFace.UP);
 
-            for (int i = 0; i < 2; i++) {
-                if (i != 0) {
-                    stairs = stairs.getRelative(BlockFace.UP).getRelative(getBlockFace(player));
-                }
-
-                unsetBlocks.put(stairs, "STAIRS");
+        for (int i = 0; i < 2; i++) {
+            if (i != 0) {
+                stairs = stairs.getRelative(BlockFace.UP).getRelative(getBlockFace(player));
             }
 
-            Iterator<String> aimPoints = Iterators.forArray("RIGHT", "FRONT", "LEFT", "BACK");
-            Block border = null;
+            unsetBlocks.put(stairs, "STAIRS");
+        }
 
-            String aimPoint = null;
-            for (int i = 0; i < 24; i++) {
-                if (i == 0) {
-                    border = stairs.getRelative(getBlockFace(player))
-                            .getRelative(getBlockFaceDirection(player, "LEFT"))
-                            .getRelative(getBlockFaceDirection(player, "LEFT"))
-                            .getRelative(getBlockFaceDirection(player, "LEFT"));
-                }
+        Iterator<String> aimPoints = Iterators.forArray("RIGHT", "FRONT", "LEFT", "BACK");
+        Block border = null;
 
-                if (i % 6 == 0) {
-                    aimPoint = aimPoints.next();
-                }
-
-                border = border.getRelative(getBlockFaceDirection(player, aimPoint));
-                unsetBlocks.put(border, "BORDER");
+        String aimPoint = null;
+        for (int i = 0; i < 24; i++) {
+            if (i == 0) {
+                border = stairs.getRelative(getBlockFace(player))
+                        .getRelative(getBlockFaceDirection(player, "LEFT"))
+                        .getRelative(getBlockFaceDirection(player, "LEFT"))
+                        .getRelative(getBlockFaceDirection(player, "LEFT"));
             }
 
-            // Fill per lines
-
-            Block startPoint = null;
-            Block fill1 = null;
-            for (int i = 0; i < 25; i++) {
-                if (i == 0) {
-                    startPoint = stairs.getRelative(getBlockFace(player))
-                            .getRelative(getBlockFace(player))
-                            .getRelative(getBlockFaceDirection(player, "LEFT"))
-                            .getRelative(getBlockFaceDirection(player, "LEFT"));
-                    unsetBlocks.put(startPoint, "FILL");
-
-                    fill1 = startPoint;
-                    continue;
-                }
-
-                if (i % 5 == 0) {
-                    startPoint = startPoint.getRelative(getBlockFaceDirection(player, "FRONT"));
-                    unsetBlocks.put(startPoint, "FILL");
-
-                    fill1 = startPoint;
-                } else {
-                    fill1 = fill1.getRelative(getBlockFaceDirection(player, "RIGHT"));
-                    unsetBlocks.put(fill1, "FILL");
-                }
-
-                if (!this.blocks.containsKey(player.getUniqueId())) {
-                    this.blocks.put(player.getUniqueId(), Lists.newArrayList());
-                }
-
-                List<Block> playerTrampolineBlocks = this.blocks.get(player.getUniqueId());
-                playerTrampolineBlocks.add(fill1);
-
-                this.blocks.put(player.getUniqueId(), playerTrampolineBlocks);
+            if (i % 6 == 0) {
+                aimPoint = aimPoints.next();
             }
 
-            return unsetBlocks;
-        });
+            border = border.getRelative(getBlockFaceDirection(player, aimPoint));
+            unsetBlocks.put(border, "BORDER");
+        }
+
+        // Fill per lines
+
+        Block startPoint = null;
+        Block fill1 = null;
+        for (int i = 0; i < 25; i++) {
+            if (i == 0) {
+                startPoint = stairs.getRelative(getBlockFace(player))
+                        .getRelative(getBlockFace(player))
+                        .getRelative(getBlockFaceDirection(player, "LEFT"))
+                        .getRelative(getBlockFaceDirection(player, "LEFT"));
+                unsetBlocks.put(startPoint, "FILL");
+
+                fill1 = startPoint;
+                continue;
+            }
+
+            if (i % 5 == 0) {
+                startPoint = startPoint.getRelative(getBlockFaceDirection(player, "FRONT"));
+                unsetBlocks.put(startPoint, "FILL");
+
+                fill1 = startPoint;
+            } else {
+                fill1 = fill1.getRelative(getBlockFaceDirection(player, "RIGHT"));
+                unsetBlocks.put(fill1, "FILL");
+            }
+
+            if (!this.blocks.containsKey(player.getUniqueId())) {
+                this.blocks.put(player.getUniqueId(), Lists.newArrayList());
+            }
+
+            List<Block> playerTrampolineBlocks = this.blocks.get(player.getUniqueId());
+            playerTrampolineBlocks.add(fill1);
+
+            this.blocks.put(player.getUniqueId(), playerTrampolineBlocks);
+        }
+
+        return unsetBlocks;
     }
 
     @EventHandler
@@ -213,16 +211,14 @@ public class Trampoline extends Gadget {
         allBlocks.add(block);
     }
 
-    private CompletableFuture<Boolean> checkTrampoline(Player player) {
-        return CompletableFuture.supplyAsync(() -> {
-            for (List<Block> value : blocks.values()) {
-                if (value.contains(player.getLocation().getBlock().getRelative(BlockFace.DOWN))) {
-                    return true;
-                }
+    private boolean checkTrampoline(Player player) {
+        for (List<Block> value : blocks.values()) {
+            if (value.contains(player.getLocation().getBlock().getRelative(BlockFace.DOWN))) {
+                return true;
             }
+        }
 
-            return false;
-        });
+        return false;
     }
 
     private BlockFace getBlockFace(Player player) {

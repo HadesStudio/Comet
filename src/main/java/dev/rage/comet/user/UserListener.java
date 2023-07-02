@@ -11,6 +11,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.concurrent.CompletableFuture;
+
 public class UserListener implements Listener {
 
     private final Comet plugin;
@@ -69,7 +71,7 @@ public class UserListener implements Listener {
             if (user.hasBalloonModel()) user.getBalloonModel().remove();
             if (user.hasMascotModel()) user.getMascotModel().die();
 
-            userManager.destroyUser(user, true);
+            CompletableFuture.runAsync(() -> userManager.destroyUser(user));
         }
     }
 }

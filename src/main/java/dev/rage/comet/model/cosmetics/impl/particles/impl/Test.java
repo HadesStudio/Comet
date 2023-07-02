@@ -6,21 +6,16 @@ import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.particles.Particle;
 import dev.rage.comet.model.cosmetics.impl.particles.ParticlesManager;
 import dev.rage.comet.utilities.compatible.CompatibleParticle;
-import org.bukkit.Effect;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class Test extends Particle {
-
     private final double radius;
     private final int numPoints;
     private final List<CompatibleParticle.ParticleColor> colors;
@@ -51,7 +46,7 @@ public class Test extends Particle {
                         new int[]{255, 63, 127}, new int[]{255, 95, 95}, new int[]{255, 127, 127},
                         new int[]{255, 159, 159}, new int[]{255, 191, 191})
                 .forEach(ints ->
-                    colors.add(new CompatibleParticle.OrdinaryColor(ints[0], ints[1], ints[2])));
+                        colors.add(new CompatibleParticle.OrdinaryColor(ints[0], ints[1], ints[2])));
     }
 
     @Override
@@ -70,39 +65,37 @@ public class Test extends Particle {
     }
 
     @Override
-    public CompletableFuture<Void> tick(Player player) {
-        return CompletableFuture.runAsync(() -> {
-            Location playerLocation = player.getLocation();
+    public void tick(Player player) {
+        Location playerLocation = player.getLocation();
 
-            World world = playerLocation.getWorld();
-            double centerX = playerLocation.getX();
-            double centerY = playerLocation.getY();
-            double centerZ = playerLocation.getZ();
+        World world = playerLocation.getWorld();
+        double centerX = playerLocation.getX();
+        double centerY = playerLocation.getY();
+        double centerZ = playerLocation.getZ();
 
-            int ticks = playerVectors.getOrDefault(player.getUniqueId(), 0);
+        int ticks = playerVectors.getOrDefault(player.getUniqueId(), 0);
 
-            if (ticks >= numPoints) {
-                ticks = 0;
-            }
+        if (ticks >= numPoints) {
+            ticks = 0;
+        }
 
-            int colorIndex = playerColors.getOrDefault(player.getUniqueId(), 0);
+        int colorIndex = playerColors.getOrDefault(player.getUniqueId(), 0);
 
-            if (colorIndex >= colors.size()) {
-                colorIndex = 0;
-            }
+        if (colorIndex >= colors.size()) {
+            colorIndex = 0;
+        }
 
-            CompatibleParticle.ParticleColor color = colors.get(colorIndex);
+        CompatibleParticle.ParticleColor color = colors.get(colorIndex);
 
-            double angle = 2 * Math.PI * ticks / numPoints;
-            double x = centerX + radius * Math.cos(angle);
-            double z = centerZ + radius * Math.sin(angle);
-            double y = centerY + 2.5; // Altura de la circunferencia
+        double angle = 2 * Math.PI * ticks / numPoints;
+        double x = centerX + radius * Math.cos(angle);
+        double z = centerZ + radius * Math.sin(angle);
+        double y = centerY + 2.5; // Altura de la circunferencia
 
-            Location pointLocation = new Location(world, x, y, z);
-            getParticle().display(color, pointLocation, 50);
+        Location pointLocation = new Location(world, x, y, z);
+        getParticle().display(color, pointLocation, 50);
 
-            playerColors.put(player.getUniqueId(), colorIndex + 1);
-            playerVectors.put(player.getUniqueId(), ticks + 1);
-        });
+        playerColors.put(player.getUniqueId(), colorIndex + 1);
+        playerVectors.put(player.getUniqueId(), ticks + 1);
     }
 }
