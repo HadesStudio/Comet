@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class Trampoline extends Gadget {
 
@@ -62,7 +61,7 @@ public class Trampoline extends Gadget {
     public void onUsage(Player player) {
         //player.getInventory().setItem(1, getItem());
 
-        Map<Block, String> unsetBlocks = checkBlocks(player).join();
+        Map<Block, String> unsetBlocks = checkBlocks(player);
 
         List<BlockState> blocks = Lists.newArrayList();
 
@@ -197,7 +196,7 @@ public class Trampoline extends Gadget {
 
         Player player = event.getPlayer();
 
-        if (checkTrampoline(player).join()) {
+        if (checkTrampoline(player)) {
             player.setVelocity(new Vector(0, 15, 0));
         }
     }
