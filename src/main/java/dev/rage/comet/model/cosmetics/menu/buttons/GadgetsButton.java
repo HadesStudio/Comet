@@ -17,7 +17,7 @@ public class GadgetsButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(XMaterial.ENDER_CHEST.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.ENDER_CHEST.parseMaterial())
                 .setName(plugin.getCosmeticsFile().getString("menu.gadgets_title"))
                 .setLore(plugin.getCosmeticsFile().getStringList("menu.gadgets_lore"))
                 .build();

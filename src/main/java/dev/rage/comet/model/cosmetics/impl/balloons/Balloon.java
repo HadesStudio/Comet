@@ -1,11 +1,10 @@
 package dev.rage.comet.model.cosmetics.impl.balloons;
 
+import de.tr7zw.nbtapi.NBTEntity;
 import dev.rage.comet.Comet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Entity;
@@ -16,9 +15,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Getter
 @RequiredArgsConstructor
@@ -32,14 +28,7 @@ public class Balloon {
     private int ticks = 0;
 
     public void spawn() {
-        Location location;
-
-        try {
-            location = getCalcAngleLoc().get();
-        }
-        catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Location location = getCalcAngleLoc();
 
         this.armorStandLow = player.getWorld().spawn(location, ArmorStand.class);
         armorStandLow.setGravity(false);
@@ -79,83 +68,59 @@ public class Balloon {
         if (player == null || armorStandLow == null || armorStandLow.isDead() || armorStandHigh == null || armorStandHigh.isDead()
                 || bat == null || bat.isDead()/* || !player.isLeashed()*/) return false;
 
-        moveArmorStand().join();
-        updateHeadAngle().join();
+        moveArmorStand();
+        updateHeadAngle();
 
         return true;
     }
 
-    private CompletableFuture<Void> moveArmorStand() {
-        return CompletableFuture.runAsync(() -> {
-            Location newLoc;
-            try {
-                newLoc = getCalcAngleLoc().get();
-            } catch (InterruptedException | ExecutionException e) {
-                throw new RuntimeException(e);
-            }
+    private void moveArmorStand() {
+        Location newLoc = getCalcAngleLoc();
 
-            if (newLoc.getWorld() != armorStandLow.getWorld()) {
-                plugin.getServer().getScheduler().runTask(plugin, () -> {
-                    armorStandLow.teleport(newLoc);
-                    bat.teleport(newLoc.add(0, 2, 0));
-                    armorStandHigh.teleport(newLoc);
-                });
-            } else {
+        if (newLoc.getWorld() != armorStandLow.getWorld()) {
+            plugin.getServer().getScheduler().runTask(plugin, () -> {
                 armorStandLow.teleport(newLoc);
                 bat.teleport(newLoc.add(0, 2, 0));
                 armorStandHigh.teleport(newLoc);
-            }
-        });
-    }
-
-    private CompletableFuture<Void> updateHeadAngle() {
-        return CompletableFuture.runAsync(() -> {
-            ticks++;
-
-            if (ticks == 36)
-                ticks = 0;
-
-            EulerAngle angle = new EulerAngle(0, Math.toRadians(ticks * 10), 0);
-            armorStandHigh.setHeadPose(angle);
-        });
-    }
-
-    private CompletableFuture<Location> getCalcAngleLoc() {
-        return CompletableFuture.supplyAsync(() -> {
-            Location loc = player.getLocation();
-            Vector vector = player.getLocation().getDirection().normalize();
-
-            double angle = Math.toRadians(270);
-            double cos = Math.cos(angle);
-            double sin = Math.sin(angle);
-
-            double newX = loc.getX() + (vector.getX() * cos) + (vector.getZ() * sin);
-            double newZ = loc.getZ() + (vector.getZ() * cos) - (vector.getX() * sin);
-
-            return new Location(loc.getWorld(), newX, loc.getY(), newZ, loc.getYaw(), loc.getPitch());
-        });
-    }
-
-    // Hacerlo para todas las versiones
-    private void silent(Entity bukkitEntity) {
-        net.minecraft.server.v1_8_R3.Entity nmsEntity = ((CraftEntity) bukkitEntity).getHandle();
-        NBTTagCompound tag = nmsEntity.getNBTTag();
-        if (tag == null) {
-            tag = new NBTTagCompound();
+            });
+        } else {
+            armorStandLow.teleport(newLoc);
+            bat.teleport(newLoc.add(0, 2, 0));
+            armorStandHigh.teleport(newLoc);
         }
-        nmsEntity.c(tag);
-        tag.setByte("Silent", (byte) 1);
-        nmsEntity.f(tag);
+    }
+
+    private void updateHeadAngle() {
+        ticks++;
+
+        if (ticks == 36)
+            ticks = 0;
+
+        EulerAngle angle = new EulerAngle(0, Math.toRadians(ticks * 10), 0);
+        armorStandHigh.setHeadPose(angle);
+    }
+
+    private Location getCalcAngleLoc() {
+        Location loc = player.getLocation();
+        Vector vector = player.getLocation().getDirection().normalize();
+
+        double angle = Math.toRadians(270);
+        double cos = Math.cos(angle);
+        double sin = Math.sin(angle);
+
+        double newX = loc.getX() + (vector.getX() * cos) + (vector.getZ() * sin);
+        double newZ = loc.getZ() + (vector.getZ() * cos) - (vector.getX() * sin);
+
+        return new Location(loc.getWorld(), newX, loc.getY(), newZ, loc.getYaw(), loc.getPitch());
+    }
+
+    private void silent(Entity bukkitEntity) {
+        NBTEntity nbtEntity = new NBTEntity(bukkitEntity);
+        nbtEntity.setByte("Silent", (byte) 1);
     }
 
     private void noAI(Entity bukkitEntity) {
-        net.minecraft.server.v1_8_R3.Entity nmsEntity = ((CraftEntity) bukkitEntity).getHandle();
-        NBTTagCompound tag = nmsEntity.getNBTTag();
-        if (tag == null) {
-            tag = new NBTTagCompound();
-        }
-        nmsEntity.c(tag);
-        tag.setInt("NoAI", 1);
-        nmsEntity.f(tag);
+        NBTEntity nbtEntity = new NBTEntity(bukkitEntity);
+        nbtEntity.setInteger("NoAI", 1);
     }
 }

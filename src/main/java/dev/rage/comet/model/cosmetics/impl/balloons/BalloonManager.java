@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.impl.balloons;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.balloons.listener.BalloonListener;
 import dev.rage.comet.utilities.file.FileConfig;
@@ -43,9 +42,9 @@ public class BalloonManager {
 
     public void loadOrCreate(String name, ConfigurationSection section) {
         BalloonHead balloonHead = exists(name) ? getBalloonHead(name) : new BalloonHead(name);
-        balloonHead.setHead(new ItemBuilder(XMaterial.PLAYER_HEAD.parseMaterial())
+        balloonHead.setHead(new ItemBuilder(com.cryptomorin.xseries.XMaterial.PLAYER_HEAD.parseMaterial())
                 .setName(section.getString(name + ".displayName"))
-                .setData(XMaterial.PLAYER_HEAD.getData())
+                .setData(com.cryptomorin.xseries.XMaterial.PLAYER_HEAD.getData())
                 .setSkullOwner(section.getString(name + ".texture"))
                 .build());
         if (!exists(name)) balloonHeads.put(name, balloonHead);

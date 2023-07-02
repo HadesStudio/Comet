@@ -1,6 +1,5 @@
 package dev.rage.comet.utilities.menu.buttons;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.pagination.PaginatedMenu;
@@ -17,7 +16,7 @@ public class PageButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        ItemBuilder itemBuilder = new ItemBuilder(XMaterial.LEVER.parseMaterial());
+        ItemBuilder itemBuilder = new ItemBuilder(com.cryptomorin.xseries.XMaterial.LEVER.parseMaterial());
 
         if (hasNext(player)) {
             itemBuilder.setName(mod > 0 ? "&aNext page" : "&cPrevious page");

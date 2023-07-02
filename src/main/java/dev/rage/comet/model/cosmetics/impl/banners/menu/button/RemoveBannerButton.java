@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.impl.banners.menu.button;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
@@ -20,10 +19,10 @@ public class RemoveBannerButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(XMaterial.PLAYER_HEAD.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.PLAYER_HEAD.parseMaterial())
                 .setName("&c&lRemove Banner")
                 .setLore("&7Click to remove your banner.")
-                .setData(XMaterial.PLAYER_HEAD.getData())
+                .setData(com.cryptomorin.xseries.XMaterial.PLAYER_HEAD.getData())
                 .setSkullOwner("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjc1NDgzNjJhMjRjMGZhODQ1M2U0ZDkzZTY4YzU5NjlkZGJkZTU3YmY2NjY2YzAzMTljMWVkMWU4NGQ4OTA2NSJ9fX0=")
                 .build();
     }

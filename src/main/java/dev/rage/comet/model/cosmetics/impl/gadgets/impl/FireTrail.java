@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
-import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import dev.rage.comet.Comet;
@@ -13,7 +12,6 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBurnEvent;
-import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
@@ -56,7 +54,7 @@ public class FireTrail extends Gadget {
 
     @Override
     public ItemStack getIcon() {
-        return new ItemBuilder(XMaterial.BLAZE_POWDER.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.BLAZE_POWDER.parseMaterial())
                 .setName(plugin.getGadgetsFile().getString("menu.name_format")
                         .replace("<name>", getName()))
                 .setLore(plugin.getGadgetsFile().getStringList("menu.fire_trail_lore"))
@@ -65,7 +63,7 @@ public class FireTrail extends Gadget {
 
     @Override
     public ItemStack getItem() {
-        return new ItemBuilder(XMaterial.BLAZE_POWDER.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.BLAZE_POWDER.parseMaterial())
                 .setName(ChatColor.GREEN + getName())
                 .build();
     }
@@ -82,10 +80,10 @@ public class FireTrail extends Gadget {
 
     private void apply(Location loc) {
         Block block = loc.getBlock();
-        if (block.getType() == XMaterial.AIR.parseMaterial()) {
+        if (block.getType() == com.cryptomorin.xseries.XMaterial.AIR.parseMaterial()) {
             locations.put(block.getState(), System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(2));
 
-            block.setType(XMaterial.FIRE.parseMaterial());
+            block.setType(com.cryptomorin.xseries.XMaterial.FIRE.parseMaterial());
         }
     }
 
@@ -111,7 +109,7 @@ public class FireTrail extends Gadget {
 
     @EventHandler
     public void onFireSpread(BlockSpreadEvent event) {
-        if (event.getSource().getType() == XMaterial.FIRE.parseMaterial()) {
+        if (event.getSource().getType() == com.cryptomorin.xseries.XMaterial.FIRE.parseMaterial()) {
             event.setCancelled(true);
         }
     }

@@ -1,4 +1,4 @@
-package dev.rage.comet.user.save_method;
+package dev.rage.comet.user.database;
 
 import dev.rage.comet.Comet;
 import dev.rage.comet.user.User;
@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @RequiredArgsConstructor
-public abstract class FlatType {
+public abstract class Database {
 
     public final Comet plugin;
     public final UserManager userManager;

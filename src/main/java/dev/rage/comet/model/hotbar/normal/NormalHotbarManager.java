@@ -88,7 +88,7 @@ public class NormalHotbarManager {
         ConfigurationSection section = hotbarFile.getConfiguration().getConfigurationSection("normal");
 
         registerHotbars(
-                registerHotbarFromConfig(new EnderButtHotbar("ender-butt"), section),
+                registerHotbarFromConfig(new EnderButtHotbar("ender-butt", section.getBoolean("ender-butt.mount")), section),
                 registerHotbarFromConfig(new ServerSelectorHotbar(plugin, "server-selector"), section),
                 registerHotbarFromConfig(new ShowPlayerHotbar("show-players", this), section),
                 registerHotbarFromConfig(new HidePlayerHotbar("hide-players", this), section),

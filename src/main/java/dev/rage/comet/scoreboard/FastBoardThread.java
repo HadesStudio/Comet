@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class FastBoardThread extends Thread {
-
     private final FastBoardManager fastBoardManager;
 
     FastBoardThread(FastBoardManager fastBoardManager) {
@@ -47,4 +46,3 @@ public class FastBoardThread extends Thread {
         }
     }
 }
-

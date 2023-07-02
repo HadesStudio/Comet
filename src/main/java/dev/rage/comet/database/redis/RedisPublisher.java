@@ -7,6 +7,8 @@ import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
 import redis.clients.jedis.JedisPubSub;
 
+import java.util.Objects;
+
 /**
  * Created by Risas
  * Project: Comet
@@ -27,19 +29,15 @@ public class RedisPublisher extends JedisPubSub {
     public void onMessage(String channel, String message) {
         RedisMessage redisMessage = new Gson().fromJson(message, RedisMessage.class);
 
-        switch (redisMessage.getPayload()) {
-            case QUEUE_PAUSE_UPDATE: {
-                String queueName = redisMessage.getParam("queue-name");
+        if (Objects.requireNonNull(redisMessage.getPayload()) == RedisPayload.QUEUE_PAUSE_UPDATE) {
+            String queueName = redisMessage.getParam("queue-name");
 
-                if (!queueManager.exists(queueName)) return;
+            if (!queueManager.exists(queueName)) return;
 
-                Queue queue = queueManager.getQueue(queueName);
-                queue.setPaused(!Boolean.parseBoolean(redisMessage.getParam("queue-pause")));
-                break;
-            }
-            default:
-                ChatUtil.logger("&c[Redis] The message was received, but there was no response");
-                break;
+            Queue queue = queueManager.getQueue(queueName);
+            queue.setPaused(!Boolean.parseBoolean(redisMessage.getParam("queue-pause")));
+        } else {
+            ChatUtil.logger("&c[Redis] The message was received, but there was no response");
         }
     }
 }

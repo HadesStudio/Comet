@@ -57,7 +57,7 @@ public class CustomOutfitMenu extends Menu {
         @Override
         public ItemStack getButtonItem(Player player) {
             ItemStack icon = customOutfit.getArmor()[3];
-            return new ItemBuilder(icon == null ? XMaterial.PLAYER_HEAD.parseItem() : icon)
+            return new ItemBuilder(icon == null ? com.cryptomorin.xseries.XMaterial.PLAYER_HEAD.parseItem() : icon)
                     .setName(customOutfit.getDisplayName())
                     .build();
         }

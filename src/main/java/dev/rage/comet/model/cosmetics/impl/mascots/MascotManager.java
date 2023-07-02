@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.impl.mascots;
 
-import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import dev.rage.comet.Comet;
@@ -15,9 +14,7 @@ import dev.rage.comet.utilities.compatible.CompatibleParticle;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
@@ -128,7 +125,7 @@ public class MascotManager {
         ItemStack leggings = null;
         if (config.contains(path + type + "-item")) {
             try {
-                ItemBuilder itemBuilder = new ItemBuilder(XMaterial.matchXMaterial(config.getString(path + type + "-item.material")).get().parseMaterial());
+                ItemBuilder itemBuilder = new ItemBuilder(com.cryptomorin.xseries.XMaterial.matchXMaterial(config.getString(path + type + "-item.material")).get().parseMaterial());
                 if (itemBuilder.getItemStack().getType().name().contains("LEATHER")) {
                     int[] rgb = JavaUtil.getRGB(config.getString(path  + type+ "-item.color"));
                     itemBuilder.setRGBColor(rgb[0], rgb[1], rgb[2]);

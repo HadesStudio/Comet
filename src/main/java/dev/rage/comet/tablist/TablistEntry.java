@@ -5,14 +5,14 @@ import dev.rage.comet.tablist.player.PlayerTablist;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.OfflinePlayer;
+
+import java.util.UUID;
 
 @AllArgsConstructor
 @Getter @Setter
 public class TablistEntry {
-
     private String id;
-    private OfflinePlayer offlinePlayer;
+    private UUID uuid;
     private String text;
     private PlayerTablist tablist;
     private Head head;

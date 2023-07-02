@@ -1,6 +1,5 @@
 package dev.rage.comet.utilities.menu.buttons;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.pagination.PaginatedMenu;
@@ -16,7 +15,7 @@ public class PageInfoButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(XMaterial.NETHER_STAR.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.NETHER_STAR.parseMaterial())
                 .setName("&ePage Info")
                 .setLore("&e" + paginatedMenu.getPage() + "&7/&a" + paginatedMenu.getPages(player))
                 .build();

@@ -1,7 +1,12 @@
 package dev.rage.comet.utilities.plugin;
 
 import lombok.Getter;
-import okhttp3.*;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import org.json.JSONObject;
 import java.io.IOException;
 

@@ -1,6 +1,6 @@
 package dev.rage.comet.model.actionbar;
 
-import com.connorlinfoot.actionbarapi.ActionBarAPI;
+import dev.rage.comet.utils.ActionBarAPI;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.Comet;
 import org.bukkit.Bukkit;

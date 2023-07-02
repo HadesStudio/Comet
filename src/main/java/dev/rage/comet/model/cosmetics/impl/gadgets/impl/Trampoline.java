@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
-import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -9,7 +8,6 @@ import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -22,7 +20,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Stairs;
 import org.bukkit.util.Vector;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class Trampoline extends Gadget {
@@ -44,7 +46,7 @@ public class Trampoline extends Gadget {
 
     @Override
     public ItemStack getIcon() {
-        return new ItemBuilder(XMaterial.BLACK_BED.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.BLACK_BED.parseMaterial())
                 .setName(plugin.getGadgetsFile().getString("menu.name_format")
                         .replace("<name>", getName()))
                 .setLore(plugin.getGadgetsFile().getStringList("menu.trampoline_lore"))
@@ -74,7 +76,7 @@ public class Trampoline extends Gadget {
             }
         }
 
-        XMaterial woolMaterial = XMaterial.WHITE_WOOL;
+        com.cryptomorin.xseries.XMaterial woolMaterial = com.cryptomorin.xseries.XMaterial.WHITE_WOOL;
 
         unsetBlocks.forEach((block, s) -> {
             allBlocks.add(block);
@@ -202,7 +204,7 @@ public class Trampoline extends Gadget {
         }
     }
 
-    private void setBlock(List<BlockState> blocks, Block block, XMaterial material, byte data) {
+    private void setBlock(List<BlockState> blocks, Block block, com.cryptomorin.xseries.XMaterial material, byte data) {
         blocks.add(block.getState());
 
         block.setType(material.parseMaterial());
@@ -305,7 +307,7 @@ public class Trampoline extends Gadget {
     private void setFacingStair(List<BlockState> list, Block block, Player player) {
         list.add(block.getState());
 
-        block.setType(XMaterial.OAK_STAIRS.parseMaterial());
+        block.setType(com.cryptomorin.xseries.XMaterial.OAK_STAIRS.parseMaterial());
 
         Stairs stairsData = (Stairs) block.getState().getData();
         stairsData.setFacingDirection(getBlockFace(player));

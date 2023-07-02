@@ -12,6 +12,7 @@ normal:
     commands: []
   ender-butt:
     enabled: true
+    mount: true
     item:
       head: ""
       name: "&6&lENDER BUTT &8┃ &7(Right Click)"

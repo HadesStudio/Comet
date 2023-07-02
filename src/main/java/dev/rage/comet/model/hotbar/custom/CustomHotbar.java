@@ -1,6 +1,5 @@
 package dev.rage.comet.model.hotbar.custom;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +40,7 @@ public class CustomHotbar {
 
     public boolean isSimilar(ItemStack toCheck) {
         return (toCheck != null)
-                && (toCheck.getType() != XMaterial.AIR.parseMaterial())
+                && (toCheck.getType() != com.cryptomorin.xseries.XMaterial.AIR.parseMaterial())
                 && (toCheck.hasItemMeta())
                 && (toCheck.getItemMeta().getDisplayName() != null)
                 && toCheck.getItemMeta().getDisplayName().equals(item.getItemMeta().getDisplayName());

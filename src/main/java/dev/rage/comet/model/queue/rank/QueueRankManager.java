@@ -5,7 +5,11 @@ import dev.rage.comet.model.rank.RankManager;
 import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by Risas

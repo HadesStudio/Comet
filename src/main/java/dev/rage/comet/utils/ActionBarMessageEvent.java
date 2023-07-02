@@ -1,4 +1,4 @@
-package com.connorlinfoot.actionbarapi;
+package dev.rage.comet.utils;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;

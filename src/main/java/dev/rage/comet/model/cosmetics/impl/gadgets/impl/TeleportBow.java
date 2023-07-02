@@ -1,13 +1,11 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
 import com.cryptomorin.xseries.XMaterial;
-import com.google.common.collect.Sets;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.JavaUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
@@ -17,8 +15,6 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-
-import java.util.concurrent.TimeUnit;
 
 public class TeleportBow extends Gadget {
 
@@ -37,7 +33,7 @@ public class TeleportBow extends Gadget {
 
     @Override
     public ItemStack getIcon() {
-        return new ItemBuilder(XMaterial.BOW.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.BOW.parseMaterial())
                 .setName(plugin.getGadgetsFile().getString("menu.name_format")
                         .replace("<name>", getName()))
                 .setLore(plugin.getGadgetsFile().getStringList("menu.teleport_bow_lore"))
@@ -46,7 +42,7 @@ public class TeleportBow extends Gadget {
 
     @Override
     public ItemStack getItem() {
-        return new ItemBuilder(XMaterial.BOW.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.BOW.parseMaterial())
                 .setName(plugin.getGadgetsFile().getString("teleport-bow.item-name"))
                 .setLore(plugin.getGadgetsFile().getStringList("teleport-bow.item-lore"))
                 .addEnchantment(Enchantment.ARROW_INFINITE, 1)
@@ -56,7 +52,7 @@ public class TeleportBow extends Gadget {
     @Override
     public void onUsage(Player player) {
         player.getInventory().setItem(1, getItem());
-        player.getInventory().setItem(9, new ItemStack(XMaterial.ARROW.parseMaterial(), 1));
+        player.getInventory().setItem(9, new ItemStack(com.cryptomorin.xseries.XMaterial.ARROW.parseMaterial(), 1));
     }
 
     @Override
@@ -66,7 +62,7 @@ public class TeleportBow extends Gadget {
 
     private void refund(Player player) {
         player.getInventory().getItemInHand().setDurability((short) 0);
-        player.getInventory().setItem(9, new ItemStack(XMaterial.ARROW.parseMaterial(), 1));
+        player.getInventory().setItem(9, new ItemStack(com.cryptomorin.xseries.XMaterial.ARROW.parseMaterial(), 1));
     }
 
     @EventHandler

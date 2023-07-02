@@ -53,11 +53,11 @@ public class User {
         when swapping lobbies directly
     */
     public CompletableFuture<Void> load(UserManager userManager) {
-        return userManager.getFlatType().load(this);
+        return userManager.getDatabase().load(this);
     }
 
     public CompletableFuture<Void> save(UserManager userManager) {
-        return userManager.getFlatType().save(this);
+        return userManager.getDatabase().save(this);
     }
 
     public void applyBalloon(Comet plugin, Player player, BalloonHead balloonHead) {

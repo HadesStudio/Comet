@@ -1,21 +1,21 @@
-package dev.rage.comet.user.save_method.impl;
+package dev.rage.comet.user.database.impl;
 
 import dev.rage.comet.Comet;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
-import dev.rage.comet.user.save_method.FlatType;
+import dev.rage.comet.user.database.Database;
 import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-public class FlatFileMethod extends FlatType {
+public class FlatFileDatabase extends Database {
 
     private final FileConfig fileConfig;
     private final FileConfiguration configuration;
 
-    public FlatFileMethod(Comet plugin, UserManager userManager) {
+    public FlatFileDatabase(Comet plugin, UserManager userManager) {
         super(plugin, userManager);
 
         this.fileConfig = new FileConfig(plugin, "users.yml");

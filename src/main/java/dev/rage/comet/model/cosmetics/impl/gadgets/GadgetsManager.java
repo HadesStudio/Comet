@@ -2,7 +2,12 @@ package dev.rage.comet.model.cosmetics.impl.gadgets;
 
 import com.google.common.collect.Lists;
 import dev.rage.comet.Comet;
-import dev.rage.comet.model.cosmetics.impl.gadgets.impl.*;
+import dev.rage.comet.model.cosmetics.impl.gadgets.impl.FireTrail;
+import dev.rage.comet.model.cosmetics.impl.gadgets.impl.GrapplingHook;
+import dev.rage.comet.model.cosmetics.impl.gadgets.impl.Mount;
+import dev.rage.comet.model.cosmetics.impl.gadgets.impl.SnowBallHider;
+import dev.rage.comet.model.cosmetics.impl.gadgets.impl.TeleportBow;
+import dev.rage.comet.model.cosmetics.impl.gadgets.impl.Trampoline;
 import lombok.Getter;
 
 import java.util.List;

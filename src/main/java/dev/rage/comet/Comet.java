@@ -75,6 +75,8 @@ import java.util.Arrays;
 
 @Getter
 public class Comet extends JavaPlugin {
+    @Getter
+    private static Comet instance;
 
     private FileConfig configFile,
             licenseFile,
@@ -119,6 +121,7 @@ public class Comet extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
         this.licenseFile = new FileConfig(this, "license.yml");
         if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
             Bukkit.getServer().getPluginManager().disablePlugin(this);
@@ -127,12 +130,12 @@ public class Comet extends JavaPlugin {
         }
 
         Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
-                    "",
-                    " &f&l* &bAuthors&7: &f" + getDescription().getAuthors(),
-                    " &f&l* &bPlugin Version&7: &f" + getDescription().getVersion(),
-                    " &f&l* &bLicense Status&7: &aVALID",
-                    " &f&l* &bThanks for using Comet Hubcore <3",
-                    " &f&l* &bIf u have support join to &ndiscord.gg/6GpV8ARYsG")
+                        "",
+                        " &f&l* &bAuthors&7: &f" + getDescription().getAuthors(),
+                        " &f&l* &bPlugin Version&7: &f" + getDescription().getVersion(),
+                        " &f&l* &bLicense Status&7: &aVALID",
+                        " &f&l* &bThanks for using Comet Hubcore <3",
+                        " &f&l* &bIf u have support join to &ndiscord.gg/6GpV8ARYsG")
                 .forEach(s ->
                         Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
 
@@ -228,7 +231,7 @@ public class Comet extends JavaPlugin {
 
         removeBuggedEntities();
 
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new BalloonRunnable(userManager), 0L, 1L);
+        Bukkit.getScheduler().runTaskTimer(this, new BalloonRunnable(userManager), 0L, 1L);
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     }
 

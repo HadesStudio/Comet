@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.impl.outfits;
 
-import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Table;
@@ -13,7 +12,6 @@ import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
@@ -71,7 +69,7 @@ public class OutfitManager {
         for (int i = 0; i < 4; i++) {
             String type = types.get(i);
 
-            Optional<XMaterial> xMaterial = XMaterial.matchXMaterial(config.getString(path + type + ".type"));
+            Optional<com.cryptomorin.xseries.XMaterial> xMaterial = com.cryptomorin.xseries.XMaterial.matchXMaterial(config.getString(path + type + ".type"));
             if (!xMaterial.isPresent()) {
                 throw new IllegalArgumentException("Invalid material type for " + type + " in " + path + type + ".type");
             }
@@ -80,7 +78,7 @@ public class OutfitManager {
 
             if (itemStack != null) {
                 if (type.equals("helmet") && itemStack.getType().name().contains("SKULL")) {
-                    armor[i] = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
+                    armor[i] = new ItemBuilder(com.cryptomorin.xseries.XMaterial.PLAYER_HEAD.parseItem())
                             .setSkullOwner(config.getString(path + type + ".texture"))
                             .build();
                 }

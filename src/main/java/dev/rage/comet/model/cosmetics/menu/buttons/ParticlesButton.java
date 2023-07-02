@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.particles.ParticlesManager;
 import dev.rage.comet.model.cosmetics.impl.particles.menu.ParticlesMenu;
@@ -19,7 +18,7 @@ public class ParticlesButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(XMaterial.SLIME_BALL.parseItem())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.SLIME_BALL.parseItem())
                 .setName(plugin.getCosmeticsFile().getString("menu.particles_title"))
                 .setLore(plugin.getCosmeticsFile().getStringList("menu.particles_lore"))
                 .build();

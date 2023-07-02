@@ -2,11 +2,10 @@ package dev.rage.comet.user;
 
 import dev.rage.comet.Comet;
 import dev.rage.comet.database.mongo.Mongo;
-import dev.rage.comet.user.save_method.FlatType;
-import dev.rage.comet.user.save_method.impl.FlatFileMethod;
-import dev.rage.comet.user.save_method.impl.FlatMongoMethod;
+import dev.rage.comet.user.database.Database;
+import dev.rage.comet.user.database.impl.FlatFileDatabase;
+import dev.rage.comet.user.database.impl.MongoDatabase;
 import lombok.Getter;
-import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -15,11 +14,8 @@ import java.util.UUID;
 
 @Getter
 public class UserManager {
-
     private final Comet plugin;
-
-    private final FlatType flatType;
-
+    private final Database database;
     private final Map<UUID, User> users;
 
     public UserManager(Comet plugin, @Nullable Mongo mongo) {
@@ -27,9 +23,9 @@ public class UserManager {
         this.users = new HashMap<>();
 
         if (mongo != null)
-            this.flatType = new FlatMongoMethod(plugin, this, mongo);
+            this.database = new MongoDatabase(plugin, this, mongo);
         else
-            this.flatType = new FlatFileMethod(plugin, this);
+            this.database = new FlatFileDatabase(plugin, this);
     }
 
     public User getUser(UUID uuid) {

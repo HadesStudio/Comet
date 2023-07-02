@@ -2,7 +2,12 @@ package dev.rage.comet.model.cosmetics.menu;
 
 import com.google.common.collect.Maps;
 import dev.rage.comet.Comet;
-import dev.rage.comet.model.cosmetics.menu.buttons.*;
+import dev.rage.comet.model.cosmetics.menu.buttons.BalloonButton;
+import dev.rage.comet.model.cosmetics.menu.buttons.BannerButton;
+import dev.rage.comet.model.cosmetics.menu.buttons.GadgetsButton;
+import dev.rage.comet.model.cosmetics.menu.buttons.MascotButton;
+import dev.rage.comet.model.cosmetics.menu.buttons.OutfitButton;
+import dev.rage.comet.model.cosmetics.menu.buttons.ParticlesButton;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.Menu;

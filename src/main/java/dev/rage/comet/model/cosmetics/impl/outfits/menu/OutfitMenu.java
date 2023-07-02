@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.impl.outfits.menu;
 
-import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.OutfitManager;
@@ -46,7 +45,7 @@ public class OutfitMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return new ItemBuilder(XMaterial.LEATHER_CHESTPLATE.parseMaterial())
+            return new ItemBuilder(com.cryptomorin.xseries.XMaterial.LEATHER_CHESTPLATE.parseMaterial())
                     .setName(ChatColor.GREEN + "Leather Outfits")
                     .build();
         }
@@ -61,7 +60,7 @@ public class OutfitMenu extends Menu {
 
         @Override
         public ItemStack getButtonItem(Player player) {
-            return new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
+            return new ItemBuilder(com.cryptomorin.xseries.XMaterial.PLAYER_HEAD.parseItem())
                     .setSkullOwner("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTNjNTgyMThmMjA3NWE1NjhlY2ZmZTVkZmNiNzk2NzZiMzIxMDFkNzE3MmUxNWZjZWRhMWMwNjY4NTdjNDNiMCJ9fX0=")
                     .setName(ChatColor.GREEN + "Custom Outfits")
                     .build();

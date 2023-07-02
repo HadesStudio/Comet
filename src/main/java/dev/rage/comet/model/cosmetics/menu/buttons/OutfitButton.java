@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.OutfitManager;
 import dev.rage.comet.model.cosmetics.impl.outfits.menu.OutfitMenu;
@@ -19,7 +18,7 @@ public class OutfitButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(XMaterial.GOLDEN_CHESTPLATE.parseItem())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.GOLDEN_CHESTPLATE.parseItem())
                 .setName(plugin.getCosmeticsFile().getString("menu.outfit_title"))
                 .setLore(plugin.getCosmeticsFile().getStringList("menu.outfit_lore"))
                 .build();

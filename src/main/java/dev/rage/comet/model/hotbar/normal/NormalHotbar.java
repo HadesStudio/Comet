@@ -1,6 +1,5 @@
 package dev.rage.comet.model.hotbar.normal;
 
-import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
@@ -29,7 +28,7 @@ public abstract class NormalHotbar {
 
     public boolean isSimilar(ItemStack toCheck) {
         return (toCheck != null)
-                && (toCheck.getType() != XMaterial.AIR.parseMaterial())
+                && (toCheck.getType() != com.cryptomorin.xseries.XMaterial.AIR.parseMaterial())
                 && (toCheck.hasItemMeta())
                 && (toCheck.getItemMeta().getDisplayName() != null)
                 && toCheck.getItemMeta().getDisplayName().equals(item.getItemMeta().getDisplayName());

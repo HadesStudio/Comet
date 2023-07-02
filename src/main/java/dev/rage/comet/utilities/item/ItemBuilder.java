@@ -1,6 +1,5 @@
 package dev.rage.comet.utilities.item;
 
-import com.cryptomorin.xseries.XMaterial;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import dev.rage.comet.utilities.ChatUtil;
@@ -29,19 +28,19 @@ public class ItemBuilder {
     }
 
     public ItemBuilder(Material material) {
-        this(XMaterial.matchXMaterial(material).parseMaterial(), 1, 0);
+        this(com.cryptomorin.xseries.XMaterial.matchXMaterial(material).parseMaterial(), 1, 0);
     }
 
     public ItemBuilder(Material material, int amount) {
-        this(XMaterial.matchXMaterial(material).parseMaterial(), amount, 0);
+        this(com.cryptomorin.xseries.XMaterial.matchXMaterial(material).parseMaterial(), amount, 0);
     }
 
     public ItemBuilder(String material) {
-        this(XMaterial.matchXMaterial(material).get().parseMaterial(), 1, 0);
+        this(com.cryptomorin.xseries.XMaterial.matchXMaterial(material).get().parseMaterial(), 1, 0);
     }
 
     public ItemBuilder(Material material, int amount, int data) {
-        this.itemStack = new ItemStack(XMaterial.matchXMaterial(material).parseMaterial(), amount, (short) data);
+        this.itemStack = new ItemStack(com.cryptomorin.xseries.XMaterial.matchXMaterial(material).parseMaterial(), amount, (short) data);
         this.itemMeta = itemStack.getItemMeta();
     }
 

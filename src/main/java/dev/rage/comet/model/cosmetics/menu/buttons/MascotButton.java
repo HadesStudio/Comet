@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.mascots.MascotManager;
 import dev.rage.comet.model.cosmetics.impl.mascots.menu.SelectMascotMenu;
@@ -19,7 +18,7 @@ public class MascotButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(XMaterial.ARMOR_STAND.parseItem())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.ARMOR_STAND.parseItem())
                 .setName(plugin.getCosmeticsFile().getString("menu.mascot_title"))
                 .setLore(plugin.getCosmeticsFile().getStringList("menu.mascot_lore"))
                 .build();

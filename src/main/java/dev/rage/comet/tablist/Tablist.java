@@ -4,7 +4,7 @@ package dev.rage.comet.tablist;
 import dev.rage.comet.tablist.player.PlayerTablist;
 import dev.rage.comet.tablist.player.PlayerVersionManager;
 import dev.rage.comet.tablist.version.TablistVersion;
-import dev.rage.comet.tablist.version.impl.Tablist_v1_8_R3;
+import dev.rage.comet.tablist.version.impl.ProtocolTablist;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.Comet;
 import lombok.Getter;
@@ -43,9 +43,8 @@ public class Tablist {
 
     private void setupTablistVersion() {
         if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
-            this.tablistVersion = new Tablist_v1_8_R3(plugin);
-        }
-        else {
+            this.tablistVersion = new ProtocolTablist(plugin);
+        } else {
             ChatUtil.logger("&c[Tablist] ProtocolLib not found, disabling Tablist");
         }
     }

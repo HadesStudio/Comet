@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.impl.banners;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.utilities.ChatUtil;
 import lombok.Getter;
@@ -44,7 +43,7 @@ public class BannerManager {
 
                 @Override
                 public ItemStack getItem() {
-                    ItemStack banner = new ItemStack(XMaterial.BLACK_BANNER.parseMaterial());
+                    ItemStack banner = new ItemStack(com.cryptomorin.xseries.XMaterial.BLACK_BANNER.parseMaterial());
                     BannerMeta meta = (BannerMeta) banner.getItemMeta();
 
                     meta.setDisplayName(ChatUtil.translate(getName()));

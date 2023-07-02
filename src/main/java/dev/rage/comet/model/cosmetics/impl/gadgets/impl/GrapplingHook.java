@@ -1,10 +1,8 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.item.ItemBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerFishEvent;
@@ -29,7 +27,7 @@ public class GrapplingHook extends Gadget {
 
     @Override
     public ItemStack getIcon() {
-        return new ItemBuilder(XMaterial.FISHING_ROD.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.FISHING_ROD.parseMaterial())
                 .setName(plugin.getGadgetsFile().getString("menu.name_format")
                         .replace("<name>", getName()))
                 .setLore(plugin.getGadgetsFile().getStringList("menu.grappling_hook_lore"))
@@ -38,7 +36,7 @@ public class GrapplingHook extends Gadget {
 
     @Override
     public ItemStack getItem() {
-        return new ItemBuilder(XMaterial.FISHING_ROD.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.FISHING_ROD.parseMaterial())
                 .setName(plugin.getGadgetsFile().getString("grappling-hook.item-name"))
                 .setLore(plugin.getGadgetsFile().getStringList("grappling-hook.item-lore"))
                 .build();

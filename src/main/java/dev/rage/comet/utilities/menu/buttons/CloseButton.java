@@ -1,6 +1,5 @@
 package dev.rage.comet.utilities.menu.buttons;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
 import org.bukkit.entity.Player;
@@ -11,7 +10,7 @@ public class CloseButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(XMaterial.REDSTONE.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.REDSTONE.parseMaterial())
                 .setName("&cClose")
                 .build();
     }

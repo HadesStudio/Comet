@@ -1,4 +1,4 @@
-package dev.rage.comet.user.save_method.impl;
+package dev.rage.comet.user.database.impl;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
@@ -7,17 +7,17 @@ import dev.rage.comet.Comet;
 import dev.rage.comet.database.mongo.Mongo;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
-import dev.rage.comet.user.save_method.FlatType;
+import dev.rage.comet.user.database.Database;
 import org.bson.Document;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-public class FlatMongoMethod extends FlatType {
+public class MongoDatabase extends Database {
 
     private MongoCollection<Document> collection;
 
-    public FlatMongoMethod(Comet plugin, UserManager userManager, Mongo mongo) {
+    public MongoDatabase(Comet plugin, UserManager userManager, Mongo mongo) {
         super(plugin, userManager);
 
         if (!mongo.isConnected()) {

@@ -1,6 +1,5 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
-import com.cryptomorin.xseries.XMaterial;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.cosmetics.impl.banners.menu.BannerMenu;
@@ -8,7 +7,6 @@ import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -22,7 +20,7 @@ public class BannerButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(XMaterial.BLACK_BANNER.parseMaterial())
+        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.BLACK_BANNER.parseMaterial())
                 .setName(plugin.getCosmeticsFile().getString("menu.banner_title"))
                 .setLore(plugin.getCosmeticsFile().getStringList("menu.banner_lore"))
                 .build();
