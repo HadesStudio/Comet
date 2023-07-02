@@ -1,8 +1,8 @@
 package dev.rage.comet.utilities;
 
 import com.cryptomorin.xseries.XSound;
+import fr.mrmicky.fastparticles.ParticleType;
 import lombok.experimental.UtilityClass;
-import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 
 /**
@@ -24,10 +24,10 @@ public class PlayerUtil {
 
     public void playEffect(Player player, String effect) {
         if (!effect.isEmpty()) {
+            ParticleType particleType = ParticleType.of(effect);
             try {
-                player.getWorld().playEffect(player.getLocation(), Effect.valueOf(effect), 1);
-            }
-            catch (Exception ex) {
+                particleType.spawn(player.getWorld(), player.getLocation(), 1, 1);
+            } catch (Exception ex) {
                 ChatUtil.logger("&cEffect '" + effect + "' is not valid, please use a valid effect.");
             }
         }
