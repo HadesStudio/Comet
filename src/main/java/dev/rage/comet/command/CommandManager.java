@@ -1,4 +1,4 @@
-package dev.rage.comet.utilities.command;
+package dev.rage.comet.command;
 
 import dev.rage.comet.utilities.ChatUtil;
 import org.bukkit.Bukkit;

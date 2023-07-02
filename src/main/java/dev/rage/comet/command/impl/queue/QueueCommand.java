@@ -1,9 +1,9 @@
-package dev.rage.comet.commands.queue;
+package dev.rage.comet.command.impl.queue;
 
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.utilities.command.BaseCommand;
-import dev.rage.comet.utilities.command.Command;
-import dev.rage.comet.utilities.command.CommandArgs;
+import dev.rage.comet.command.BaseCommand;
+import dev.rage.comet.command.Command;
+import dev.rage.comet.command.CommandArgs;
 
 /**
  * Created by Risas

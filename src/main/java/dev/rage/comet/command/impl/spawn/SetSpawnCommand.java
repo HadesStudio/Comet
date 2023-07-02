@@ -1,9 +1,9 @@
-package dev.rage.comet.commands.spawn;
+package dev.rage.comet.command.impl.spawn;
 
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.utilities.command.BaseCommand;
-import dev.rage.comet.utilities.command.Command;
-import dev.rage.comet.utilities.command.CommandArgs;
+import dev.rage.comet.command.BaseCommand;
+import dev.rage.comet.command.Command;
+import dev.rage.comet.command.CommandArgs;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.spawn.SpawnManager;
 import dev.rage.comet.utilities.file.FileConfig;

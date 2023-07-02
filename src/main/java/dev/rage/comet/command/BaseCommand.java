@@ -1,4 +1,4 @@
-package dev.rage.comet.utilities.command;
+package dev.rage.comet.command;
 
 public abstract class BaseCommand {
 

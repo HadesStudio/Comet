@@ -1,9 +1,9 @@
-package dev.rage.comet.commands.queue.subcommands;
+package dev.rage.comet.command.impl.queue.subcommands;
 
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.utilities.command.BaseCommand;
-import dev.rage.comet.utilities.command.Command;
-import dev.rage.comet.utilities.command.CommandArgs;
+import dev.rage.comet.command.BaseCommand;
+import dev.rage.comet.command.Command;
+import dev.rage.comet.command.CommandArgs;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
@@ -18,24 +18,24 @@ import org.bukkit.entity.Player;
  * GitHub: https://github.com/RisasDev
  */
 
-public class QueueLeaveCommand extends BaseCommand {
+public class QueueJoinCommand extends BaseCommand {
 
     private final FileConfig languageFile;
     private final QueueManager queueManager;
 
-    public QueueLeaveCommand(Comet plugin) {
+    public QueueJoinCommand(Comet plugin) {
         this.languageFile = plugin.getLanguageFile();
         this.queueManager = plugin.getQueueManager();
     }
 
-    @Command(name = "queue.leave")
+    @Command(name = "queue.join")
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();
         String[] args = command.getArgs();
 
         if (args.length == 0) {
-            ChatUtil.sendMessage(player, "&cUsage: /queue leave <queue>");
+            ChatUtil.sendMessage(player, "&cUsage: /queue join <queue>");
             return;
         }
 
@@ -49,15 +49,15 @@ public class QueueLeaveCommand extends BaseCommand {
 
         Queue queuePlayer = queueManager.getQueueByPlayer(player);
 
-        if (queuePlayer == null) {
-            ChatUtil.sendMessage(player, languageFile.getString("queue-message.not-in-queue"));
+        if (queuePlayer != null) {
+            ChatUtil.sendMessage(player, languageFile.getString("queue-message.already-in-queue")
+                    .replace("<queue>", queueName));
             return;
         }
 
         Queue queue = queueManager.getQueue(queueName);
-        queueManager.removeQueuePlayer(queue, player.getUniqueId());
-
-        ChatUtil.sendMessage(player, languageFile.getString("queue-message.left")
+        queueManager.addQueuePlayer(queue, player.getUniqueId());
+        ChatUtil.sendMessage(player, languageFile.getString("queue-message.joined")
                 .replace("<queue>", queueName));
     }
 }

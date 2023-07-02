@@ -1,4 +1,4 @@
-package dev.rage.comet.utilities.command;
+package dev.rage.comet.command;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
