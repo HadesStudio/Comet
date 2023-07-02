@@ -212,8 +212,9 @@ public class Trampoline extends Gadget {
     }
 
     private boolean checkTrampoline(Player player) {
+        Block relative = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
         for (List<Block> value : blocks.values()) {
-            if (value.contains(player.getLocation().getBlock().getRelative(BlockFace.DOWN))) {
+            if (value.contains(relative)) {
                 return true;
             }
         }
