@@ -1,6 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.balloons;
 
-import de.tr7zw.nbtapi.NBTEntity;
+import de.tr7zw.changeme.nbtapi.NBTEntity;
 import dev.rage.comet.Comet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
