@@ -6,7 +6,7 @@
 
     <groupId>dev.rage.comet</groupId>
     <artifactId>Comet</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <name>Comet</name>
 
     <properties>
