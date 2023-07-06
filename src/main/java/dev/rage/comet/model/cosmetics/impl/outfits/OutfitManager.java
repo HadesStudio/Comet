@@ -1,5 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.outfits;
 
+import com.cryptomorin.xseries.SkullUtils;
+import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Table;
@@ -14,6 +16,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -69,27 +73,35 @@ public class OutfitManager {
         for (int i = 0; i < 4; i++) {
             String type = types.get(i);
 
-            Optional<com.cryptomorin.xseries.XMaterial> xMaterial = com.cryptomorin.xseries.XMaterial.matchXMaterial(config.getString(path + type + ".type"));
-            if (!xMaterial.isPresent()) {
-                throw new IllegalArgumentException("Invalid material type for " + type + " in " + path + type + ".type");
-            }
+            String materialType = config.getString(path + type + ".type");
 
-            ItemStack itemStack = xMaterial.get().parseItem();
+            if (materialType.equals("PLAYER_HEAD")) {
+                ItemStack head = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
+                        .build();
 
-            if (itemStack != null) {
-                if (type.equals("helmet") && itemStack.getType().name().contains("SKULL")) {
-                    armor[i] = new ItemBuilder(com.cryptomorin.xseries.XMaterial.PLAYER_HEAD.parseItem())
-                            .setSkullOwner(config.getString(path + type + ".texture"))
-                            .build();
+                ItemMeta itemMeta = head.getItemMeta();
+                if (itemMeta instanceof SkullMeta) {
+                    SkullMeta skullMeta = (SkullMeta) itemMeta;
+                    SkullUtils.applySkin(skullMeta, config.getString(path + type + ".texture"));
+                    head.setItemMeta(skullMeta);
                 }
-                else if (itemStack.getType().name().contains("LEATHER")) {
-                    int[] rgb = JavaUtil.getRGB(config.getString(path + type + ".rgb"));
-                    armor[i] = new ItemBuilder(itemStack)
-                            .setRGBColor(rgb[0], rgb[1], rgb[2])
-                            .build();
+                armor[i] = head;
+            } else {
+                Optional<XMaterial> xMaterial = XMaterial.matchXMaterial(materialType);
+                if (!xMaterial.isPresent()) {
+                    throw new IllegalArgumentException("Invalid material type for " + type + " in " + path + type + ".type");
                 }
-                else {
-                    armor[i] = new ItemStack(itemStack);
+                ItemStack itemStack = xMaterial.get().parseItem();
+
+                if (itemStack != null) {
+                    if (itemStack.getType().name().contains("LEATHER")) {
+                        int[] rgb = JavaUtil.getRGB(config.getString(path + type + ".rgb"));
+                        armor[i] = new ItemBuilder(itemStack)
+                                .setRGBColor(rgb[0], rgb[1], rgb[2])
+                                .build();
+                    } else {
+                        armor[i] = new ItemStack(itemStack);
+                    }
                 }
             }
         }
