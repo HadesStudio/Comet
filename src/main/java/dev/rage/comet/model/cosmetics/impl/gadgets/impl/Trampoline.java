@@ -1,41 +1,39 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
+import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
+import dev.rage.comet.utils.Cuboid;
+import dev.rage.comet.utils.FacedBlock;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Stairs;
 import org.bukkit.util.Vector;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Trampoline extends Gadget {
 
     private final Map<UUID, List<Block>> blocks;
-    private final Set<Block> allBlocks;
+    private final List<Block> wools;
 
     public Trampoline(Comet plugin) {
         super(plugin);
 
-        blocks = Maps.newHashMap();
-        allBlocks = Sets.newConcurrentHashSet();
+        this.blocks = new ConcurrentHashMap<>();
+        this.wools = new ArrayList<>();
     }
 
     @Override
@@ -60,10 +58,10 @@ public class Trampoline extends Gadget {
     @Override
     public void onUsage(Player player) {
         //player.getInventory().setItem(1, getItem());
-
-        Map<Block, String> unsetBlocks = checkBlocks(player);
-
-        List<BlockState> blocks = Lists.newArrayList();
+        Location location = player.getLocation();
+        Map<Block, FacedBlock> unsetBlocks = checkBlocks(location);
+        List<Block> blocks = this.blocks.computeIfAbsent(player.getUniqueId(), ignored -> new ArrayList<>());
+        List<Block> actualTrampolineBlocks = new ArrayList<>();
 
         // detect if you can place a trampoline in their location
         for (Block block : unsetBlocks.keySet()) {
@@ -75,114 +73,74 @@ public class Trampoline extends Gadget {
             }
         }
 
-        com.cryptomorin.xseries.XMaterial woolMaterial = com.cryptomorin.xseries.XMaterial.WHITE_WOOL;
+        Cuboid trampolineCuboid = new Cuboid(location.clone().add(-3, 0, -3), location.clone().add(3, 1, 3));
+        location.getWorld().getPlayers().forEach(wp -> {
+            if (!trampolineCuboid.contains(wp.getLocation())) {
+                return;
+            }
+            wp.teleport(wp.getLocation().add(0, 2, 0));
+        });
 
-        unsetBlocks.forEach((block, s) -> {
-            allBlocks.add(block);
-            switch (s) {
-                case "STAIRS":
-                    setFacingStair(blocks, block, player);
-                    break;
-                case "BORDER":
-                    setBlock(blocks, block, woolMaterial, (byte) 15);
-                    break;
-                case "FILL":
-                    setBlock(blocks, block, woolMaterial, (byte) 11);
-                    break;
+        unsetBlocks.forEach((block, facedBlock) -> {
+            blocks.add(block);
+            actualTrampolineBlocks.add(block);
+            facedBlock.applyTo(block);
+            if (block.getType().name().contains("WOOL")) {
+                this.wools.add(block.getLocation().getBlock());
             }
         });
 
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-            for (Block block : unsetBlocks.keySet()) {
-                allBlocks.remove(block);
+            for (Block block : actualTrampolineBlocks) {
+                blocks.remove(block);
+                this.wools.remove(block.getLocation().getBlock());
+                block.setType(Material.AIR);
             }
 
-            for (BlockState block : blocks) {
-                block.update(true);
+            if (blocks.isEmpty()) { // If there are any other trampolines, just remove the data.
+                this.blocks.remove(player.getUniqueId());
             }
-
-            this.blocks.remove(player.getUniqueId());
         }, 20L * 15L);
     }
 
     @Override
     public void onDisable() {
-        for (Block block : allBlocks) {
-            block.setType(Material.AIR);
-        }
-
-        allBlocks.clear();
+        blocks.forEach((uuid, blocks1) -> {
+            blocks1.forEach(block -> {
+                block.setType(Material.AIR);
+            });
+        });
     }
 
-    private Map<Block, String> checkBlocks(Player player) {
-        Map<Block, String> unsetBlocks = Maps.newHashMap();
+    private Map<Block, FacedBlock> checkBlocks(Location base) {
+        Map<Block, FacedBlock> unsetBlocks = Maps.newHashMap();
 
-        Location location = player.getLocation();
-        Block stairs = location.add(location.getDirection()).getBlock().getRelative(BlockFace.UP);
+        Location trampolineBase = base.clone().add(0, 1, 0);
 
-        for (int i = 0; i < 2; i++) {
-            if (i != 0) {
-                stairs = stairs.getRelative(BlockFace.UP).getRelative(getBlockFace(player));
-            }
+        Cuboid border = new Cuboid(trampolineBase.clone().add(-3, 0, -3), trampolineBase.clone().add(3, 0, 3));
+        Cuboid middle = new Cuboid(trampolineBase.clone().add(-2, 0, -2), trampolineBase.clone().add(2, 0, 2));
+        border.getBlocks().forEach(block -> unsetBlocks.put(block, new FacedBlock(XMaterial.BLUE_WOOL, null)));
+        middle.getBlocks().forEach(block -> unsetBlocks.put(block, new FacedBlock(XMaterial.BLACK_WOOL, null)));
 
-            unsetBlocks.put(stairs, "STAIRS");
-        }
+        unsetBlocks.put(base.clone().add(3, 0, 3).getBlock(), new FacedBlock(XMaterial.GRAY_WOOL, null));
+        unsetBlocks.put(base.clone().add(3, 0, -3).getBlock(), new FacedBlock(XMaterial.GRAY_WOOL, null));
+        unsetBlocks.put(base.clone().add(-3, 0, 3).getBlock(), new FacedBlock(XMaterial.GRAY_WOOL, null));
+        unsetBlocks.put(base.clone().add(-3, 0, -3).getBlock(), new FacedBlock(XMaterial.GRAY_WOOL, null));
 
-        Iterator<String> aimPoints = Iterators.forArray("RIGHT", "FRONT", "LEFT", "BACK");
-        Block border = null;
+        unsetBlocks.put(base.clone().add(0, 0, 5).getBlock(), new FacedBlock(XMaterial.OAK_STAIRS, BlockFace.NORTH));
+        unsetBlocks.put(base.clone().add(5, 0, 0).getBlock(), new FacedBlock(XMaterial.OAK_STAIRS, BlockFace.WEST));
+        unsetBlocks.put(base.clone().add(0, 0, -5).getBlock(), new FacedBlock(XMaterial.OAK_STAIRS, BlockFace.SOUTH));
+        unsetBlocks.put(base.clone().add(-5, 0, 0).getBlock(), new FacedBlock(XMaterial.OAK_STAIRS, BlockFace.EAST));
 
-        String aimPoint = null;
-        for (int i = 0; i < 24; i++) {
-            if (i == 0) {
-                border = stairs.getRelative(getBlockFace(player))
-                        .getRelative(getBlockFaceDirection(player, "LEFT"))
-                        .getRelative(getBlockFaceDirection(player, "LEFT"))
-                        .getRelative(getBlockFaceDirection(player, "LEFT"));
-            }
+        unsetBlocks.put(base.clone().add(0, 0, 4).getBlock(), new FacedBlock(XMaterial.OAK_PLANKS, null));
+        unsetBlocks.put(base.clone().add(4, 0, 0).getBlock(), new FacedBlock(XMaterial.OAK_PLANKS, null));
+        unsetBlocks.put(base.clone().add(0, 0, -4).getBlock(), new FacedBlock(XMaterial.OAK_PLANKS, null));
+        unsetBlocks.put(base.clone().add(-4, 0, 0).getBlock(), new FacedBlock(XMaterial.OAK_PLANKS, null));
 
-            if (i % 6 == 0) {
-                aimPoint = aimPoints.next();
-            }
-
-            border = border.getRelative(getBlockFaceDirection(player, aimPoint));
-            unsetBlocks.put(border, "BORDER");
-        }
-
-        // Fill per lines
-
-        Block startPoint = null;
-        Block fill1 = null;
-        for (int i = 0; i < 25; i++) {
-            if (i == 0) {
-                startPoint = stairs.getRelative(getBlockFace(player))
-                        .getRelative(getBlockFace(player))
-                        .getRelative(getBlockFaceDirection(player, "LEFT"))
-                        .getRelative(getBlockFaceDirection(player, "LEFT"));
-                unsetBlocks.put(startPoint, "FILL");
-
-                fill1 = startPoint;
-                continue;
-            }
-
-            if (i % 5 == 0) {
-                startPoint = startPoint.getRelative(getBlockFaceDirection(player, "FRONT"));
-                unsetBlocks.put(startPoint, "FILL");
-
-                fill1 = startPoint;
-            } else {
-                fill1 = fill1.getRelative(getBlockFaceDirection(player, "RIGHT"));
-                unsetBlocks.put(fill1, "FILL");
-            }
-
-            if (!this.blocks.containsKey(player.getUniqueId())) {
-                this.blocks.put(player.getUniqueId(), Lists.newArrayList());
-            }
-
-            List<Block> playerTrampolineBlocks = this.blocks.get(player.getUniqueId());
-            playerTrampolineBlocks.add(fill1);
-
-            this.blocks.put(player.getUniqueId(), playerTrampolineBlocks);
-        }
+        unsetBlocks.put(trampolineBase.clone().add(0, 0, 4).getBlock(), new FacedBlock(XMaterial.OAK_STAIRS, BlockFace.NORTH));
+        unsetBlocks.put(trampolineBase.clone().add(4, 0, 0).getBlock(), new FacedBlock(XMaterial.OAK_STAIRS, BlockFace.WEST));
+        unsetBlocks.put(trampolineBase.clone().add(0, 0, -4).getBlock(), new FacedBlock(XMaterial.OAK_STAIRS, BlockFace.SOUTH));
+        unsetBlocks.put(trampolineBase.clone().add(-4, 0, 0).getBlock(), new FacedBlock(XMaterial.OAK_STAIRS, BlockFace.EAST));
 
         return unsetBlocks;
     }
@@ -196,121 +154,8 @@ public class Trampoline extends Gadget {
 
         Player player = event.getPlayer();
 
-        if (checkTrampoline(player)) {
-            player.setVelocity(new Vector(0, 15, 0));
+        if (wools.contains(player.getLocation().add(0, -1, 0).getBlock())) {
+            player.setVelocity(new Vector(0, 3, 0));
         }
-    }
-
-    private void setBlock(List<BlockState> blocks, Block block, com.cryptomorin.xseries.XMaterial material, byte data) {
-        blocks.add(block.getState());
-
-        block.setType(material.parseMaterial());
-        block.setData(data);
-
-        allBlocks.add(block);
-    }
-
-    private boolean checkTrampoline(Player player) {
-        Block relative = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
-        for (List<Block> value : blocks.values()) {
-            if (value.contains(relative)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private BlockFace getBlockFace(Player player) {
-        float yaw = player.getLocation().getYaw();
-
-        if (yaw < 0)
-            yaw += 360;
-
-        yaw %= 360;
-
-        if (yaw < 45 || yaw > 315)
-            return BlockFace.SOUTH;
-        else if (yaw < 135)
-            return BlockFace.WEST;
-        else if (yaw < 225)
-            return BlockFace.NORTH;
-        else if (yaw < 315)
-            return BlockFace.EAST;
-        else
-            return null;
-    }
-
-    private BlockFace getBlockFaceDirection(Player player, String direction) {
-        BlockFace face = getBlockFace(player);
-
-        switch (direction.toUpperCase()) {
-            case "LEFT":
-                switch (face) {
-                    case NORTH:
-                        return BlockFace.WEST;
-                    case EAST:
-                        return BlockFace.NORTH;
-                    case SOUTH:
-                        return BlockFace.EAST;
-                    case WEST:
-                        return BlockFace.SOUTH;
-                }
-                break;
-            case "RIGHT":
-                switch (face) {
-                    case NORTH:
-                        return BlockFace.EAST;
-                    case EAST:
-                        return BlockFace.SOUTH;
-                    case SOUTH:
-                        return BlockFace.WEST;
-                    case WEST:
-                        return BlockFace.NORTH;
-                }
-                break;
-            case "FRONT":
-                switch (face) {
-                    case NORTH:
-                        return BlockFace.NORTH;
-                    case EAST:
-                        return BlockFace.EAST;
-                    case SOUTH:
-                        return BlockFace.SOUTH;
-                    case WEST:
-                        return BlockFace.WEST;
-                }
-                break;
-            case "BACK":
-                switch (face) {
-                    case NORTH:
-                        return BlockFace.SOUTH;
-                    case EAST:
-                        return BlockFace.WEST;
-                    case SOUTH:
-                        return BlockFace.NORTH;
-                    case WEST:
-                        return BlockFace.EAST;
-                }
-                break;
-            default:
-                return face;
-        }
-
-        return face;
-    }
-
-    private void setFacingStair(List<BlockState> list, Block block, Player player) {
-        list.add(block.getState());
-
-        block.setType(com.cryptomorin.xseries.XMaterial.OAK_STAIRS.parseMaterial());
-
-        Stairs stairsData = (Stairs) block.getState().getData();
-        stairsData.setFacingDirection(getBlockFace(player));
-
-        block.setData(stairsData.getData());
-        block.getState().update();
-
-        allBlocks.add(block);
     }
 }
