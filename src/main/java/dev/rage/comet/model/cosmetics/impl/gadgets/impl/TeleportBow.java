@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
 import com.cryptomorin.xseries.XMaterial;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.ChatUtil;
@@ -13,7 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 
 public class TeleportBow extends Gadget {
@@ -42,11 +45,21 @@ public class TeleportBow extends Gadget {
 
     @Override
     public ItemStack getItem() {
-        return new ItemBuilder(com.cryptomorin.xseries.XMaterial.BOW.parseMaterial())
+        ItemStack itemStack = new ItemBuilder(XMaterial.BOW.parseMaterial())
                 .setName(plugin.getGadgetsFile().getString("teleport-bow.item-name"))
                 .setLore(plugin.getGadgetsFile().getStringList("teleport-bow.item-lore"))
-                .addEnchantment(Enchantment.ARROW_INFINITE, 1)
                 .build();
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (itemMeta != null) {
+            itemMeta.addItemFlags(ItemFlag.values());
+            itemStack.setItemMeta(itemMeta);
+        }
+        itemStack.addEnchantment(Enchantment.ARROW_INFINITE, 1);
+
+        NBTItem nbtItem = new NBTItem(itemStack);
+        nbtItem.setBoolean("Unbreakable", true);
+        nbtItem.mergeNBT(itemStack);
+        return itemStack;
     }
 
     @Override
