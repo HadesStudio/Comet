@@ -53,6 +53,7 @@ public class Balloon {
 
         silent(bat);
         noAI(bat);
+        invincible(bat);
 
         bat.setLeashHolder(player);
     }
@@ -122,5 +123,10 @@ public class Balloon {
     private void noAI(Entity bukkitEntity) {
         NBTEntity nbtEntity = new NBTEntity(bukkitEntity);
         nbtEntity.setInteger("NoAI", 1);
+    }
+
+    private void invincible(Entity bukkitEntity) {
+        NBTEntity nbtEntity = new NBTEntity(bukkitEntity);
+        nbtEntity.setByte("Invulnerable", (byte) 1);
     }
 }
