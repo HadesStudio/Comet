@@ -13,4 +13,5 @@ servers:
       slot: 13
       enchanted: true
     server: "default"
-    commands: []
+    # If you don't add "player:", the console will run the command!
+    commands: ["player:join queue default-server"]
