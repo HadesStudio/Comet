@@ -125,7 +125,7 @@ public class Comet extends JavaPlugin {
         this.licenseFile = new FileConfig(this, "license.yml");
         if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
             Bukkit.getServer().getPluginManager().disablePlugin(this);
-            Bukkit.getServer().getScheduler().cancelAllTasks();
+            Bukkit.getServer().getScheduler().cancelTasks(this);
             return;
         }
 
