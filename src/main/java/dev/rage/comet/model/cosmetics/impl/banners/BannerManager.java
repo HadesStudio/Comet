@@ -50,7 +50,7 @@ public class BannerManager {
                     meta.setBaseColor(DyeColor.valueOf(config.getString(path + "base-color")));
 
                     config.getStringList(path + "patterns").forEach(pattern -> {
-                        meta.addPattern(new Pattern(DyeColor.getByData(getByteFromString(pattern)), PatternType.getByIdentifier(getIdFromString(pattern))));
+                        meta.addPattern(new Pattern(DyeColor.getByDyeData(getByteFromString(pattern)), PatternType.getByIdentifier(getIdFromString(pattern))));
                     });
 
                     meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
