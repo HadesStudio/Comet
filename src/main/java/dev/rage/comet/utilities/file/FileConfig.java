@@ -1,8 +1,8 @@
 package dev.rage.comet.utilities.file;
 
+import dev.rage.comet.utilities.ChatUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -70,7 +70,7 @@ public class FileConfig {
 
     public String getString(String path) {
         if (configuration.contains(path)) {
-            return ChatColor.translateAlternateColorCodes('&', configuration.getString(path));
+            return ChatUtil.translate(configuration.getString(path));
         }
         return null;
     }
@@ -78,7 +78,7 @@ public class FileConfig {
     public String getString(String path, String callback, boolean colorize) {
         if (configuration.contains(path)) {
             if (colorize) {
-                return ChatColor.translateAlternateColorCodes('&', configuration.getString(path));
+                return ChatUtil.translate(configuration.getString(path));
             } else {
                 return configuration.getString(path);
             }
@@ -90,7 +90,7 @@ public class FileConfig {
         if (configuration.contains(path)) {
             ArrayList<String> strings = new ArrayList<>();
             for (String string : configuration.getStringList(path)) {
-                strings.add(ChatColor.translateAlternateColorCodes('&', string));
+                strings.add(ChatUtil.translate(string));
             }
             return strings;
         }
