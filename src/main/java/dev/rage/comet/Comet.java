@@ -252,6 +252,12 @@ public class Comet extends JavaPlugin {
         this.databaseFile.reload();
         this.queueFile.reload();
         this.serverSelectorFile.reload();
+        this.balloonsFile.reload();
+        this.customOutfitsFile.reload();
+        this.cosmeticsFile.reload();
+        this.bannersFile.reload();
+        this.gadgetsFile.reload();
+        this.mascotsFile.reload();
         this.normalHotbarManager.loadOrRefresh(true);
         this.customHotbarManager.loadOrRefresh(true);
         this.serverSelectorManager.loadOrRefresh();
@@ -259,6 +265,9 @@ public class Comet extends JavaPlugin {
         this.queueManager.loadOrRefresh();
         this.headManager.loadOrRefresh();
         this.balloonManager.loadOrRefresh();
+        this.outfitManager.loadOrRefresh(this);
+        this.mascotManager.loadOrRefresh(this);
+        this.bannerManager.loadOrCreate(this);
         if (fastBoardManager != null) this.fastBoardManager.resetBoardAnimation();
     }
 

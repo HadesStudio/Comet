@@ -41,12 +41,13 @@ public class MascotManager {
         loadOrRefresh(plugin);
 
         plugin.getServer().getPluginManager().registerEvents(new MascotListener(plugin, this), plugin);
-
         plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, mascotRunnable = new MascotRunnable(this),
                 1L, 1L);
     }
 
-    private void loadOrRefresh(Comet plugin) {
+    public void loadOrRefresh(Comet plugin) {
+        setBodies.clear();
+
         FileConfiguration config = plugin.getMascotsFile().getConfiguration();
 
         for (String key : config.getConfigurationSection("mascots").getKeys(false)) {

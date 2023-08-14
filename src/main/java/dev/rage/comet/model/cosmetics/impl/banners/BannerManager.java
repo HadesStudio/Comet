@@ -21,12 +21,14 @@ public class BannerManager {
 
     public BannerManager(Comet plugin) {
         this.banners = new LinkedHashMap<>();
-
         this.loadOrCreate(plugin);
     }
 
-    private void loadOrCreate(Comet plugin) {
+    public void loadOrCreate(Comet plugin) {
+        banners.clear();
+
         FileConfiguration config = plugin.getBannersFile().getConfiguration();
+
         for (String key : config.getConfigurationSection("banners").getKeys(false)) {
             String path = "banners." + key + ".";
 

@@ -37,7 +37,10 @@ public class OutfitManager {
         loadOrRefresh(plugin);
     }
 
-    private void loadOrRefresh(Comet plugin) {
+    public void loadOrRefresh(Comet plugin) {
+        leatherOutfits.clear();
+        customOutfits.clear();
+
         // Load the leather outfits
         for (Table.Cell<Object, Object, Object> objectObjectObjectCell : ImmutableTable.builder()
                 .put("White", ChatColor.WHITE, Color.WHITE) // Here you can add more colors
