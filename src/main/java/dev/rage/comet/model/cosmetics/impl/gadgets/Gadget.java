@@ -44,7 +44,11 @@ public abstract class Gadget implements Listener {
         and if it has a space, it will be replaced by a "-".
     */
     public String getPermission() {
-        return "comet.gadget." + getName().replace(" ", "-").toLowerCase();
+        return "comet.cosmetic.gadget." + getName().replace(" ", "_").toLowerCase();
+    }
+
+    public boolean hasPermission(Player player) {
+        return player.hasPermission(getPermission());
     }
 
     public boolean hasCooldown(UUID uuid) {

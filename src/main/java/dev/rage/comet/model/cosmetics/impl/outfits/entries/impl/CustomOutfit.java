@@ -4,6 +4,7 @@ import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.Outfit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -20,6 +21,10 @@ public class CustomOutfit extends Outfit {
 
     @Override
     public String getPermission() {
-        return "comet.outfit.custom." + getName().toLowerCase().replace(" ", "_");
+        return "comet.cosmetic.outfit." + getName().toLowerCase().replace(" ", "_");
+    }
+
+    public boolean hasPermission(Player player) {
+        return player.hasPermission(getPermission());
     }
 }

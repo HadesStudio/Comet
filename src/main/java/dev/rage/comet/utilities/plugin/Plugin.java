@@ -24,7 +24,7 @@ public class Plugin {
     private final String product;
     private final String version;
 
-    private boolean enabled;
+    private boolean enabled = true;
 
     public Plugin(String licenseKey, org.bukkit.plugin.Plugin pluginClass) {
         this.licenseKey = licenseKey;

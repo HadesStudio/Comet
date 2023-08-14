@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.OutfitManager;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.LeatherOutfit;
+import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.Menu;
@@ -62,6 +63,12 @@ public class LeatherOutfitMenu extends Menu {
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+            if (!leatherOutfit.hasPermission(player)) {
+                playFail(player);
+                ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.no-permission"));
+                return;
+            }
+
             leatherOutfit.apply(plugin, player);
         }
     }

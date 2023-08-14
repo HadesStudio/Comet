@@ -38,6 +38,11 @@ public class GadgetsMenu extends Menu {
             }
 
             buttons.put(getSlot(i, j), Button.fromItem(gadget.getIcon(), player1 -> {
+                if (!gadget.hasPermission(player1)) {
+                    ChatUtil.sendMessage(player1, plugin.getLanguageFile().getString("cosmetic-message.no-permission"));
+                    return;
+                }
+
                 plugin.getNormalHotbarManager().giveHotbar(player);
                 plugin.getCustomHotbarManager().giveHotbar(player);
                 gadget.onUsage(player1);

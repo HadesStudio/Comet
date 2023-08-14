@@ -111,6 +111,11 @@ public class SelectMascotMenu extends PaginatedMenu {
 
         @Override
         public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+            if (!body.isUnlocked(player)) {
+                ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.no-permission"));
+                return;
+            }
+
             User user = plugin.getUserManager().getUser(player.getUniqueId());
 
             for (String s : plugin.getMascotsFile().getStringList("select-mascot-message")) {

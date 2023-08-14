@@ -73,6 +73,6 @@ public class Body {
     }
 
     public String getPermission() {
-        return "balloons.mascot." + name.toLowerCase().replace(" ", "_");
+        return "comet.cosmetic.mascot." + name.toLowerCase().replace(" ", "_");
     }
 }

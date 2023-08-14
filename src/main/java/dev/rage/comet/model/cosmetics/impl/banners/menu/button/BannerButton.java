@@ -26,6 +26,12 @@ public class BannerButton extends Button {
 
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        if (!banner.hasPermission(player)) {
+            playFail(player);
+            ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.no-permission"));
+            return;
+        }
+
         User user = userManager.getUser(player.getUniqueId());
 
         if (player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getType() != Material.AIR) {

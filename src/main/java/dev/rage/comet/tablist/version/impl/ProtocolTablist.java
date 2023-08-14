@@ -25,7 +25,6 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Team;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.UUID;
 
@@ -140,10 +139,6 @@ public class ProtocolTablist implements TablistVersion {
     }
 
     private static void sendPacket(Player player, PacketContainer packetContainer) {
-        try {
-            ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
     }
 }

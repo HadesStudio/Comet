@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
@@ -18,7 +19,7 @@ public class LeatherOutfit extends Outfit {
 
     @Override
     public String getPermission() {
-        return "comet.outfit.leather." + getName().toLowerCase().replace(" ", "_");
+        return "comet.cosmetic.outfit." + getName().toLowerCase().replace(" ", "_");
     }
 
     @Override
@@ -38,5 +39,9 @@ public class LeatherOutfit extends Outfit {
             }
         }
         return armor;
+    }
+
+    public boolean hasPermission(Player player) {
+        return player.hasPermission(getPermission());
     }
 }

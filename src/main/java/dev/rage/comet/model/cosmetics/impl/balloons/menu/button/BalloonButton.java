@@ -25,6 +25,12 @@ public class BalloonButton extends Button {
 
     @Override
     public void clicked(Player player, int slot, ClickType clickType, int hotbarButton) {
+        if (!balloonHead.hasPermission(player)) {
+            playFail(player);
+            ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.no-permission"));
+            return;
+        }
+
         User user = userManager.getUser(player.getUniqueId());
         user.applyBalloon(plugin, player, balloonHead);
         ChatUtil.sendMessage(player, plugin.getLanguageFile().getString("cosmetic-message.balloon.applied")
