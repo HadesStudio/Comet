@@ -48,6 +48,11 @@ public class Mount extends Gadget {
     }
 
     @Override
+    public void onRemoval(Player player) {
+        player.getInventory().setItem(1, null);
+    }
+
+    @Override
     public void onDisable() {
 
     }

@@ -69,6 +69,12 @@ public class TeleportBow extends Gadget {
     }
 
     @Override
+    public void onRemoval(Player player) {
+        player.getInventory().setItem(1, null);
+        player.getInventory().setItem(9, null);
+    }
+
+    @Override
     public void onDisable() {
 
     }

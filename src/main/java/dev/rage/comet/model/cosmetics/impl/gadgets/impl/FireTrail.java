@@ -74,6 +74,11 @@ public class FireTrail extends Gadget {
     }
 
     @Override
+    public void onRemoval(Player player) {
+        players.remove(player);
+    }
+
+    @Override
     public void onDisable() {
 
     }

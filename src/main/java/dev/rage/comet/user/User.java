@@ -4,6 +4,7 @@ import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.balloons.Balloon;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonHead;
 import dev.rage.comet.model.cosmetics.impl.banners.Banner;
+import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.model.cosmetics.impl.mascots.impl.Body;
 import dev.rage.comet.model.cosmetics.impl.mascots.impl.Mascot;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.Outfit;
@@ -27,6 +28,7 @@ public class User {
     private Body mascot;
     private Outfit outfit;
     private Particle particle;
+    private Gadget gadget;
 
     private Balloon balloonModel;
     private Mascot mascotModel;
@@ -46,6 +48,10 @@ public class User {
 
     public boolean hasBannerModel() {
         return this.getPlayer() != null && this.getPlayer().getInventory().getHelmet() != null;
+    }
+
+    public boolean hasGadget() {
+        return this.gadget != null;
     }
 
     /*
@@ -70,12 +76,6 @@ public class User {
         this.balloonModel.spawn();
     }
 
-    public void removeBalloon() {
-        this.balloonModel.remove();
-        this.balloonModel = null;
-        this.balloon = null;
-    }
-
     public void applyMascot(Comet plugin, Player player, Body body) {
         if (hasMascotModel()) removeMascot();
 
@@ -84,12 +84,6 @@ public class User {
 
         this.mascotModel = new Mascot(plugin, player, body);
         plugin.getMascotManager().getMascots().put(uuid, mascotModel);
-    }
-
-    public void removeMascot() {
-        this.mascot = null;
-
-        if (this.mascotModel != null) this.mascotModel.die();
     }
 
     public void applyBanner(Player player, Banner banner) {
@@ -102,9 +96,44 @@ public class User {
         player.getInventory().setHelmet(banner.getItem());
     }
 
+    public void applyGadget(Player player, Gadget gadget) {
+        if (hasGadget()) removeGadget(player);
+
+        this.gadget = gadget;
+        gadget.onUsage(player);
+    }
+
+    public void removeBalloon() {
+        if (hasBalloonModel()) {
+            this.balloonModel.remove();
+            this.balloonModel = null;
+            this.balloon = null;
+        }
+    }
+
+    public void removeMascot() {
+        if (mascot != null) {
+            this.mascot = null;
+            if (this.mascotModel != null) this.mascotModel.die();
+        }
+    }
+
     public void removeBanner(Player player) {
-        this.banner = null;
-        player.getInventory().setHelmet(null);
+        if (banner != null) {
+            this.banner = null;
+            player.getInventory().setHelmet(null);
+        }
+    }
+
+    public void removeOutfit(Player player) {
+        player.getInventory().setArmorContents(null);
+    }
+
+    public void removeGadget(Player player) {
+        if (gadget != null) {
+            gadget.onRemoval(player);
+            this.gadget = null;
+        }
     }
 
     public Player getPlayer() {

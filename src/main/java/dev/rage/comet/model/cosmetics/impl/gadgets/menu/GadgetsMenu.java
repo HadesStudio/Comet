@@ -4,6 +4,9 @@ import com.google.common.collect.Maps;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.model.cosmetics.impl.gadgets.GadgetsManager;
+import dev.rage.comet.model.cosmetics.impl.gadgets.impl.FireTrail;
+import dev.rage.comet.user.User;
+import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.Menu;
@@ -12,10 +15,15 @@ import org.bukkit.entity.Player;
 
 import java.util.Map;
 
-@RequiredArgsConstructor
 public class GadgetsMenu extends Menu {
 
     private final Comet plugin;
+    private final UserManager userManager;
+
+    public GadgetsMenu(Comet plugin) {
+        this.plugin = plugin;
+        this.userManager = plugin.getUserManager();
+    }
 
     @Override
     public String getTitle(Player player) {
@@ -43,9 +51,11 @@ public class GadgetsMenu extends Menu {
                     return;
                 }
 
-                plugin.getNormalHotbarManager().giveHotbar(player);
-                plugin.getCustomHotbarManager().giveHotbar(player);
-                gadget.onUsage(player1);
+                plugin.getNormalHotbarManager().giveHotbar(player1);
+                plugin.getCustomHotbarManager().giveHotbar(player1);
+
+                User user = userManager.getUser(player1.getUniqueId());
+                user.applyGadget(player1, gadget);
             }));
         }
 

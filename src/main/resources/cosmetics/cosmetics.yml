@@ -25,3 +25,7 @@ menu:
   particles_lore:
     - ""
     - "&cComing Soon..."
+  remove_title: "&cRemove Cosmetics"
+  remove_lore:
+    - ""
+    - "&7Click to remove all cosmetics."

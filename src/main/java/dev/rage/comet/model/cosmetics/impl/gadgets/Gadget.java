@@ -31,6 +31,8 @@ public abstract class Gadget implements Listener {
 
     public abstract void onUsage(Player player);
 
+    public abstract void onRemoval(Player player);
+
     public abstract void onDisable();
 
     public boolean isItem(@Nullable ItemStack hand, @Nullable ItemStack itemStack) {

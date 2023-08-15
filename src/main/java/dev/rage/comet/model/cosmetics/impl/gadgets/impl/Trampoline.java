@@ -104,6 +104,11 @@ public class Trampoline extends Gadget {
     }
 
     @Override
+    public void onRemoval(Player player) {
+
+    }
+
+    @Override
     public void onDisable() {
         blocks.forEach((uuid, blocks1) -> {
             blocks1.forEach(block -> {

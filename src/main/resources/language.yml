@@ -22,6 +22,7 @@ queue-message:
     - "&7You are currently &f<queue-player-position>/<queue-player-size> &7in queue."
 cosmetic-message:
   no-permission: "&cYou do not have permission to use this cosmetic."
+  remove: "&aYou have removed all cosmetics."
   banner:
     not-applied: "&cYou do not have any banner applied."
     applied: "&aYou have applied &f<banner> &abanner."
