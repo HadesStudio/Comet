@@ -28,6 +28,9 @@ action-bar:
     - "&6&lTEST 4"
     - "&6&lTEST 5"
 
+parkour:
+  start-location: ""
+  end-location: ""
+  checkpoints: {}
+
 spawn-location: ""
-
-

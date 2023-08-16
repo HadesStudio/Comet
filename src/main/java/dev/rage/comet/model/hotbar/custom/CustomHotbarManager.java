@@ -96,6 +96,9 @@ public class CustomHotbarManager {
         hotbarNames.forEach(hotbarMap::remove);
         hotbarNames.clear();
 
-        if (reload) Bukkit.getOnlinePlayers().forEach(this::giveHotbar);
+        if (reload) Bukkit.getOnlinePlayers().forEach(player -> {
+            if (plugin.getParkourManager().isParkourPlayer(player)) return;
+            giveHotbar(player);
+        });
     }
 }

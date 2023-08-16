@@ -33,7 +33,11 @@ public class JavaUtil {
             builder.append(minutes).append("m ");
         }
         if (seconds > 0L) {
-            builder.append(seconds).append("s ");
+            builder
+                    .append(seconds)
+                    .append(".")
+                    .append(millis - TimeUnit.SECONDS.toMillis(seconds))
+                    .append("s ");
         }
         return builder.toString().trim();
     }

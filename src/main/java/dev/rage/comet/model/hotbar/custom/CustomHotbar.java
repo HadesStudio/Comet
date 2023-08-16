@@ -3,6 +3,7 @@ package dev.rage.comet.model.hotbar.custom;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -40,7 +41,7 @@ public class CustomHotbar {
 
     public boolean isSimilar(ItemStack toCheck) {
         return (toCheck != null)
-                && (toCheck.getType() != com.cryptomorin.xseries.XMaterial.AIR.parseMaterial())
+                && (toCheck.getType() != Material.AIR)
                 && (toCheck.hasItemMeta())
                 && (toCheck.getItemMeta().getDisplayName() != null)
                 && toCheck.getItemMeta().getDisplayName().equals(item.getItemMeta().getDisplayName());

@@ -1,11 +1,7 @@
 package dev.rage.comet.model.hotbar.normal;
 
-import dev.rage.comet.model.hotbar.normal.impl.CosmeticsHotbar;
 import dev.rage.comet.Comet;
-import dev.rage.comet.model.hotbar.normal.impl.EnderButtHotbar;
-import dev.rage.comet.model.hotbar.normal.impl.HidePlayerHotbar;
-import dev.rage.comet.model.hotbar.normal.impl.ServerSelectorHotbar;
-import dev.rage.comet.model.hotbar.normal.impl.ShowPlayerHotbar;
+import dev.rage.comet.model.hotbar.normal.types.*;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -92,9 +88,13 @@ public class NormalHotbarManager {
                 registerHotbarFromConfig(new ServerSelectorHotbar(plugin, "server-selector"), section),
                 registerHotbarFromConfig(new ShowPlayerHotbar("show-players", this), section),
                 registerHotbarFromConfig(new HidePlayerHotbar("hide-players", this), section),
-                registerHotbarFromConfig(new CosmeticsHotbar("cosmetics", plugin), section)
+                registerHotbarFromConfig(new CosmeticsHotbar("cosmetics", plugin), section),
+                registerHotbarFromConfig(new ParkourHotbar("parkour", plugin), section)
         );
 
-        if (reload) Bukkit.getOnlinePlayers().forEach(this::giveHotbar);
+        if (reload) Bukkit.getOnlinePlayers().forEach(player -> {
+            if (plugin.getParkourManager().isParkourPlayer(player)) return;
+            giveHotbar(player);
+        });
     }
 }

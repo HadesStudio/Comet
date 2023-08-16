@@ -1,20 +1,27 @@
 package dev.rage.comet.integrations;
 
 import dev.rage.comet.Comet;
+import dev.rage.comet.model.leaderboard.LeaderboardManager;
+import dev.rage.comet.model.leaderboard.types.UserLeaderboardType;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
+import dev.rage.comet.utilities.JavaUtil;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 public class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
     private final Comet plugin;
     private final QueueManager queueManager;
+    private final LeaderboardManager leaderboardManager;
 
     public PlaceholderAPIExpansion(Comet plugin) {
         this.plugin = plugin;
         this.queueManager = plugin.getQueueManager();
+        this.leaderboardManager = plugin.getLeaderboardManager();
     }
 
     @Override
@@ -67,6 +74,190 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
         if (identifier.equals("queue_player_size")) {
             Queue queue = queueManager.getQueueByPlayer(player);
             return queue == null ? "0" : String.valueOf(queue.getPlayers().size());
+        }
+
+        Map<String, Long> parkourMap = leaderboardManager.getSortedUserLeaderboard(UserLeaderboardType.PARKOUR_TIME);
+
+        if (identifier.contains("parkour_1_name")) {
+            try {
+                String name = parkourMap.keySet().toArray()[0].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return name;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_2_name")) {
+            try {
+                String name = parkourMap.keySet().toArray()[1].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return name;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_3_name")) {
+            try {
+                String name = parkourMap.keySet().toArray()[2].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return name;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_4_name")) {
+            try {
+                String name = parkourMap.keySet().toArray()[3].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return name;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_5_name")) {
+            try {
+                String name = parkourMap.keySet().toArray()[4].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return name;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_6_name")) {
+            try {
+                String name = parkourMap.keySet().toArray()[5].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return name;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_7_name")) {
+            try {
+                String name = parkourMap.keySet().toArray()[6].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return name;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_8_name")) {
+            try {
+                String name = parkourMap.keySet().toArray()[7].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return name;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_9_name")) {
+            try {
+                String name = parkourMap.keySet().toArray()[8].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return name;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_10_name")) {
+            try {
+                String name = parkourMap.keySet().toArray()[9].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return name;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+
+        if (identifier.contains("parkour_1_value")) {
+            try {
+                String name = parkourMap.keySet().toArray()[0].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return JavaUtil.formatMillis(parkourMap.get(name));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_2_value")) {
+            try {
+                String name = parkourMap.keySet().toArray()[1].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return JavaUtil.formatMillis(parkourMap.get(name));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_3_value")) {
+            try {
+                String name = parkourMap.keySet().toArray()[2].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return JavaUtil.formatMillis(parkourMap.get(name));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_4_value")) {
+            try {
+                String name = parkourMap.keySet().toArray()[3].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return JavaUtil.formatMillis(parkourMap.get(name));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_5_value")) {
+            try {
+                String name = parkourMap.keySet().toArray()[4].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return JavaUtil.formatMillis(parkourMap.get(name));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_6_value")) {
+            try {
+                String name = parkourMap.keySet().toArray()[5].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return JavaUtil.formatMillis(parkourMap.get(name));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_7_value")) {
+            try {
+                String name = parkourMap.keySet().toArray()[6].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return JavaUtil.formatMillis(parkourMap.get(name));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_8_value")) {
+            try {
+                String name = parkourMap.keySet().toArray()[7].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return JavaUtil.formatMillis(parkourMap.get(name));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_9_value")) {
+            try {
+                String name = parkourMap.keySet().toArray()[8].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return JavaUtil.formatMillis(parkourMap.get(name));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
+        }
+        if (identifier.contains("parkour_10_value")) {
+            try {
+                String name = parkourMap.keySet().toArray()[9].toString();
+                if (name == null || name.isEmpty()) return " ";
+                return JavaUtil.formatMillis(parkourMap.get(name));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return " ";
+            }
         }
         return null;
     }

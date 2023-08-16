@@ -10,6 +10,8 @@ import dev.rage.comet.user.UserManager;
 import dev.rage.comet.user.database.Database;
 import org.bson.Document;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class MongoDatabase extends Database {
@@ -38,8 +40,13 @@ public class MongoDatabase extends Database {
             return;
         }
 
+        if (document.containsKey("parkourTime")) {
+            user.setParkourTime(document.getLong("parkourTime"));
+        }
+
         if (document.containsKey("balloon")) {
             String balloonName = document.getString("balloon");
+
             if (!plugin.getBalloonManager().exists(balloonName)) {
                 document.remove("balloon");
                 return;
@@ -50,6 +57,7 @@ public class MongoDatabase extends Database {
 
         if (document.containsKey("banner")) {
             String bannerName = document.getString("banner");
+
             if (!plugin.getBannerManager().exists(bannerName)) {
                 document.remove("banner");
                 return;
@@ -60,6 +68,7 @@ public class MongoDatabase extends Database {
 
         if (document.containsKey("mascot")) {
             String mascotName = document.getString("mascot");
+
             if (!plugin.getMascotManager().exists(mascotName)) {
                 document.remove("mascot");
                 return;
@@ -70,6 +79,7 @@ public class MongoDatabase extends Database {
 
         if (document.containsKey("outfit")) {
             String outfitName = document.getString("outfit");
+
             if (!plugin.getOutfitManager().exists(outfitName)) {
                 document.remove("outfit");
                 return;
@@ -80,6 +90,7 @@ public class MongoDatabase extends Database {
 
         if (document.containsKey("particle")) {
             String particleName = document.getString("particle");
+
             if (!plugin.getParticlesManager().exists(particleName)) {
                 document.remove("particle");
                 return;
@@ -95,6 +106,7 @@ public class MongoDatabase extends Database {
 
         document.put("uuid", user.getUuid().toString());
         document.put("name", user.getName());
+        document.put("parkourTime", user.getParkourTime());
 
         if (user.getBalloon() != null) document.put("balloon", user.getBalloon().getId());
         if (user.getBanner() != null) document.put("banner", user.getBanner().getId());
@@ -103,7 +115,6 @@ public class MongoDatabase extends Database {
         if (user.getParticle() != null) document.put("particle", user.getParticle().getName());
 
         collection.insertOne(document, new InsertOneOptions().bypassDocumentValidation(true));
-        //collection.insertOne(plugin.getUserManager(), document, new InsertOneOptions().bypassDocumentValidation(true));
     }
 
     @Override
@@ -118,6 +129,18 @@ public class MongoDatabase extends Database {
         User user = new User(uuid, findName(uuid));
         load(user);
         return user;
+    }
+
+    @Override
+    public List<User> getUsersFromDB() {
+        List<User> users = new ArrayList<>();
+
+        for (Document document : collection.find()) {
+            User user = getUserFromDB(document.getString("uuid"));
+            users.add(user);
+        }
+
+        return users;
     }
 
     private UUID findUUID(String name) {

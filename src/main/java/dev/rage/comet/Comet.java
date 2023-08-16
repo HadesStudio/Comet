@@ -1,7 +1,12 @@
 package dev.rage.comet;
 
+import dev.rage.comet.command.CommandManager;
 import dev.rage.comet.command.impl.BuildModeCommand;
 import dev.rage.comet.command.impl.CometCommand;
+import dev.rage.comet.command.impl.parkour.ParkourCommand;
+import dev.rage.comet.command.impl.parkour.subcommand.ParkourCheckpointCommand;
+import dev.rage.comet.command.impl.parkour.subcommand.ParkourEndLocationCommand;
+import dev.rage.comet.command.impl.parkour.subcommand.ParkourStartLocationCommand;
 import dev.rage.comet.command.impl.queue.QueueCommand;
 import dev.rage.comet.command.impl.queue.subcommands.QueueJoinCommand;
 import dev.rage.comet.command.impl.queue.subcommands.QueueLeaveCommand;
@@ -22,6 +27,8 @@ import dev.rage.comet.listeners.SpawnListener;
 import dev.rage.comet.listeners.WorldListener;
 import dev.rage.comet.listeners.hotbar.CustomHotbarListener;
 import dev.rage.comet.listeners.hotbar.NormalHotbarListener;
+import dev.rage.comet.listeners.parkour.ParkourHotbarListener;
+import dev.rage.comet.listeners.parkour.ParkourListener;
 import dev.rage.comet.model.actionbar.ActionBarRunnable;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonManager;
 import dev.rage.comet.model.cosmetics.impl.balloons.tasks.BalloonRunnable;
@@ -33,7 +40,10 @@ import dev.rage.comet.model.cosmetics.impl.particles.ParticlesManager;
 import dev.rage.comet.model.hcfcore.HCFCoreManager;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
+import dev.rage.comet.model.leaderboard.LeaderboardManager;
 import dev.rage.comet.model.lunarclient.LunarClientRunnable;
+import dev.rage.comet.model.parkour.ParkourManager;
+import dev.rage.comet.model.parkour.hotbar.ParkourHotbarManager;
 import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.model.queue.rank.QueueRankManager;
 import dev.rage.comet.model.queue.thread.QueuePositionThread;
@@ -52,10 +62,8 @@ import dev.rage.comet.tablist.head.HeadManager;
 import dev.rage.comet.user.UserListener;
 import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.command.CommandManager;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.menu.ButtonListener;
-import dev.rage.comet.utilities.plugin.Plugin;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -99,8 +107,10 @@ public class Comet extends JavaPlugin {
     private RankManager rankManager;
     private UserManager userManager;
     private SpawnManager spawnManager;
+    private ParkourManager parkourManager;
     private NormalHotbarManager normalHotbarManager;
     private CustomHotbarManager customHotbarManager;
+    private ParkourHotbarManager parkourHotbarManager;
     private ServerSelectorManager serverSelectorManager;
     private TimerManager timerManager;
     private HeadManager headManager;
@@ -117,17 +127,19 @@ public class Comet extends JavaPlugin {
     private GadgetsManager gadgetsManager;
     private OutfitManager outfitManager;
     private ParticlesManager particlesManager;
+    private LeaderboardManager leaderboardManager;
     private Tablist tablist;
 
     @Override
     public void onEnable() {
         instance = this;
         this.licenseFile = new FileConfig(this, "license.yml");
-        if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
+
+        /*if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
             Bukkit.getServer().getPluginManager().disablePlugin(this);
             Bukkit.getServer().getScheduler().cancelTasks(this);
             return;
-        }
+        }*/
 
         Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
                         "",
@@ -167,6 +179,8 @@ public class Comet extends JavaPlugin {
         this.balloonManager = new BalloonManager(this);
         this.normalHotbarManager = new NormalHotbarManager(this);
         this.customHotbarManager = new CustomHotbarManager(this);
+        this.parkourHotbarManager = new ParkourHotbarManager(this);
+        this.parkourManager = new ParkourManager(this);
         this.serverSelectorManager = new ServerSelectorManager(this);
         this.timerManager = new TimerManager();
         this.headManager = new HeadManager(this);
@@ -176,6 +190,7 @@ public class Comet extends JavaPlugin {
         this.gadgetsManager = new GadgetsManager(this);
         this.outfitManager = new OutfitManager(this);
         this.particlesManager = new ParticlesManager(this);
+        this.leaderboardManager = new LeaderboardManager(this);
 
         if (scoreboardFile.getBoolean("scoreboard.enabled")) {
             this.fastBoardManager = new FastBoardManager(this);
@@ -196,6 +211,8 @@ public class Comet extends JavaPlugin {
         pluginManager.registerEvents(new CustomHotbarListener(this), this);
         pluginManager.registerEvents(new QueueListener(this), this);
         pluginManager.registerEvents(new UserListener(this), this);
+        pluginManager.registerEvents(new ParkourListener(this), this);
+        pluginManager.registerEvents(new ParkourHotbarListener(this), this);
 
         if (scoreboardFile.getBoolean("scoreboard.enabled")) {
             pluginManager.registerEvents(new FastBoardListener(fastBoardManager), this);
@@ -214,6 +231,10 @@ public class Comet extends JavaPlugin {
         commandManager.registerCommands(new QueueLeaveCommand(this));
         commandManager.registerCommands(new QueuePauseCommand(this));
         commandManager.registerCommands(new QueueListCommand(this));
+        commandManager.registerCommands(new ParkourCommand());
+        commandManager.registerCommands(new ParkourStartLocationCommand(this));
+        commandManager.registerCommands(new ParkourEndLocationCommand(this));
+        commandManager.registerCommands(new ParkourCheckpointCommand(this));
 
         if (configFile.getBoolean("lunar-client.enabled")) {
             Bukkit.getScheduler().runTaskTimer(this, new LunarClientRunnable(this), 0L, 20L);

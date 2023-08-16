@@ -54,6 +54,17 @@ normal:
       slot: 0
       enchanted: true
     commands: []
+  parkour:
+    enabled: true
+    item:
+      head: ""
+      name: "&6&lPARKOUR &8┃ &7(Right Click)"
+      description: []
+      material: "FEATHER"
+      data: 0
+      slot: 1
+      enchanted: true
+    commands: []
 
 custom:
   example:

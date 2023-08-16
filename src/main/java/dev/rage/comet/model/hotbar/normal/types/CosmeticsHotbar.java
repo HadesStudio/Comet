@@ -1,4 +1,4 @@
-package dev.rage.comet.model.hotbar.normal.impl;
+package dev.rage.comet.model.hotbar.normal.types;
 
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.cosmetics.menu.CosmeticsMenu;

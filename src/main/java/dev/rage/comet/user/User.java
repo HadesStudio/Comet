@@ -9,6 +9,7 @@ import dev.rage.comet.model.cosmetics.impl.mascots.impl.Body;
 import dev.rage.comet.model.cosmetics.impl.mascots.impl.Mascot;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.Outfit;
 import dev.rage.comet.model.cosmetics.impl.particles.Particle;
+import dev.rage.comet.utilities.JavaUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -16,26 +17,28 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-@Getter
-@Setter
+@Getter @Setter
 public class User {
 
     private final UUID uuid;
     private final String name;
-    /*private String balloon, banner, mascot, outfit, particle;*/
+    private long parkourTime;
     private BalloonHead balloon;
     private Banner banner;
     private Body mascot;
     private Outfit outfit;
     private Particle particle;
     private Gadget gadget;
-
     private Balloon balloonModel;
     private Mascot mascotModel;
 
     public User(UUID uuid, String name) {
         this.uuid = uuid;
         this.name = name;
+    }
+
+    public String getParkourTimeFormatted() {
+        return JavaUtil.formatMillis(this.parkourTime);
     }
 
     public boolean hasBalloonModel() {
@@ -52,18 +55,6 @@ public class User {
 
     public boolean hasGadget() {
         return this.gadget != null;
-    }
-
-    /*
-        I will keep it with the Void supply as I may have problems when switching lobbies directly
-        when swapping lobbies directly
-    */
-    public void load(UserManager userManager) {
-        userManager.getDatabase().load(this);
-    }
-
-    public void save(UserManager userManager) {
-        userManager.getDatabase().save(this);
     }
 
     public void applyBalloon(Comet plugin, Player player, BalloonHead balloonHead) {
@@ -134,6 +125,14 @@ public class User {
             gadget.onRemoval(player);
             this.gadget = null;
         }
+    }
+
+    public void load(UserManager userManager) {
+        userManager.getDatabase().load(this);
+    }
+
+    public void save(UserManager userManager) {
+        userManager.getDatabase().save(this);
     }
 
     public Player getPlayer() {

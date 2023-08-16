@@ -37,7 +37,6 @@ public class NormalHotbarListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
 
         NormalHotbar hotbar = normalHotbarManager.getHotbar(event.getItem());
-
         if (hotbar == null) return;
 
         event.setCancelled(true);

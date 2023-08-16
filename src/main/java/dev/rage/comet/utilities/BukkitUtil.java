@@ -11,6 +11,8 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Risas
@@ -56,6 +58,53 @@ public class BukkitUtil {
         float pitch = Float.parseFloat(splittedData[5]);
 
         return new Location(world, x, y, z, yaw, pitch);
+    }
+
+    public String serializeBlockLocation(Location location) {
+        if (location == null || location.getWorld() == null) return null;
+        return location.getWorld().getName() + ", " +
+                location.getBlockX() + ", " +
+                location.getBlockY() + ", " +
+                location.getBlockZ();
+    }
+
+    public Location deserializeBlockLocation(String data) {
+        if (data == null || data.isEmpty()) return null;
+
+        String[] splittedData = data.split(", ");
+
+        if (splittedData.length < 4) return null;
+
+        World world = Bukkit.getWorld(splittedData[0]);
+        double x = Double.parseDouble(splittedData[1]);
+        double y = Double.parseDouble(splittedData[2]);
+        double z = Double.parseDouble(splittedData[3]);
+
+        return new Location(world, x, y, z);
+    }
+
+    public List<String> serializeLocations(List<Location> locations) {
+        if (locations == null) return null;
+
+        List<String> serializedLocations = new ArrayList<>();
+
+        for (Location location : locations) {
+            serializedLocations.add(serializeBlockLocation(location));
+        }
+
+        return serializedLocations;
+    }
+
+    public List<Location> deserializeLocations(List<String> data) {
+        if (data == null) return null;
+
+        List<Location> locations = new ArrayList<>();
+
+        for (String location : data) {
+            locations.add(deserializeBlockLocation(location));
+        }
+
+        return locations;
     }
 
     public String serializeItemStackArray(ItemStack[] items) {

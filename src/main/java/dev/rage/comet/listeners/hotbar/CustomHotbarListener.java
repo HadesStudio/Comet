@@ -3,6 +3,7 @@ package dev.rage.comet.listeners.hotbar;
 import dev.rage.comet.Comet;
 import dev.rage.comet.model.hotbar.custom.CustomHotbar;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -36,13 +37,14 @@ public class CustomHotbarListener implements Listener {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
 
         CustomHotbar hotbar = customHotbarManager.getHotbar(event.getItem());
-
         if (hotbar == null) return;
 
         event.setCancelled(true);
 
+        Player player = event.getPlayer();
+
         for (String command : hotbar.getCommands()) {
-            event.getPlayer().performCommand(command);
+            player.performCommand(command);
         }
     }
 }

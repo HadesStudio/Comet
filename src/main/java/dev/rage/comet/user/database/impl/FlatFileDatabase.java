@@ -7,6 +7,8 @@ import dev.rage.comet.user.database.Database;
 import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class FlatFileDatabase extends Database {
@@ -25,8 +27,13 @@ public class FlatFileDatabase extends Database {
     public void load(User user) {
         String path = "users." + user.getUuid().toString() + ".";
 
+        if (configuration.contains(path + "parkourTime")) {
+            user.setParkourTime(configuration.getLong(path + "parkourTime"));
+        }
+
         if (configuration.contains(path + "balloon")) {
             String balloonName = configuration.getString(path + "balloon");
+
             if (!plugin.getBalloonManager().exists(balloonName)) {
                 configuration.set(path + "balloon", null);
                 return;
@@ -37,6 +44,7 @@ public class FlatFileDatabase extends Database {
 
         if (configuration.contains(path + "banner")) {
             String bannerName = configuration.getString(path + "banner");
+
             if (!plugin.getBannerManager().exists(bannerName)) {
                 configuration.set(path + "banner", null);
                 return;
@@ -47,6 +55,7 @@ public class FlatFileDatabase extends Database {
 
         if (configuration.contains(path + "mascot")) {
             String mascotName = configuration.getString(path + "mascot");
+
             if (!plugin.getMascotManager().exists(mascotName)) {
                 configuration.set(path + "mascot", null);
                 return;
@@ -57,6 +66,7 @@ public class FlatFileDatabase extends Database {
 
         if (configuration.contains(path + "outfit")) {
             String outfitName = configuration.getString(path + "outfit");
+
             if (!plugin.getOutfitManager().exists(outfitName)) {
                 configuration.set(path + "outfit", null);
                 return;
@@ -67,6 +77,7 @@ public class FlatFileDatabase extends Database {
 
         if (configuration.contains(path + "particle")) {
             String particleName = configuration.getString(path + "particle");
+
             if (!plugin.getParticlesManager().exists(particleName)) {
                 configuration.set(path + "particle", null);
                 return;
@@ -81,7 +92,7 @@ public class FlatFileDatabase extends Database {
         String path = "users." + user.getUuid().toString() + ".";
 
         configuration.set(path + "name", user.getName());
-
+        configuration.set(path + "parkourTime", user.getParkourTime());
         configuration.set(path + "balloon", user.getBalloon() == null ? null : user.getBalloon().getId());
         configuration.set(path + "banner", user.getBanner() == null ? null : user.getBanner().getId());
         configuration.set(path + "mascot", user.getMascot() == null ? null : user.getMascot().getName());
@@ -103,6 +114,17 @@ public class FlatFileDatabase extends Database {
         User user = new User(uuid, findName(uuid));
         load(user);
         return user;
+    }
+
+    @Override
+    public List<User> getUsersFromDB() {
+        List<User> users = new ArrayList<>();
+
+        for (String key : configuration.getConfigurationSection("users").getKeys(false)) {
+            users.add(getUserFromDB(UUID.fromString(key)));
+        }
+
+        return users;
     }
 
     private UUID findUUID(String name) {

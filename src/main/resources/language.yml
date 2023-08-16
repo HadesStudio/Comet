@@ -34,3 +34,12 @@ cosmetic-message:
     removed: "&cYou have removed your balloon."
   outfit:
     applied: "&aYou have equipped the <outfit> &aOutfit."
+parkour-message:
+  join: "&aYou have joined the parkour."
+  leave: "&cYou have left the parkour."
+  reset: "&cYou have reset your parkour progress."
+  new-time: "&aYou have reached a new parkour time &7(<time>)"
+  completed: "&aYou have completed the parkour in &e<time>&a!"
+  checkpoint: "&aYou have reached a checkpoint."
+  no-checkpoint: "&cYou have not reached any checkpoint."
+  last-checkpoint: "&cYou have been teleported to the last checkpoint."
