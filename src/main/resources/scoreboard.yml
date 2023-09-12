@@ -1,15 +1,25 @@
 title-animation:
-  enabled: false
+  enabled: true
   interval: 0.3
   lines:
-    - "&8&l» &6&lComet &8&l«"
+
+    - "&6&l✯ &f&lH&6&lUB &6&l✯"
+    - "&6&l✯ &6&lH&f&lU&6&lB &6&l✯"
+    - "&6&l✯ &6&lHU&f&lB &6&l✯"
+    - "&6&l✯ &f&lHUB &6&l✯"
+    - "&6&l✯ &6&lHUB &6&l✯"
+    - "&6&l✯ &f&lHUB &6&l✯"
+    - "&6&l✯ &6&lHUB &6&l✯"
 
 footer-animation:
-  enabled: false
+  enabled: true
   interval: 1.5
   lines:
-    - "&6comet.hub"
 
+    - "&7comet.hub"
+    - "&7ts.comet.hub"
+    - "&7store.comet.hub"
+    - "&7www.comet.hub"
 scoreboard:
   enabled: true
   lines:
