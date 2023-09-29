@@ -1,12 +1,13 @@
 package dev.rage.comet.tablist;
 
 
+import dev.rage.comet.CometPlugin;
 import dev.rage.comet.tablist.player.PlayerTablist;
 import dev.rage.comet.tablist.player.PlayerVersionManager;
 import dev.rage.comet.tablist.version.TablistVersion;
 import dev.rage.comet.tablist.version.impl.ProtocolTablist;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.Bukkit;
@@ -52,7 +53,7 @@ public class Tablist {
     private void setup() {
         if (this.tablistVersion == null) return;
 
-        this.plugin.getServer().getPluginManager().registerEvents(new TablistListener(this.plugin), this.plugin);
+        CometPlugin.getPlugin().getServer().getPluginManager().registerEvents(new TablistListener(this.plugin), CometPlugin.getPlugin());
 
         if (this.tablistThread != null) {
             this.tablistThread.stop();

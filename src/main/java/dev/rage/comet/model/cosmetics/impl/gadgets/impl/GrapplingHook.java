@@ -1,6 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import org.bukkit.Location;

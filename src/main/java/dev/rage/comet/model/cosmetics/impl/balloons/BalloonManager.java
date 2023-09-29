@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.balloons;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.balloons.listener.BalloonListener;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.item.ItemBuilder;
@@ -27,7 +28,7 @@ public class BalloonManager {
         this.balloonHeads = new HashMap<>();
         this.balloonHeadNames = new ArrayList<>();
 
-        plugin.getServer().getPluginManager().registerEvents(new BalloonListener(plugin, this), plugin);
+        CometPlugin.getPlugin().getServer().getPluginManager().registerEvents(new BalloonListener(plugin, this), CometPlugin.getPlugin());
 
         this.loadOrRefresh();
     }
@@ -66,7 +67,7 @@ public class BalloonManager {
         balloonHeadNames.clear();
     }
 
-    public boolean isBalloon(Comet plugin, Entity entity) {
-        return entity.hasMetadata(plugin.getName()) && (entity instanceof ArmorStand || entity instanceof Bat);
+    public boolean isBalloon(Entity entity) {
+        return entity.hasMetadata(CometPlugin.getPlugin().getName()) && (entity instanceof ArmorStand || entity instanceof Bat);
     }
 }

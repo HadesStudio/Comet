@@ -1,16 +1,13 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.menu;
 
 import com.google.common.collect.Maps;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
-import dev.rage.comet.model.cosmetics.impl.gadgets.GadgetsManager;
-import dev.rage.comet.model.cosmetics.impl.gadgets.impl.FireTrail;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.menu.Button;
 import dev.rage.comet.utilities.menu.Menu;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.util.Map;

@@ -1,7 +1,8 @@
 package dev.rage.comet.model.cosmetics.impl.balloons;
 
 import de.tr7zw.changeme.nbtapi.NBTEntity;
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Location;
@@ -35,7 +36,7 @@ public class Balloon {
         armorStandLow.setVisible(false);
         armorStandLow.setCustomNameVisible(false);
         armorStandLow.setSmall(true);
-        armorStandLow.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
+        armorStandLow.setMetadata(CometPlugin.getPlugin().getName(), new FixedMetadataValue(CometPlugin.getPlugin(), true));
 
         this.armorStandHigh = player.getWorld().spawn(location.add(0, 2, 0), ArmorStand.class);
         armorStandHigh.setGravity(false);
@@ -43,11 +44,11 @@ public class Balloon {
         armorStandHigh.setCustomNameVisible(false);
         armorStandHigh.setSmall(true);
         armorStandHigh.setHelmet(head);
-        armorStandHigh.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
+        armorStandHigh.setMetadata(CometPlugin.getPlugin().getName(), new FixedMetadataValue(CometPlugin.getPlugin(), true));
 
         this.bat = player.getWorld().spawn(location, Bat.class);
         bat.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, false, false));
-        bat.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
+        bat.setMetadata(CometPlugin.getPlugin().getName(), new FixedMetadataValue(CometPlugin.getPlugin(), true));
 
         armorStandHigh.setPassenger(bat);
 
@@ -79,7 +80,7 @@ public class Balloon {
         Location newLoc = getCalcAngleLoc();
 
         if (newLoc.getWorld() != armorStandLow.getWorld()) {
-            plugin.getServer().getScheduler().runTask(plugin, () -> {
+            CometPlugin.getPlugin().getServer().getScheduler().runTask(CometPlugin.getPlugin(), () -> {
                 armorStandLow.teleport(newLoc);
                 bat.teleport(newLoc.add(0, 2, 0));
                 armorStandHigh.teleport(newLoc);

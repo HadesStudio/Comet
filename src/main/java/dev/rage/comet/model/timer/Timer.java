@@ -1,6 +1,6 @@
 package dev.rage.comet.model.timer;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import lombok.Getter;
 import lombok.Setter;
 

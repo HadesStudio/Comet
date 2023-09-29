@@ -2,7 +2,8 @@ package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
@@ -90,7 +91,7 @@ public class Trampoline extends Gadget {
             }
         });
 
-        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+        CometPlugin.getPlugin().getServer().getScheduler().runTaskLater(CometPlugin.getPlugin(), () -> {
             for (Block block : actualTrampolineBlocks) {
                 blocks.remove(block);
                 this.wools.remove(block.getLocation().getBlock());

@@ -1,6 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.outfits.entries;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.utilities.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

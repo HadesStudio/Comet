@@ -1,6 +1,6 @@
 package dev.rage.comet.listeners.parkour;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.parkour.ParkourManager;
 import dev.rage.comet.model.parkour.ParkourPlayer;
 import dev.rage.comet.user.User;

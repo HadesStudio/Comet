@@ -1,6 +1,7 @@
 package dev.rage.comet.model.hcfcore;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.database.mongo.MongoManager;
 import dev.rage.comet.model.hcfcore.azurite.AzuriteHCF;
 import dev.rage.comet.model.hcfcore.azurite.AzuriteKitMap;
@@ -22,7 +23,7 @@ public class HCFCoreManager {
             hcfCoreType = HCFCoreType.valueOf(plugin.getConfigFile().getString("hcfcore-type").toUpperCase());
         }
         catch (Exception ex) {
-            ChatUtil.logger("&c[" + plugin.getName() + "] HCFCore failed to connect.");
+            ChatUtil.logger("&c[" + CometPlugin.getPlugin().getName() + "] HCFCore failed to connect.");
             return;
         }
 
@@ -35,6 +36,6 @@ public class HCFCoreManager {
             this.hcf = new LazarusHCF(mongoManager.getMongo("hcf"));
         }
 
-        ChatUtil.logger("&a[" + plugin.getName() + "] HCFCore " + hcfCoreType.name() + " successfully connected.");
+        ChatUtil.logger("&a[" + CometPlugin.getPlugin().getName() + "] HCFCore " + hcfCoreType.name() + " successfully connected.");
     }
 }

@@ -1,6 +1,7 @@
 package dev.rage.comet.model.timer;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 
@@ -14,7 +15,7 @@ public class TimerTask implements Runnable {
     public TimerTask(Comet plugin, Timer timer) {
         this.plugin = plugin;
         this.timer = timer;
-        this.id = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this, 0L, 20L).getTaskId();
+        this.id = Bukkit.getScheduler().runTaskTimerAsynchronously(CometPlugin.getPlugin(), this, 0L, 20L).getTaskId();
     }
 
     @Override

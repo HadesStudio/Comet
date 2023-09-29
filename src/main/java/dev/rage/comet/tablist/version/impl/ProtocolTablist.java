@@ -9,7 +9,7 @@ import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedSignedProperty;
 import com.google.common.collect.Lists;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.tablist.TablistColumn;
 import dev.rage.comet.tablist.TablistEntry;
 import dev.rage.comet.tablist.head.Head;
@@ -34,7 +34,7 @@ public class ProtocolTablist implements TablistVersion {
 
     public ProtocolTablist(Comet comet) {
         this.headManager = comet.getHeadManager();
-        ProtocolLibrary.getProtocolManager().addPacketListener(new ProtocolPacketAdapter(comet, this));
+        ProtocolLibrary.getProtocolManager().addPacketListener(new ProtocolPacketAdapter(this));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package dev.rage.comet.listeners.parkour;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.parkour.hotbar.ParkourHotbar;
 import dev.rage.comet.model.parkour.hotbar.ParkourHotbarManager;
 import org.bukkit.entity.Player;

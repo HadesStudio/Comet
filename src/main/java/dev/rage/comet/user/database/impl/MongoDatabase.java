@@ -3,7 +3,7 @@ package dev.rage.comet.user.database.impl;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.InsertOneOptions;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.database.mongo.Mongo;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;

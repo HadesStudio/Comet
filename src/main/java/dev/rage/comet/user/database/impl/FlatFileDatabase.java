@@ -1,6 +1,7 @@
 package dev.rage.comet.user.database.impl;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
 import dev.rage.comet.user.database.Database;
@@ -19,7 +20,7 @@ public class FlatFileDatabase extends Database {
     public FlatFileDatabase(Comet plugin, UserManager userManager) {
         super(plugin, userManager);
 
-        this.fileConfig = new FileConfig(plugin, "users.yml");
+        this.fileConfig = new FileConfig(CometPlugin.getPlugin(), "users.yml");
         this.configuration = fileConfig.getConfiguration();
     }
 

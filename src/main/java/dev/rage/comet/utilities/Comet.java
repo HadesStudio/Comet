@@ -1,5 +1,6 @@
-package dev.rage.comet;
+package dev.rage.comet.utilities;
 
+import dev.rage.comet.CometPlugin;
 import dev.rage.comet.command.CommandManager;
 import dev.rage.comet.command.impl.BuildModeCommand;
 import dev.rage.comet.command.impl.CometCommand;
@@ -29,9 +30,7 @@ import dev.rage.comet.listeners.hotbar.CustomHotbarListener;
 import dev.rage.comet.listeners.hotbar.NormalHotbarListener;
 import dev.rage.comet.listeners.parkour.ParkourHotbarListener;
 import dev.rage.comet.listeners.parkour.ParkourListener;
-import dev.rage.comet.model.actionbar.ActionBarRunnable;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonManager;
-import dev.rage.comet.model.cosmetics.impl.balloons.tasks.BalloonRunnable;
 import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.cosmetics.impl.gadgets.GadgetsManager;
 import dev.rage.comet.model.cosmetics.impl.mascots.MascotManager;
@@ -41,13 +40,10 @@ import dev.rage.comet.model.hcfcore.HCFCoreManager;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
 import dev.rage.comet.model.leaderboard.LeaderboardManager;
-import dev.rage.comet.model.lunarclient.LunarClientRunnable;
 import dev.rage.comet.model.parkour.ParkourManager;
 import dev.rage.comet.model.parkour.hotbar.ParkourHotbarManager;
 import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.model.queue.rank.QueueRankManager;
-import dev.rage.comet.model.queue.thread.QueuePositionThread;
-import dev.rage.comet.model.queue.thread.QueueReminderThread;
 import dev.rage.comet.model.rank.RankManager;
 import dev.rage.comet.model.selector.ServerSelectorManager;
 import dev.rage.comet.model.server.ServerDataManager;
@@ -61,18 +57,14 @@ import dev.rage.comet.tablist.TablistProvider;
 import dev.rage.comet.tablist.head.HeadManager;
 import dev.rage.comet.user.UserListener;
 import dev.rage.comet.user.UserManager;
-import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.menu.ButtonListener;
-import dev.rage.comet.utilities.plugin.Plugin;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Arrays;
 
 /**
  * Created by Risas
@@ -82,10 +74,8 @@ import java.util.Arrays;
  * GitHub: https://github.com/RisasDev
  */
 
-@Getter
-public class Comet extends JavaPlugin {
-    @Getter
-    private static Comet instance;
+@Getter @Setter
+public class Comet {
 
     private FileConfig configFile,
             licenseFile,
@@ -131,133 +121,19 @@ public class Comet extends JavaPlugin {
     private LeaderboardManager leaderboardManager;
     private Tablist tablist;
 
-    @Override
-    public void onEnable() {
-        instance = this;
-        this.licenseFile = new FileConfig(this, "license.yml");
+    private Plugin plugins;
+    private CometPlugin plugin;
 
-        if (!new Plugin(this.licenseFile.getString("license-key"), this).isEnabled()) {
-            Bukkit.getServer().getPluginManager().disablePlugin(this);
-            Bukkit.getServer().getScheduler().cancelTasks(this);
-            return;
-        }
-
-        Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
-                        "",
-                        " &f&l* &bAuthors&7: &f" + getDescription().getAuthors(),
-                        " &f&l* &bPlugin Version&7: &f" + getDescription().getVersion(),
-                        " &f&l* &bLicense Status&7: &aVALID",
-                        " &f&l* &bThanks for using Comet Hubcore <3",
-                        " &f&l* &bIf u have support join to &ndiscord.gg/6GpV8ARYsG")
-                .forEach(s ->
-                        Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
-
-        this.configFile = new FileConfig(this, "config.yml");
-        this.languageFile = new FileConfig(this, "language.yml");
-        this.hotbarFile = new FileConfig(this, "hotbar.yml");
-        this.scoreboardFile = new FileConfig(this, "scoreboard.yml");
-        this.databaseFile = new FileConfig(this, "database.yml");
-        this.queueFile = new FileConfig(this, "queue.yml");
-        this.tablistFile = new FileConfig(this, "tablist/tablist.yml");
-        this.tablistHeadsFile = new FileConfig(this, "tablist/heads.yml");
-        this.serverSelectorFile = new FileConfig(this, "selector/server-selector.yml");
-        this.balloonsFile = new FileConfig(this, "cosmetics/balloons.yml");
-        this.customOutfitsFile = new FileConfig(this, "cosmetics/custom-outfits.yml");
-        this.cosmeticsFile = new FileConfig(this, "cosmetics/cosmetics.yml");
-        this.bannersFile = new FileConfig(this, "cosmetics/banners.yml");
-        this.gadgetsFile = new FileConfig(this, "cosmetics/gadgets.yml");
-        this.mascotsFile = new FileConfig(this, "cosmetics/mascots.yml");
-
-        this.mongoManager = new MongoManager(this);
-        this.redisManager = new RedisManager(this);
-        this.commandManager = new CommandManager(this);
-        this.rankManager = new RankManager();
-        this.mascotManager = new MascotManager(this);
-        this.userManager = new UserManager(this, mongoManager.getMongo("comet"));
-        this.serverDataManager = new ServerDataManager();
-        this.spawnManager = new SpawnManager(this);
-        this.bannerManager = new BannerManager(this);
-        this.balloonManager = new BalloonManager(this);
-        this.normalHotbarManager = new NormalHotbarManager(this);
-        this.customHotbarManager = new CustomHotbarManager(this);
-        this.parkourHotbarManager = new ParkourHotbarManager(this);
-        this.parkourManager = new ParkourManager(this);
-        this.serverSelectorManager = new ServerSelectorManager(this);
-        this.timerManager = new TimerManager();
-        this.headManager = new HeadManager(this);
-        this.queueRankManager = new QueueRankManager(this);
-        this.queueManager = new QueueManager(this);
-        this.hcfCoreManager = new HCFCoreManager(this);
-        this.gadgetsManager = new GadgetsManager(this);
-        this.outfitManager = new OutfitManager(this);
-        this.particlesManager = new ParticlesManager(this);
-        this.leaderboardManager = new LeaderboardManager(this);
-
-        if (scoreboardFile.getBoolean("scoreboard.enabled")) {
-            this.fastBoardManager = new FastBoardManager(this);
-            this.fastBoardManager.setAdapter(new FastBoardProvider(this));
-        }
-        if (tablistFile.getBoolean("tablist.enabled")) {
-            this.tablist = new Tablist(this, new TablistProvider(this));
-        }
-
-        PlaceholderAPIHook.initialize(this);
-
-        PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.registerEvents(new ButtonListener(), this);
-        pluginManager.registerEvents(new PlayerListener(this), this);
-        pluginManager.registerEvents(new SpawnListener(this), this);
-        pluginManager.registerEvents(new WorldListener(), this);
-        pluginManager.registerEvents(new NormalHotbarListener(this), this);
-        pluginManager.registerEvents(new CustomHotbarListener(this), this);
-        pluginManager.registerEvents(new QueueListener(this), this);
-        pluginManager.registerEvents(new UserListener(this), this);
-        pluginManager.registerEvents(new ParkourListener(this), this);
-        pluginManager.registerEvents(new ParkourHotbarListener(this), this);
-
-        if (scoreboardFile.getBoolean("scoreboard.enabled")) {
-            pluginManager.registerEvents(new FastBoardListener(fastBoardManager), this);
-        }
-
-        commandManager.registerCommands(new CometCommand(this));
-        commandManager.registerCommands(new BuildModeCommand(this));
-        commandManager.registerCommands(new SetSpawnCommand(this));
-        commandManager.registerCommands(new SpawnCommand(this));
-        commandManager.registerCommands(new TimerCommand());
-        commandManager.registerCommands(new TimerStartCommand(this));
-        commandManager.registerCommands(new TimerStopCommand(this));
-        commandManager.registerCommands(new TimerListCommand(this));
-        commandManager.registerCommands(new QueueCommand());
-        commandManager.registerCommands(new QueueJoinCommand(this));
-        commandManager.registerCommands(new QueueLeaveCommand(this));
-        commandManager.registerCommands(new QueuePauseCommand(this));
-        commandManager.registerCommands(new QueueListCommand(this));
-        commandManager.registerCommands(new ParkourCommand());
-        commandManager.registerCommands(new ParkourStartLocationCommand(this));
-        commandManager.registerCommands(new ParkourEndLocationCommand(this));
-        commandManager.registerCommands(new ParkourCheckpointCommand(this));
-
-        if (configFile.getBoolean("lunar-client.enabled")) {
-            Bukkit.getScheduler().runTaskTimer(this, new LunarClientRunnable(this), 0L, 20L);
-        }
-        if (configFile.getBoolean("action-bar.enabled")) {
-            int interval = configFile.getInt("action-bar.interval");
-            Bukkit.getScheduler().runTaskTimer(this, new ActionBarRunnable(this, interval), interval * 20L, interval * 20L);
-        }
-
-        QueueReminderThread reminderThread = new QueueReminderThread(this);
-        reminderThread.start();
-
-        QueuePositionThread positionThread = new QueuePositionThread(this);
-        positionThread.start();
-
-        removeBuggedEntities();
-
-        Bukkit.getScheduler().runTaskTimer(this, new BalloonRunnable(userManager), 0L, 1L);
-        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+    public Comet(CometPlugin plugin) {
+        this.plugin = plugin;
     }
 
-    @Override
+    public void onEnable() {
+        this.licenseFile = new FileConfig(CometPlugin.getPlugin(), "license.yml");
+
+        this.plugins = new Plugin(this.licenseFile.getString("license-key"), plugin);
+    }
+
     public void onDisable() {
         if (fastBoardManager != null) this.fastBoardManager.onDisable();
         if (tablist != null) this.tablist.onDisable();
@@ -293,8 +169,98 @@ public class Comet extends JavaPlugin {
         if (fastBoardManager != null) this.fastBoardManager.resetBoardAnimation();
     }
 
-    private void removeBuggedEntities() {
-        for (World world : getServer().getWorlds()) {
+    public void registerManagers() {
+        this.configFile = new FileConfig(CometPlugin.getPlugin(), "config.yml");
+        this.languageFile = new FileConfig(CometPlugin.getPlugin(), "language.yml");
+        this.hotbarFile = new FileConfig(CometPlugin.getPlugin(), "hotbar.yml");
+        this.scoreboardFile = new FileConfig(CometPlugin.getPlugin(), "scoreboard.yml");
+        this.databaseFile = new FileConfig(CometPlugin.getPlugin(), "database.yml");
+        this.queueFile = new FileConfig(CometPlugin.getPlugin(), "queue.yml");
+        this.tablistFile = new FileConfig(CometPlugin.getPlugin(), "tablist/tablist.yml");
+        this.tablistHeadsFile = new FileConfig(CometPlugin.getPlugin(), "tablist/heads.yml");
+        this.serverSelectorFile = new FileConfig(CometPlugin.getPlugin(), "selector/server-selector.yml");
+        this.balloonsFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/balloons.yml");
+        this.customOutfitsFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/custom-outfits.yml");
+        this.cosmeticsFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/cosmetics.yml");
+        this.bannersFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/banners.yml");
+        this.gadgetsFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/gadgets.yml");
+        this.mascotsFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/mascots.yml");
+
+        this.mongoManager = new MongoManager(this);
+        this.redisManager = new RedisManager(this);
+        this.commandManager = new CommandManager(CometPlugin.getPlugin());
+        this.rankManager = new RankManager();
+        this.mascotManager = new MascotManager(this);
+        this.userManager = new UserManager(this, mongoManager.getMongo("comet"));
+        this.serverDataManager = new ServerDataManager();
+        this.spawnManager = new SpawnManager(this);
+        this.bannerManager = new BannerManager(this);
+        this.balloonManager = new BalloonManager(this);
+        this.normalHotbarManager = new NormalHotbarManager(this);
+        this.customHotbarManager = new CustomHotbarManager(this);
+        this.parkourHotbarManager = new ParkourHotbarManager(this);
+        this.parkourManager = new ParkourManager(this);
+        this.serverSelectorManager = new ServerSelectorManager(this);
+        this.timerManager = new TimerManager();
+        this.headManager = new HeadManager(this);
+        this.queueRankManager = new QueueRankManager(this);
+        this.queueManager = new QueueManager(this);
+        this.hcfCoreManager = new HCFCoreManager(this);
+        this.gadgetsManager = new GadgetsManager(this);
+        this.outfitManager = new OutfitManager(this);
+        this.particlesManager = new ParticlesManager(this);
+        this.leaderboardManager = new LeaderboardManager(this);
+
+        if (scoreboardFile.getBoolean("scoreboard.enabled")) {
+            this.fastBoardManager = new FastBoardManager(this);
+            this.fastBoardManager.setAdapter(new FastBoardProvider(this));
+        }
+        if (tablistFile.getBoolean("tablist.enabled")) {
+            this.tablist = new Tablist(this, new TablistProvider(this));
+        }
+        PlaceholderAPIHook.initialize(this);
+    }
+
+    public void registerListeners() {
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new ButtonListener(), CometPlugin.getPlugin());
+        pluginManager.registerEvents(new PlayerListener(this), CometPlugin.getPlugin());
+        pluginManager.registerEvents(new SpawnListener(this), CometPlugin.getPlugin());
+        pluginManager.registerEvents(new WorldListener(), CometPlugin.getPlugin());
+        pluginManager.registerEvents(new NormalHotbarListener(this), CometPlugin.getPlugin());
+        pluginManager.registerEvents(new CustomHotbarListener(this), CometPlugin.getPlugin());
+        pluginManager.registerEvents(new QueueListener(this), CometPlugin.getPlugin());
+        pluginManager.registerEvents(new UserListener(this), CometPlugin.getPlugin());
+        pluginManager.registerEvents(new ParkourListener(this), CometPlugin.getPlugin());
+        pluginManager.registerEvents(new ParkourHotbarListener(this), CometPlugin.getPlugin());
+
+        if (scoreboardFile.getBoolean("scoreboard.enabled")) {
+            pluginManager.registerEvents(new FastBoardListener(fastBoardManager), CometPlugin.getPlugin());
+        }
+    }
+
+    public void registerCommands() {
+        commandManager.registerCommands(new CometCommand(this));
+        commandManager.registerCommands(new BuildModeCommand(this));
+        commandManager.registerCommands(new SetSpawnCommand(this));
+        commandManager.registerCommands(new SpawnCommand(this));
+        commandManager.registerCommands(new TimerCommand());
+        commandManager.registerCommands(new TimerStartCommand(this));
+        commandManager.registerCommands(new TimerStopCommand(this));
+        commandManager.registerCommands(new TimerListCommand(this));
+        commandManager.registerCommands(new QueueCommand());
+        commandManager.registerCommands(new QueueJoinCommand(this));
+        commandManager.registerCommands(new QueueLeaveCommand(this));
+        commandManager.registerCommands(new QueuePauseCommand(this));
+        commandManager.registerCommands(new QueueListCommand(this));
+        commandManager.registerCommands(new ParkourCommand());
+        commandManager.registerCommands(new ParkourStartLocationCommand(this));
+        commandManager.registerCommands(new ParkourEndLocationCommand(this));
+        commandManager.registerCommands(new ParkourCheckpointCommand(this));
+    }
+
+    public void removeBuggedEntities() {
+        for (World world : CometPlugin.getPlugin().getServer().getWorlds()) {
             for (Entity entity : world.getEntities()) {
                 if (mascotManager.getSetBodies().stream().anyMatch(body ->
                         entity.getCustomName() != null && entity.getCustomName().equals(ChatUtil.translate(body.getDisplayName())))) {

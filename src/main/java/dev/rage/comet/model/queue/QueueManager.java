@@ -4,7 +4,7 @@ import dev.rage.comet.model.queue.player.QueuePlayer;
 import dev.rage.comet.model.queue.rank.QueueRankManager;
 import dev.rage.comet.utilities.BungeeUtil;
 import dev.rage.comet.utilities.file.FileConfig;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 

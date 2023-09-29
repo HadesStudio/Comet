@@ -1,6 +1,6 @@
 package dev.rage.comet.model.parkour.hotbar;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.parkour.hotbar.types.CheckpointParkourHotbar;
 import dev.rage.comet.model.parkour.hotbar.types.LeaveParkourHotbar;
 import dev.rage.comet.model.parkour.hotbar.types.ResetParkourHotbar;

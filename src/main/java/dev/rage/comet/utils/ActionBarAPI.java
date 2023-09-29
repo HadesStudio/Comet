@@ -7,7 +7,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -52,7 +52,7 @@ public class ActionBarAPI {
         protocolManager.sendServerPacket(player, actionBarPacket);
     }
 
-    public static void sendActionBar(Comet plugin, Player player, String message, int duration) {
+    public static void sendActionBar(Player player, String message, int duration) {
         sendActionBar(player, message);
 
         // Re-sends the messages every 3 seconds, so it doesn't go away from the player's screen.
@@ -70,16 +70,16 @@ public class ActionBarAPI {
                 }
                 sendActionBar(player, message);
             }
-        }.runTaskTimer(plugin, 1L, 1L);
+        }.runTaskTimer(CometPlugin.getPlugin(), 1L, 1L);
     }
 
-    public static void sendActionBarToAllPlayers(Comet plugin, String message) {
-        sendActionBarToAllPlayers(plugin, message, -1);
+    public static void sendActionBarToAllPlayers(String message) {
+        sendActionBarToAllPlayers(message, -1);
     }
 
-    public static void sendActionBarToAllPlayers(Comet plugin, String message, int duration) {
+    public static void sendActionBarToAllPlayers(String message, int duration) {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            sendActionBar(plugin, p, message, duration);
+            sendActionBar(p, message, duration);
         }
     }
 }

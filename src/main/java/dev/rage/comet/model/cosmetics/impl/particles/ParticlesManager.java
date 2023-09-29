@@ -2,7 +2,7 @@ package dev.rage.comet.model.cosmetics.impl.particles;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.particles.impl.Test;
 import lombok.Getter;
 import org.bukkit.entity.Player;

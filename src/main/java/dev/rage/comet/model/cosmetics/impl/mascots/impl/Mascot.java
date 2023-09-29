@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.mascots.impl;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.utilities.ChatUtil;
 import lombok.Getter;
 import org.bukkit.Location;
@@ -34,7 +35,7 @@ public class Mascot {
 
         this.armorStand = player.getWorld().spawn(player.getLocation(), ArmorStand.class);
 
-        armorStand.setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
+        armorStand.setMetadata(CometPlugin.getPlugin().getName(), new FixedMetadataValue(CometPlugin.getPlugin(), true));
 
         armorStand.setCustomNameVisible(true);
 

@@ -1,6 +1,6 @@
 package dev.rage.comet.user;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.balloons.Balloon;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonHead;
 import dev.rage.comet.model.cosmetics.impl.banners.Banner;

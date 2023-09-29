@@ -2,7 +2,7 @@ package dev.rage.comet.model.actionbar;
 
 import dev.rage.comet.utils.ActionBarAPI;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import org.bukkit.Bukkit;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class ActionBarRunnable implements Runnable {
             List<String> messages = plugin.getConfigFile().getStringList("action-bar.messages");
             if (index == messages.size()) index = 0;
 
-            ActionBarAPI.sendActionBarToAllPlayers(plugin, ChatUtil.translate(messages.get(index)), interval * 20);
+            ActionBarAPI.sendActionBarToAllPlayers(ChatUtil.translate(messages.get(index)), interval * 20);
             index++;
         }
     }

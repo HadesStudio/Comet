@@ -2,7 +2,8 @@ package dev.rage.comet.model.leaderboard;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.leaderboard.types.UserLeaderboardType;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
@@ -27,7 +28,7 @@ public class LeaderboardManager {
 
         LeaderboardRunnable leaderboardRunnable = new LeaderboardRunnable(this);
         Bukkit.getScheduler().runTaskTimerAsynchronously(
-                plugin,
+                CometPlugin.getPlugin(),
                 leaderboardRunnable,
                 20L * 3600L,
                 20L * 3600L

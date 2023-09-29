@@ -3,7 +3,7 @@ package dev.rage.comet.tablist.head;
 import dev.rage.comet.model.server.IServerData;
 import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.utilities.file.FileConfig;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.tablist.Tablist;
 import lombok.Getter;
 import org.bukkit.configuration.ConfigurationSection;

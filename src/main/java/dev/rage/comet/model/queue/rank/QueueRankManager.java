@@ -1,6 +1,6 @@
 package dev.rage.comet.model.queue.rank;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.rank.RankManager;
 import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.configuration.ConfigurationSection;

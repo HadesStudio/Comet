@@ -1,6 +1,6 @@
 package dev.rage.comet.tablist;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.hcfcore.HCFCoreManager;
 import dev.rage.comet.model.server.IServerData;
 import dev.rage.comet.model.server.ServerDataManager;

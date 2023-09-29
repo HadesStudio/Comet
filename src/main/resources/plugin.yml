@@ -1,4 +1,4 @@
-main: dev.rage.comet.Comet
+main: dev.rage.comet.CometPlugin
 name: ${project.name}
 version: ${project.version}
 authors: ["Rage Development Team"]

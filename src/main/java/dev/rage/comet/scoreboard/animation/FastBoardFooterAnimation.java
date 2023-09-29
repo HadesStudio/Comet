@@ -1,6 +1,7 @@
 package dev.rage.comet.scoreboard.animation;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.utilities.file.FileConfig;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -22,7 +23,7 @@ public class FastBoardFooterAnimation implements Runnable {
         this.footers = scoreboardFile.getStringList("footer-animation.lines");
         this.footer = footers.get(0);
         this.index = 0;
-        this.taskId = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this, 20L, (long) (scoreboardFile.getDouble("footer-animation.interval") * 20L))
+        this.taskId = Bukkit.getScheduler().runTaskTimerAsynchronously(CometPlugin.getPlugin(), this, 20L, (long) (scoreboardFile.getDouble("footer-animation.interval") * 20L))
                 .getTaskId();
     }
 

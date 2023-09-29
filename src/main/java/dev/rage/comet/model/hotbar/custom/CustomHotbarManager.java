@@ -2,7 +2,7 @@ package dev.rage.comet.model.hotbar.custom;
 
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.item.ItemBuilder;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;

@@ -1,6 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.banners;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.utilities.ChatUtil;
 import lombok.Getter;
 import org.bukkit.DyeColor;

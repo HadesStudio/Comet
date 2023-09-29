@@ -1,7 +1,7 @@
 package dev.rage.comet.model.cosmetics.menu;
 
 import com.google.common.collect.Maps;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.menu.buttons.*;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.menu.Button;

@@ -1,7 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets;
 
 import com.google.common.collect.Lists;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.impl.FireTrail;
 import dev.rage.comet.model.cosmetics.impl.gadgets.impl.GrapplingHook;
 import dev.rage.comet.model.cosmetics.impl.gadgets.impl.Mount;

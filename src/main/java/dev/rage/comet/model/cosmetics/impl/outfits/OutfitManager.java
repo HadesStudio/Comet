@@ -5,7 +5,7 @@ import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Table;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.Outfit;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.CustomOutfit;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.LeatherOutfit;

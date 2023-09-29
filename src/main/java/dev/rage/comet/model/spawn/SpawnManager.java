@@ -1,7 +1,7 @@
 package dev.rage.comet.model.spawn;
 
 import dev.rage.comet.utilities.BukkitUtil;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;

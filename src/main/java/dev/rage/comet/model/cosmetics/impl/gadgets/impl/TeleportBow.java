@@ -2,7 +2,8 @@ package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
 import com.cryptomorin.xseries.XMaterial;
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.JavaUtil;
@@ -92,7 +93,7 @@ public class TeleportBow extends Gadget {
             if (hasCooldown(player.getUniqueId())) {
                 event.setCancelled(true);
 
-                plugin.getServer().getScheduler().runTaskLater(plugin, () -> refund(player), 2L);
+                CometPlugin.getPlugin().getServer().getScheduler().runTaskLater(CometPlugin.getPlugin(), () -> refund(player), 2L);
 
                 for (String s : plugin.getGadgetsFile().getStringList("teleport-bow.still-cooldown")) {
                     player.sendMessage(ChatUtil.translate(s
@@ -104,9 +105,9 @@ public class TeleportBow extends Gadget {
             if (isItem(player.getItemInHand(), getItem())) {
                 setCooldown(player.getUniqueId(), cooldown);
 
-                event.getEntity().setMetadata(plugin.getName(), new FixedMetadataValue(plugin, true));
+                event.getEntity().setMetadata(CometPlugin.getPlugin().getName(), new FixedMetadataValue(CometPlugin.getPlugin(), true));
 
-                plugin.getServer().getScheduler().runTaskLater(plugin, () -> refund(player), 2L);
+                CometPlugin.getPlugin().getServer().getScheduler().runTaskLater(CometPlugin.getPlugin(), () -> refund(player), 2L);
             }
         }
     }
@@ -115,7 +116,7 @@ public class TeleportBow extends Gadget {
     public void onProjectileHit(ProjectileHitEvent event) {
         if (event.getEntity().getShooter() instanceof Player) {
             Player player = (Player) event.getEntity().getShooter();
-            if (event.getEntity().hasMetadata(plugin.getName())) {
+            if (event.getEntity().hasMetadata(CometPlugin.getPlugin().getName())) {
                 Location location = event.getEntity().getLocation();
                 location.setDirection(player.getLocation().getDirection());
                 player.teleport(location);

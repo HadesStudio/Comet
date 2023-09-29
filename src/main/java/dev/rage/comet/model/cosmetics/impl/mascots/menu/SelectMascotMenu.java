@@ -1,7 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.mascots.menu;
 
 import com.google.common.collect.Maps;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.mascots.MascotManager;
 import dev.rage.comet.model.cosmetics.impl.mascots.impl.Body;
 import dev.rage.comet.user.User;

@@ -1,7 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
-import com.cryptomorin.xseries.XMaterial;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import org.bukkit.entity.Player;

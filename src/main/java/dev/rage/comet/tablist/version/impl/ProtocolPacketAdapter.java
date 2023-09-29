@@ -8,7 +8,8 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedSignedProperty;
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.tablist.head.Head;
 
 import java.util.UUID;
@@ -23,8 +24,8 @@ import java.util.UUID;
 public class ProtocolPacketAdapter extends PacketAdapter {
     private final ProtocolTablist protocolTablist;
 
-    public ProtocolPacketAdapter(Comet comet, ProtocolTablist protocolTablist) {
-        super(comet, ListenerPriority.NORMAL, PacketType.Play.Server.PLAYER_INFO);
+    public ProtocolPacketAdapter(ProtocolTablist protocolTablist) {
+        super(CometPlugin.getPlugin(), ListenerPriority.NORMAL, PacketType.Play.Server.PLAYER_INFO);
         this.protocolTablist = protocolTablist;
     }
 

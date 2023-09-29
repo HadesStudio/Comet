@@ -1,6 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.balloons.menu.button;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonHead;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;

@@ -1,6 +1,7 @@
 package dev.rage.comet.model.selector;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.utilities.file.FileConfig;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,10 +29,10 @@ public class ServerSelector {
     private String menuTitle;
     private int menuRows;
 
-    public ServerSelector(Comet plugin, String name) {
+    public ServerSelector(String name) {
         this.name = name;
         this.subServerSelectors = new ArrayList<>();
-        this.subServerFile = new FileConfig(plugin, "selector/sub-server/" + name + "-server.yml");
+        this.subServerFile = new FileConfig(CometPlugin.getPlugin(), "selector/sub-server/" + name + "-server.yml");
     }
 
     public void loadOrCreateFolder() {

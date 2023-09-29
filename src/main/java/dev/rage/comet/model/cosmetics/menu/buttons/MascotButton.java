@@ -1,6 +1,6 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.mascots.MascotManager;
 import dev.rage.comet.model.cosmetics.impl.mascots.menu.SelectMascotMenu;
 import dev.rage.comet.utilities.item.ItemBuilder;

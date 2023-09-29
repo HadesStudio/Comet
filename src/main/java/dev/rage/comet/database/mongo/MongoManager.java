@@ -1,6 +1,6 @@
 package dev.rage.comet.database.mongo;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import lombok.Getter;
 
 import java.util.HashMap;

@@ -1,7 +1,7 @@
 package dev.rage.comet.model.queue.thread;
 
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.utilities.file.FileConfig;

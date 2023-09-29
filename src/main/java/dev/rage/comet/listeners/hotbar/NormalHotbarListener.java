@@ -1,6 +1,6 @@
 package dev.rage.comet.listeners.hotbar;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.hotbar.normal.NormalHotbar;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
 import org.bukkit.entity.Player;

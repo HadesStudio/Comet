@@ -1,7 +1,7 @@
 package dev.rage.comet.model.parkour;
 
 import com.cryptomorin.xseries.XMaterial;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
 import dev.rage.comet.model.parkour.hotbar.ParkourHotbarManager;

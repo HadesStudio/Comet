@@ -1,6 +1,6 @@
 package dev.rage.comet.model.hotbar.normal.types;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.hotbar.normal.NormalHotbar;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.file.FileConfig;

@@ -1,6 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.outfits.entries.impl;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.Outfit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

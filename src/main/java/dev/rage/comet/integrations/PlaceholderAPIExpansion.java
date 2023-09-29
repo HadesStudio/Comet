@@ -1,6 +1,7 @@
 package dev.rage.comet.integrations;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.leaderboard.LeaderboardManager;
 import dev.rage.comet.model.leaderboard.types.UserLeaderboardType;
 import dev.rage.comet.model.queue.Queue;
@@ -36,7 +37,7 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getAuthor() {
-        return plugin.getDescription().getAuthors().toString()
+        return CometPlugin.getPlugin().getDescription().getAuthors().toString()
                 .replace("[", "").replace("]", "");
     }
 
@@ -47,7 +48,7 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return plugin.getDescription().getVersion();
+        return CometPlugin.getPlugin().getDescription().getVersion();
     }
 
     @Override

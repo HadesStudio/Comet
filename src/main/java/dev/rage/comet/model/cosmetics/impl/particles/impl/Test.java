@@ -2,7 +2,7 @@ package dev.rage.comet.model.cosmetics.impl.particles.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.particles.Particle;
 import dev.rage.comet.model.cosmetics.impl.particles.ParticlesManager;
 import fr.mrmicky.fastparticles.ParticleData;
@@ -26,7 +26,7 @@ public class Test extends Particle {
     private final Map<UUID, Integer> playerColors;
 
     public Test(Comet plugin, ParticlesManager particlesManager) {
-        super(plugin, particlesManager);
+        super(particlesManager);
 
         radius = 0.6;
         numPoints = 28;

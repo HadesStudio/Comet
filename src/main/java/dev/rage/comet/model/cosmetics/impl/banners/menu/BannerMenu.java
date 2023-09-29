@@ -1,7 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.banners.menu;
 
 import com.google.common.collect.Maps;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.banners.Banner;
 import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.cosmetics.impl.banners.menu.button.BannerButton;

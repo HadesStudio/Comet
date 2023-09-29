@@ -1,7 +1,6 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
-import com.cryptomorin.xseries.XMaterial;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.menu.GadgetsMenu;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import dev.rage.comet.utilities.menu.Button;

@@ -2,7 +2,7 @@ package dev.rage.comet.database.redis;
 
 import com.google.gson.Gson;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
 import redis.clients.jedis.JedisPubSub;

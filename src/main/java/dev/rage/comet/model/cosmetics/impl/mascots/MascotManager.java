@@ -2,7 +2,8 @@ package dev.rage.comet.model.cosmetics.impl.mascots;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.mascots.impl.Body;
 import dev.rage.comet.model.cosmetics.impl.mascots.impl.Heads;
 import dev.rage.comet.model.cosmetics.impl.mascots.impl.Mascot;
@@ -40,8 +41,8 @@ public class MascotManager {
 
         loadOrRefresh(plugin);
 
-        plugin.getServer().getPluginManager().registerEvents(new MascotListener(plugin, this), plugin);
-        plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, mascotRunnable = new MascotRunnable(this),
+        CometPlugin.getPlugin().getServer().getPluginManager().registerEvents(new MascotListener(CometPlugin.get(), this), CometPlugin.getPlugin());
+        CometPlugin.getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(CometPlugin.getPlugin(), mascotRunnable = new MascotRunnable(this),
                 1L, 1L);
     }
 

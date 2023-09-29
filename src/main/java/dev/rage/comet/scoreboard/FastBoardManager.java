@@ -1,6 +1,6 @@
 package dev.rage.comet.scoreboard;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.scoreboard.animation.FastBoardFooterAnimation;
 import dev.rage.comet.scoreboard.animation.FastBoardTitleAnimation;
 import lombok.Getter;

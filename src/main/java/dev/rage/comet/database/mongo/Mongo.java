@@ -4,8 +4,9 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoDatabase;
+import dev.rage.comet.CometPlugin;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import lombok.Getter;
 
 import java.util.logging.Level;
@@ -42,10 +43,10 @@ public class Mongo {
             this.mongoClient = new MongoClient(uri);
             this.database = mongoClient.getDatabase(uri.getDatabase());
             this.connected = true;
-            ChatUtil.logger("&a[" + plugin.getName() + "] MongoDB successfully connected to " + name + " database.");
+            ChatUtil.logger("&a[" + CometPlugin.getPlugin().getName() + "] MongoDB successfully connected to " + name + " database.");
         }
         catch (MongoException | IllegalArgumentException | NullPointerException exception) {
-            ChatUtil.logger("&c[" + plugin.getName() + "] &cMongoDB failed to connect to " + name + " database.");
+            ChatUtil.logger("&c[" + CometPlugin.getPlugin().getName() + "] &cMongoDB failed to connect to " + name + " database.");
         }
     }
 }

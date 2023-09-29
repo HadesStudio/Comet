@@ -1,7 +1,8 @@
 package dev.rage.comet.database.redis;
 
+import dev.rage.comet.CometPlugin;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import lombok.Getter;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -36,10 +37,10 @@ public class Redis {
             jedis.connect();
 
             connected = true;
-            ChatUtil.logger("&a[" + plugin.getName() + "] Redis successfully connected.");
+            ChatUtil.logger("&a[" + CometPlugin.getPlugin().getName() + "] Redis successfully connected.");
         }
         catch (Exception exception) {
-            ChatUtil.logger("&c[" + plugin.getName() + "] &cRedis failed to connect.");
+            ChatUtil.logger("&c[" + CometPlugin.getPlugin().getName() + "] &cRedis failed to connect.");
         }
     }
 

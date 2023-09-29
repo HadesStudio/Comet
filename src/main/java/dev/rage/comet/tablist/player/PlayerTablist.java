@@ -3,7 +3,7 @@ package dev.rage.comet.tablist.player;
 import dev.rage.comet.tablist.player.module.PlayerVersion;
 import dev.rage.comet.tablist.utilities.ClientUtil;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.tablist.Tablist;
 import dev.rage.comet.tablist.TablistColumn;
 import dev.rage.comet.tablist.TablistEntry;

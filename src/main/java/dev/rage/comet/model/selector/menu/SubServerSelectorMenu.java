@@ -1,6 +1,6 @@
 package dev.rage.comet.model.selector.menu;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.selector.ServerSelector;
 import dev.rage.comet.model.selector.SubServerSelector;
 import dev.rage.comet.model.selector.menu.button.SubServerSelectorButton;

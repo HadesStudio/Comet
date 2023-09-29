@@ -1,7 +1,8 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets;
 
 import com.google.common.collect.Maps;
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.utilities.JavaUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -20,7 +21,7 @@ public abstract class Gadget implements Listener {
         this.plugin = plugin;
         this.cooldowns = Maps.newHashMap();
 
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        CometPlugin.getPlugin().getServer().getPluginManager().registerEvents(this, CometPlugin.getPlugin());
     }
 
     public abstract String getName();

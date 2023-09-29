@@ -1,6 +1,6 @@
 package dev.rage.comet.model.cosmetics.impl.mascots.listener;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.mascots.MascotManager;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.ArmorStand;

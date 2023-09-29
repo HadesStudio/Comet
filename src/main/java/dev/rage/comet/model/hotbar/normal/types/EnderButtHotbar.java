@@ -1,6 +1,7 @@
 package dev.rage.comet.model.hotbar.normal.types;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.hotbar.normal.NormalHotbar;
 import dev.rage.comet.utilities.PlayerUtil;
 import fr.mrmicky.fastparticles.ParticleType;
@@ -45,6 +46,6 @@ public class EnderButtHotbar extends NormalHotbar {
                 }
                 particleType.spawn(enderPearl.getWorld(), enderPearl.getLocation(), 1);
             }
-        }.runTaskTimer(Comet.getInstance(), 1L, 1L);
+        }.runTaskTimer(CometPlugin.getPlugin(), 1L, 1L);
     }
 }

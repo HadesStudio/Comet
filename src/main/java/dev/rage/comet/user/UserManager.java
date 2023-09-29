@@ -1,6 +1,6 @@
 package dev.rage.comet.user;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.database.mongo.Mongo;
 import dev.rage.comet.model.cosmetics.impl.balloons.Balloon;
 import dev.rage.comet.user.database.Database;

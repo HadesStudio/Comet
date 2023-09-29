@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.particles;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import fr.mrmicky.fastparticles.ParticleType;
 import org.bukkit.entity.Player;
 
@@ -10,10 +11,10 @@ public abstract class Particle {
 
     public final ParticlesManager particlesManager;
 
-    public Particle(Comet plugin, ParticlesManager particlesManager) {
+    public Particle(ParticlesManager particlesManager) {
         this.particlesManager = particlesManager;
 
-        plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+        CometPlugin.getPlugin().getServer().getScheduler().scheduleSyncRepeatingTask(CometPlugin.getPlugin(), () -> {
             for (Map.Entry<Player, Particle> playerParticleEntry : particlesManager.getPlayerParticles().entrySet()) {
                 if (!playerParticleEntry.getValue().equals(this))
                     continue;

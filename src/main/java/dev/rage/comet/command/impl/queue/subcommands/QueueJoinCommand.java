@@ -4,7 +4,7 @@ import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.command.BaseCommand;
 import dev.rage.comet.command.Command;
 import dev.rage.comet.command.CommandArgs;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.utilities.file.FileConfig;

@@ -1,7 +1,7 @@
 package dev.rage.comet.listeners;
 
 import dev.rage.comet.utilities.PlayerUtil;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

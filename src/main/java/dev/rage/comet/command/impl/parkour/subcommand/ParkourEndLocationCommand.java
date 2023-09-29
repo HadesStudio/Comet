@@ -1,6 +1,6 @@
 package dev.rage.comet.command.impl.parkour.subcommand;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.command.BaseCommand;
 import dev.rage.comet.command.Command;
 import dev.rage.comet.command.CommandArgs;

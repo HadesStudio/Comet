@@ -1,7 +1,7 @@
 package dev.rage.comet.tablist;
 
 import dev.rage.comet.tablist.player.PlayerTablist;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

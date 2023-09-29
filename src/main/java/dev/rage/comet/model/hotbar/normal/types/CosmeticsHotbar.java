@@ -1,6 +1,6 @@
 package dev.rage.comet.model.hotbar.normal.types;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.menu.CosmeticsMenu;
 import dev.rage.comet.model.hotbar.normal.NormalHotbar;
 import org.bukkit.entity.Player;

@@ -1,6 +1,6 @@
 package dev.rage.comet.user;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.utilities.ChatUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

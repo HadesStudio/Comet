@@ -1,6 +1,6 @@
 package dev.rage.comet.user.database;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
 import lombok.RequiredArgsConstructor;

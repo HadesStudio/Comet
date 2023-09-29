@@ -1,7 +1,7 @@
 package dev.rage.comet.model.cosmetics.menu.buttons;
 
 import com.cryptomorin.xseries.XMaterial;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.ChatUtil;

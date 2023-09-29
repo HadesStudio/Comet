@@ -2,7 +2,8 @@ package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import org.bukkit.ChatColor;
@@ -31,7 +32,7 @@ public class FireTrail extends Gadget {
         this.players = Sets.newConcurrentHashSet();
         this.locations = Maps.newHashMap();
 
-        plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
+        CometPlugin.getPlugin().getServer().getScheduler().runTaskTimer(CometPlugin.getPlugin(), () -> {
             for (Player player : players) {
                 player.setFireTicks(0);
             }

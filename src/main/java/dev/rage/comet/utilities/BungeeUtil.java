@@ -2,7 +2,7 @@ package dev.rage.comet.utilities;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
 import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 
@@ -24,7 +24,7 @@ public class BungeeUtil {
             out.writeUTF(player.getName());
             out.writeUTF(server);
 
-            player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
+            player.sendPluginMessage(CometPlugin.getPlugin(), "BungeeCord", out.toByteArray());
         }
         catch (Exception exception) {
             ChatUtil.sendMessage(player, "&cAn error occurred while trying to send you to the server.");

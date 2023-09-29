@@ -2,7 +2,7 @@ package dev.rage.comet.model.lunarclient;
 
 import com.lunarclient.bukkitapi.LunarClientAPI;
 import dev.rage.comet.utilities.ChatUtil;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import lombok.Setter;
 import org.bukkit.entity.Player;
 

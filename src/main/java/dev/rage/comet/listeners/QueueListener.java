@@ -1,6 +1,6 @@
 package dev.rage.comet.listeners;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
 import org.bukkit.entity.Player;

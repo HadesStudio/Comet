@@ -1,6 +1,6 @@
 package dev.rage.comet.model.selector;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.item.ItemBuilder;
 import lombok.Getter;
@@ -39,7 +39,7 @@ public class ServerSelectorManager {
     }
 
     public void loadOrCreateServer(String name, ConfigurationSection section) {
-        ServerSelector serverSelector = exists(name) ? getServerSelector(name) : new ServerSelector(plugin, name);
+        ServerSelector serverSelector = exists(name) ? getServerSelector(name) : new ServerSelector(name);
         serverSelector.setIcon(new ItemBuilder(section.getString(name + ".item.material"))
                 .setName(section.getString(name + ".item.name"))
                 .setLore(section.getStringList(name + ".item.description"))

@@ -1,6 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.gadgets.impl;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.gadgets.Gadget;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.item.ItemBuilder;
@@ -68,9 +69,9 @@ public class SnowBallHider extends Gadget {
         if (!(event.getEntity().getShooter() instanceof Player) || !(event.getEntity() instanceof Snowball))
             return;
 
-        event.getEntity().setMetadata(plugin.getName() + getName(), new FixedMetadataValue(plugin, true));
+        event.getEntity().setMetadata(CometPlugin.getPlugin().getName() + getName(), new FixedMetadataValue(CometPlugin.getPlugin(), true));
 
-        plugin.getServer().getScheduler().runTaskLater(plugin, () -> refund((Player) event.getEntity().getShooter()), 2L);
+        CometPlugin.getPlugin().getServer().getScheduler().runTaskLater(CometPlugin.getPlugin(), () -> refund((Player) event.getEntity().getShooter()), 2L);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -78,7 +79,7 @@ public class SnowBallHider extends Gadget {
         if (!(event.getDamager() instanceof Snowball) || !(event.getEntity() instanceof Player))
             return;
 
-        if (!event.getDamager().hasMetadata(plugin.getName() + getName()))
+        if (!event.getDamager().hasMetadata(CometPlugin.getPlugin().getName() + getName()))
             return;
 
         Player shooter = (Player) ((Snowball) event.getDamager()).getShooter();

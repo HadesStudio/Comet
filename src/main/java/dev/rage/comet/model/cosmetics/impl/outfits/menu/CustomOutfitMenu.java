@@ -1,8 +1,7 @@
 package dev.rage.comet.model.cosmetics.impl.outfits.menu;
 
-import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.cosmetics.impl.outfits.OutfitManager;
 import dev.rage.comet.model.cosmetics.impl.outfits.entries.impl.CustomOutfit;
 import dev.rage.comet.utilities.ChatUtil;

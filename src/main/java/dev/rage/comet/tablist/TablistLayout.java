@@ -1,6 +1,6 @@
 package dev.rage.comet.tablist;
 
-import dev.rage.comet.Comet;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.tablist.head.Head;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
