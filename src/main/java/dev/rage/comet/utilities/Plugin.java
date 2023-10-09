@@ -64,11 +64,9 @@ public class Plugin {
                                     " &f&l* &bPlugin Version&7: &f" + CometPlugin.getPlugin().getDescription().getVersion(),
                                     " &f&l* &bLicense Status&7: &aVALID",
                                     " &f&l* &bThanks for using Comet Hubcore <3",
-                                    " &f&l* &bIf u have support join to &ndiscord.gg/6GpV8ARYsG")
+                                    " &f&l* &bIf u have support join to &nastro-operations.com/discord")
                             .forEach(s ->
                                     Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
-
-
 
                     CometPlugin.get().registerManagers();
                     CometPlugin.get().registerListeners();
@@ -96,6 +94,15 @@ public class Plugin {
             } else {
                 statusMsg = obj.getString("status_msg");
 
+                Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
+                                "",
+                                " &f&l* &bAuthors&7: &f" + CometPlugin.getPlugin().getDescription().getAuthors(),
+                                " &f&l* &bPlugin Version&7: &f" + CometPlugin.getPlugin().getDescription().getVersion(),
+                                " &f&l* &bLicense Status&7: &cINVALID",
+                                " ",
+                                " &f&l* &bIf u have support join to &nastro-operations.com/discord")
+                        .forEach(s ->
+                                Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
             }
         }
 

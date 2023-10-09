@@ -4,7 +4,7 @@ Comet HubCore
 
 Features:
 - HexColor Support
-- Tablist Compatible with Lazarus for kits & hcf hook
+- Tablist Compatible with Vapor, Lazarus or Azurite for kits & hcf hook
 - Custom Heads in Tablist
 - Server Status in Tablist
 - Animated Scoreboard

@@ -31,7 +31,7 @@ public class Redis {
             String password = plugin.getDatabaseFile().getString("redis.password");
             if (!password.isEmpty()) jedis.auth(password);
 
-            this.redisPublisher = new RedisPublisher(plugin);
+            this.redisPublisher = new RedisPublisher();
 
             (new Thread(() -> jedis.subscribe(redisPublisher, "Comet"))).start();
             jedis.connect();

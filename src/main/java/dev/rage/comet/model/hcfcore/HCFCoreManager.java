@@ -1,6 +1,8 @@
 package dev.rage.comet.model.hcfcore;
 
 import dev.rage.comet.CometPlugin;
+import dev.rage.comet.model.hcfcore.vapor.VaporHCF;
+import dev.rage.comet.model.hcfcore.vapor.VaporKitMap;
 import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.database.mongo.MongoManager;
 import dev.rage.comet.model.hcfcore.azurite.AzuriteHCF;
@@ -27,7 +29,11 @@ public class HCFCoreManager {
             return;
         }
 
-        if (hcfCoreType == HCFCoreType.AZURITE) {
+        if (hcfCoreType == HCFCoreType.VAPOR) {
+            this.kitmap = new VaporKitMap(mongoManager.getMongo("kitmap"));
+            this.hcf = new VaporHCF(mongoManager.getMongo("hcf"));
+        }
+        else if (hcfCoreType == HCFCoreType.AZURITE) {
             this.kitmap = new AzuriteKitMap(mongoManager.getMongo("kitmap"));
             this.hcf = new AzuriteHCF(mongoManager.getMongo("hcf"));
         }
@@ -35,6 +41,7 @@ public class HCFCoreManager {
             this.kitmap = new LazarusKitMap(mongoManager.getMongo("kitmap"));
             this.hcf = new LazarusHCF(mongoManager.getMongo("hcf"));
         }
+
 
         ChatUtil.logger("&a[" + CometPlugin.getPlugin().getName() + "] HCFCore " + hcfCoreType.name() + " successfully connected.");
     }
