@@ -54,7 +54,9 @@ public class PlayerListener implements Listener {
 		Player player = event.getPlayer();
 
 		if (plugin.getConfigFile().getBoolean("double-jump.enabled")) {
-			if (player.getGameMode().equals(GameMode.CREATIVE) || player.isFlying()) return;
+			if (player.getGameMode() == GameMode.CREATIVE || player.isFlying() || plugin.getParkourManager().isParkourPlayer(player)) {
+				return;
+			}
 
 			event.setCancelled(true);
 			player.setVelocity(player.getLocation().getDirection().multiply(plugin.getConfigFile().getDouble("double-jump.velocity")).setY(1));
@@ -68,7 +70,7 @@ public class PlayerListener implements Listener {
 		Player player = event.getPlayer();
 
 		if (plugin.getConfigFile().getBoolean("double-jump.enabled")) {
-			if (player.getGameMode().equals(GameMode.CREATIVE)) return;
+			if (player.getGameMode() == GameMode.CREATIVE) return;
 			if (!player.getAllowFlight()) player.setAllowFlight(true);
 		}
 	}
