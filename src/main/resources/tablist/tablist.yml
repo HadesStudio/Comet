@@ -2,12 +2,12 @@ tablist:
   enabled: true
   header:
     - ""
-    - "&6&lComet Hub"
+    - "&6&lAstro Operations"
     - ""
   footer:
     - ""
-    - "&bTwitter &f@CometHub &7| &aStore &fstore.comet.hub"
-    - "&9Discord &fdiscord.comet.hub"
+    - "&bTwitter &f@AstroOperations &7| &aStore &fastro-operations.com"
+    - "&9Discord &fastro-operations.com/discord"
     - ""
   lines:
     left:
@@ -39,25 +39,25 @@ tablist:
         text: ""
         head: ""
       '10':
-        text: "&6&lKitMap"
-        head: ""
+        text: "&6&lKitmap"
+        head: "<crown-head>"
       '11':
-        text: " &7▶ &eOnline&7: &f%bungee_server-1%/250"
+        text: "&7Status&7: &r<Kitmap-status>"
         head: ""
       '12':
-        text: " &7▶ &eStatus&7: &r<server-1-status>"
-        head: "<server-1-status-head>"
+        text: "&7Online&7: &f%bungee_Kitmap%/250"
+        head: ""
       '13':
         text: ""
         head: ""
       '14':
-        text: " &7▶ &eKills&7: &f<hcfcore-kitmap-kills>"
-        head: ""
+        text: "&6&lHCF"
+        head: "<shield-head>"
       '15':
-        text: " &7▶ &eDeaths&7: &f<hcfcore-kitmap-deaths>"
+        text: "&7Status&7: &r<HCF-status>"
         head: ""
       '16':
-        text: " &7▶ &eKillStreak&7: &f<hcfcore-kitmap-killstreak>"
+        text: "&7Online&7: &f%bungee_HCF%/250"
         head: ""
       '17':
         text: ""
@@ -66,11 +66,11 @@ tablist:
         text: ""
         head: ""
       '19':
-        text: "&6Store"
+        text: ""
         head: ""
       '20':
-        text: "&fstore.comet.hub"
-        head: "<store-head>"
+        text: ""
+        head: ""
     middle:
       '1':
         text: ""
@@ -79,10 +79,10 @@ tablist:
         text: ""
         head: ""
       '3':
-        text: "&6&lComet Hub"
-        head: ""
+        text: "&6&lTotal Players"
+        head: "<planet-head>"
       '4':
-        text: "&f%bungee_total%/%server_max_players%"
+        text: "&f%bungee_total%/500"
         head: ""
       '5':
         text: ""
@@ -100,14 +100,14 @@ tablist:
         text: ""
         head: ""
       '10':
-        text: "&6&lServer-2"
-        head: ""
+        text: "&6&lPractice"
+        head: "<potion-head>"
       '11':
-        text: " &7▶ &eOnline&7: &f%bungee_server-2%/250"
+        text: "&7Status&7: &r<Practice-status>"
         head: ""
       '12':
-        text: " &7▶ &eStatus&7: &r<server-2-status>"
-        head: "<server-2-status-head>"
+        text: "&7Online&7: &f%bungee_Practice%/250"
+        head: ""
       '13':
         text: ""
         head: ""
@@ -116,22 +116,22 @@ tablist:
         head: ""
       '15':
         text: "&6&lQueue Information"
-        head: ""
+        head: "<tv-head>"
       '16':
-        text: " &7▶ &eServer&7: &f%comet_queue_player_name%"
+        text: "&7Server&7: &f%comet_queue_player_name%"
         head: ""
       '17':
-        text: " &7▶ &ePosition&7: &f%comet_queue_player_position%/&f%comet_queue_player_size%"
+        text: "&7Position&7: &f%comet_queue_player_position%/&f%comet_queue_player_size%"
         head: ""
       '18':
         text: ""
         head: ""
       '19':
-        text: "&bTwitter"
+        text: ""
         head: ""
       '20':
-        text: "&f@CometHub"
-        head: "<twitter-head>"
+        text: ""
+        head: ""
     right:
       '1':
         text: ""
@@ -140,19 +140,19 @@ tablist:
         text: ""
         head: ""
       '3':
-        text: ""
-        head: ""
+        text: "&6&lMy Information"
+        head: "<self-head>"
       '4':
         text: ""
         head: ""
       '5':
-        text: ""
+        text: "&7Nick: &f%player_name%"
         head: ""
       '6':
-        text: ""
+        text: "&7Latency: %player_colored_ping%"
         head: ""
       '7':
-        text: ""
+        text: "&7Rank: %phoenix_player_rank%"
         head: ""
       '8':
         text: ""
@@ -161,38 +161,38 @@ tablist:
         text: ""
         head: ""
       '10':
-        text: "&6&lHCF"
+        text: ""
         head: ""
       '11':
-        text: " &7▶ &eOnline&7: &f%bungee_server-3%/250"
+        text: ""
         head: ""
       '12':
-        text: " &7▶ &eStatus&7: &r<server-3-status>"
-        head: "<server-3-status-head>"
-      '13':
         text: ""
         head: ""
+      '13':
+        text: "&6&lImportant Links"
+        head: "<important-head>"
       '14':
-        text: " &7▶ &eKills&7: &f<hcfcore-hcf-kills>"
+        text: ""
         head: ""
       '15':
-        text: " &7▶ &eDeaths&7: &f<hcfcore-hcf-deaths>"
-        head: ""
+        text: "&7astro-operations.com/discord"
+        head: "<discord-head>"
       '16':
-        text: " &7▶ &eLives&7: &f<hcfcore-hcf-lives>"
-        head: ""
+        text: "&7ts.astro-operations.com"
+        head: "<teamspeak-head>"
       '17':
-        text: " &7▶ &eDeathbanned&7: &f<hcfcore-hcf-deathban>"
-        head: ""
+        text: "&7astro-operations.com"
+        head: "<store-head>"
       '18':
+        text: "&7t.me/astro-operations"
+        head: "<telegram-head>"
+      '19':
         text: ""
         head: ""
-      '19':
-        text: "&9Discord"
-        head: ""
       '20':
-        text: "&fdiscord.comet.hub"
-        head: "<discord-head>"
+        text: ""
+        head: ""
     far-right:
       '1':
         text: ""
@@ -213,25 +213,25 @@ tablist:
         text: ""
         head: ""
       '7':
-        text: ""
+        text: "&c&lThank you for choosing us!"
         head: ""
       '8':
         text: ""
         head: ""
       '9':
-        text: ""
+        text: "&7Don't forget to join our"
         head: ""
       '10':
-        text: ""
+        text: "&7discord to find out"
         head: ""
       '11':
-        text: ""
+        text: "&7all the news!"
         head: ""
       '12':
         text: ""
         head: ""
       '13':
-        text: ""
+        text: "&7astro-operations.com/discord"
         head: ""
       '14':
         text: ""
