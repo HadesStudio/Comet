@@ -15,18 +15,18 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by Risas
+ * Created by AstroDev
  * Project: Comet
  * Date: 19-12-2022
- * Twitter: @RisasDev
- * GitHub: https://github.com/RisasDev
+ * Twitter: @AstroDev
+ * GitHub: https://github.com/AstroDev
  */
 
 public class CustomHotbarManager {
 
     private final Comet plugin;
     private final Map<String, CustomHotbar> hotbarMap;
-    private final Set<String> hotbarNames;
+    private final Map<ItemStack, CustomHotbar> hotbarCache = new HashMap<>();
 
     public CustomHotbarManager(Comet plugin) {
         this.plugin = plugin;
@@ -34,6 +34,7 @@ public class CustomHotbarManager {
         this.hotbarNames = new HashSet<>();
         this.loadOrRefresh(false);
     }
+    private final Set<String> hotbarNames;
 
     public Collection<CustomHotbar> getHotbars() {
         return hotbarMap.values();
@@ -48,10 +49,12 @@ public class CustomHotbarManager {
     }
 
     public CustomHotbar getHotbar(ItemStack item) {
+        if (hotbarCache.containsKey(item))
+            return hotbarCache.get(item);
+
         for (CustomHotbar hotbar : getHotbars()) {
-            if (hotbar.isSimilar(item)) {
-                return hotbar;
-            }
+            if (hotbar.isSimilar(item))
+                return hotbarCache.computeIfAbsent(item, k -> hotbar);
         }
         return null;
     }

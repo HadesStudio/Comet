@@ -48,15 +48,13 @@ public abstract class Menu {
         if (player.getOpenInventory() != null) {
             if (previousMenu == null) {
                 player.closeInventory();
-            }
-            else {
+            } else {
                 int previousSize = player.getOpenInventory().getTopInventory().getSize();
 
                 if (previousSize == size && player.getOpenInventory().getTitle().equals(title)) {
                     inventory = player.getOpenInventory().getTopInventory();
                     update = true;
-                }
-                else {
+                } else {
                     previousMenu.setClosedByMenu(true);
                     player.closeInventory();
                 }
@@ -86,12 +84,9 @@ public abstract class Menu {
             }
         }
 
-        if (update) {
+        if (update)
             player.updateInventory();
-        }
-        else {
-            player.openInventory(inventory);
-        }
+        else player.openInventory(inventory);
 
         this.setClosedByMenu(false);
     }

@@ -22,8 +22,7 @@ public class ParkourManager {
     private final FileConfig configFile;
 
     private final Map<UUID, ParkourPlayer> parkourPlayers;
-    private final List<Location> checkpoints;
-    private Location startLocation, endLocation;
+    private final Set<Location> checkpoints = new HashSet<>();
     private final ItemStack checkpointItem, endLocationItem;
 
     private final ParkourHotbarManager parkourHotbarManager;
@@ -31,10 +30,15 @@ public class ParkourManager {
     private final CustomHotbarManager customHotbarManager;
     private final SpawnManager spawnManager;
 
+    private Location startLocation, endLocation;
+
     public ParkourManager(Comet plugin) {
         this.configFile = plugin.getConfigFile();
         this.parkourPlayers = new HashMap<>();
-        this.checkpoints = BukkitUtil.deserializeLocations(configFile.getStringList("parkour.checkpoints"));
+
+        for (String s : configFile.getStringList("parkour.checkpoints"))
+            checkpoints.add(BukkitUtil.deserializeLocation(s));
+
         this.startLocation = BukkitUtil.deserializeLocation(configFile.getString("parkour.start-location"));
         this.endLocation = BukkitUtil.deserializeBlockLocation(configFile.getString("parkour.end-location"));
         this.checkpointItem = new ItemBuilder(XMaterial.HEAVY_WEIGHTED_PRESSURE_PLATE.parseMaterial())

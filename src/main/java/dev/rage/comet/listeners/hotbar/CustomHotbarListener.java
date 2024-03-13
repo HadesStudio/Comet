@@ -11,11 +11,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 /**
- * Created by Risas
+ * Created by Astro
  * Project: Comet
  * Date: 20-12-2022
- * Twitter: @RisasDev
- * GitHub: https://github.com/RisasDev
+ * Twitter: @AstroDev
+ * GitHub: https://github.com/AstroDev
  */
 
 public class CustomHotbarListener implements Listener {

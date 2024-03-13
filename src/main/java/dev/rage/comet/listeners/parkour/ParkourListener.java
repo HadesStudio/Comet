@@ -1,11 +1,11 @@
 package dev.rage.comet.listeners.parkour;
 
-import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.parkour.ParkourManager;
 import dev.rage.comet.model.parkour.ParkourPlayer;
 import dev.rage.comet.user.User;
 import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.ChatUtil;
+import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.utilities.file.FileConfig;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -54,13 +54,24 @@ public class ParkourListener implements Listener {
 
     @EventHandler
     private void onParkourMove(PlayerMoveEvent event) {
+        Location to = event.getTo();
+        Location from = event.getFrom();
+
+        // interesting?
+        if (to == null)
+            return;
+
+        if (from.getBlockZ() == to.getBlockZ()
+                && from.getBlockX() == to.getBlockX())
+            return;
+
         Player player = event.getPlayer();
         ParkourPlayer parkourPlayer = parkourManager.getParkourPlayer(player);
-        if (parkourPlayer == null) return;
+        if (parkourPlayer == null)
+            return;
 
         Location playerLocation = player.getLocation();
-        Location blockLocation = new Location(playerLocation.getWorld(), playerLocation.getBlockX(), playerLocation.getBlockY(), playerLocation.getBlockZ());
-
+        Location blockLocation = playerLocation.getBlock().getLocation();
         if (parkourManager.isFinishLocation(blockLocation)) {
             long elapsedTime = parkourPlayer.getElapsedTime();
             String elapsedTimeFormatted = parkourPlayer.getElapsedTimeFormatted();

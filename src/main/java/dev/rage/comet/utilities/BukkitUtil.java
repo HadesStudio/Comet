@@ -12,14 +12,15 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by Risas
+ * Created by AstroDev
  * Project: CometMC
  * Date: 02-02-2022
- * Twitter: @RisasDev
- * GitHub: https://github.com/RisasDev
+ * Twitter: @AstroDev
+ * GitHub: https://github.com/AstroDev
  */
 
 @UtilityClass
@@ -28,9 +29,9 @@ public class BukkitUtil {
     public String getLocation(Location location) {
         if (location == null) return null;
         return location.getWorld().getName() + ", "
-                    + location.getX() + ", "
-                    + location.getY() + ", "
-                    + location.getZ();
+                + location.getX() + ", "
+                + location.getY() + ", "
+                + location.getZ();
     }
 
     public String serializeLocation(Location location) {
@@ -83,7 +84,7 @@ public class BukkitUtil {
         return new Location(world, x, y, z);
     }
 
-    public List<String> serializeLocations(List<Location> locations) {
+    public Collection<String> serializeLocations(Collection<Location> locations) {
         if (locations == null) return null;
 
         List<String> serializedLocations = new ArrayList<>();
@@ -95,7 +96,7 @@ public class BukkitUtil {
         return serializedLocations;
     }
 
-    public List<Location> deserializeLocations(List<String> data) {
+    public Collection<Location> deserializeLocations(Collection<String> data) {
         if (data == null) return null;
 
         List<Location> locations = new ArrayList<>();

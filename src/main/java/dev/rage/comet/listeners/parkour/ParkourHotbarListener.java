@@ -19,16 +19,18 @@ public class ParkourHotbarListener implements Listener {
 
     @EventHandler
     private void onHotbarInteract(PlayerInteractEvent event) {
-        if (event.getItem() == null) return;
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
+        if (event.getItem() == null
+                || event.getAction() != Action.RIGHT_CLICK_BLOCK
+                && event.getAction() != Action.RIGHT_CLICK_AIR)
+            return;
 
         ParkourHotbar hotbar = parkourHotbarManager.getParkourHotbar(event.getItem());
-        if (hotbar == null) return;
+        if (hotbar == null)
+            return;
 
         event.setCancelled(true);
 
         Player player = event.getPlayer();
         hotbar.onItemInteract(player);
-        player.updateInventory();
     }
 }

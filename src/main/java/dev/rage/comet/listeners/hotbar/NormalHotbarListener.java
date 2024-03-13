@@ -11,11 +11,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 /**
- * Created by Risas
+ * Created by Astro
  * Project: Comet
  * Date: 20-12-2022
- * Twitter: @RisasDev
- * GitHub: https://github.com/RisasDev
+ * Twitter: @AstroDev
+ * GitHub: https://github.com/AstroDev
  */
 
 public class NormalHotbarListener implements Listener {
@@ -33,16 +33,18 @@ public class NormalHotbarListener implements Listener {
 
     @EventHandler
     private void onHotbarInteract(PlayerInteractEvent event) {
-        if (event.getItem() == null) return;
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
+        if (event.getItem() == null
+                || event.getAction() != Action.RIGHT_CLICK_BLOCK
+                && event.getAction() != Action.RIGHT_CLICK_AIR)
+            return;
 
         NormalHotbar hotbar = normalHotbarManager.getHotbar(event.getItem());
-        if (hotbar == null) return;
+        if (hotbar == null)
+            return;
 
         event.setCancelled(true);
 
         Player player = event.getPlayer();
         hotbar.onItemInteract(player);
-        player.updateInventory();
     }
 }

@@ -10,21 +10,23 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Created by Risas
+ * Created by AstroDev
  * Project: Comet
  * Date: 19-12-2022
- * Twitter: @RisasDev
- * GitHub: https://github.com/RisasDev
+ * Twitter: @AstroDevelopment
+ * GitHub: https://github.com/AstroDevelopment
  */
 
 public class NormalHotbarManager {
 
     private final Comet plugin;
     private final Map<String, NormalHotbar> hotbarMap;
+    private final Map<ItemStack, NormalHotbar> hotbarCache = new HashMap<>();
 
     public NormalHotbarManager(Comet plugin) {
         this.plugin = plugin;
@@ -41,10 +43,12 @@ public class NormalHotbarManager {
     }
 
     public NormalHotbar getHotbar(ItemStack item) {
+        if (hotbarCache.containsKey(item))
+            return hotbarCache.get(item);
+
         for (NormalHotbar hotbar : getHotbars()) {
-            if (hotbar.isSimilar(item)) {
-                return hotbar;
-            }
+            if (hotbar.isSimilar(item))
+                return hotbarCache.computeIfAbsent(item, k -> hotbar);
         }
         return null;
     }
