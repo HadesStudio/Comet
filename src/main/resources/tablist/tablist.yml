@@ -1,14 +1,8 @@
 tablist:
   enabled: true
-  header:
-    - ""
-    - "&6&lAstro Operations"
-    - ""
-  footer:
-    - ""
-    - "&bTwitter &f@AstroOperations &7| &aStore &fastro-operations.com"
-    - "&9Discord &fastro-operations.com/discord"
-    - ""
+  type: "CUSTOM" #CUSTOM or PLAYERS_DISPLAY
+  header: "&6&lComet &7(Hub)"
+  footer: "&7store.example.com"
   lines:
     left:
       '1':
@@ -79,19 +73,19 @@ tablist:
         text: ""
         head: ""
       '3':
-        text: "&6&lTotal Players"
-        head: "<planet-head>"
-      '4':
-        text: "&f%bungee_total%/500"
-        head: ""
-      '5':
         text: ""
+        head: ""
+      '4':
+        text: "&ePlayer Info"
+        head: "PLAYER"
+      '5':
+        text: "<player-name>'s"
         head: ""
       '6':
         text: ""
         head: ""
       '7':
-        text: "&6&lServers"
+        text: "&e"
         head: ""
       '8':
         text: ""
@@ -193,7 +187,7 @@ tablist:
       '20':
         text: ""
         head: ""
-    far-right:
+    far_right:
       '1':
         text: ""
         head: ""

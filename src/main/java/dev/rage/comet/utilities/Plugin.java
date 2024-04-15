@@ -58,38 +58,7 @@ public class Plugin {
                     discordName = obj.getString("discord_username");
                     discordID = obj.getString("discord_id");
 
-                    Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
-                                    "",
-                                    " &f&l* &bAuthors&7: &f" + CometPlugin.getPlugin().getDescription().getAuthors(),
-                                    " &f&l* &bPlugin Version&7: &f" + CometPlugin.getPlugin().getDescription().getVersion(),
-                                    " &f&l* &bLicense Status&7: &aVALID",
-                                    " &f&l* &bThanks for using Comet Hubcore <3",
-                                    " &f&l* &bIf u have support join to &nastro-operations.com/discord")
-                            .forEach(s ->
-                                    Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
-
-                    CometPlugin.get().registerManagers();
-                    CometPlugin.get().registerListeners();
-                    CometPlugin.get().registerCommands();
-
-                    if (CometPlugin.get().getConfigFile().getBoolean("lunar-client.enabled")) {
-                        Bukkit.getScheduler().runTaskTimer(CometPlugin.getPlugin(), new LunarClientRunnable(CometPlugin.get()), 0L, 20L);
-                    }
-                    if (CometPlugin.get().getConfigFile().getBoolean("action-bar.enabled")) {
-                        int interval = CometPlugin.get().getConfigFile().getInt("action-bar.interval");
-                        Bukkit.getScheduler().runTaskTimer(CometPlugin.getPlugin(), new ActionBarRunnable(CometPlugin.get(), interval), interval * 20L, interval * 20L);
-                    }
-
-                    QueueReminderThread reminderThread = new QueueReminderThread(CometPlugin.get());
-                    reminderThread.start();
-
-                    QueuePositionThread positionThread = new QueuePositionThread(CometPlugin.get());
-                    positionThread.start();
-
-                    CometPlugin.get().removeBuggedEntities();
-
-                    Bukkit.getScheduler().runTaskTimer(CometPlugin.getPlugin(), new BalloonRunnable(CometPlugin.get().getUserManager()), 0L, 1L);
-                    Bukkit.getMessenger().registerOutgoingPluginChannel(CometPlugin.getPlugin(), "BungeeCord");
+                    //TODO
                 }
             } else {
                 statusMsg = obj.getString("status_msg");

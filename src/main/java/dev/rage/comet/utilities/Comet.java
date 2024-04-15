@@ -1,5 +1,7 @@
 package dev.rage.comet.utilities;
 
+import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.PacketEventsAPI;
 import dev.rage.comet.CometPlugin;
 import dev.rage.comet.command.CommandManager;
 import dev.rage.comet.command.impl.BuildModeCommand;
@@ -30,7 +32,9 @@ import dev.rage.comet.listeners.hotbar.CustomHotbarListener;
 import dev.rage.comet.listeners.hotbar.NormalHotbarListener;
 import dev.rage.comet.listeners.parkour.ParkourHotbarListener;
 import dev.rage.comet.listeners.parkour.ParkourListener;
+import dev.rage.comet.model.actionbar.ActionBarRunnable;
 import dev.rage.comet.model.cosmetics.impl.balloons.BalloonManager;
+import dev.rage.comet.model.cosmetics.impl.balloons.tasks.BalloonRunnable;
 import dev.rage.comet.model.cosmetics.impl.banners.BannerManager;
 import dev.rage.comet.model.cosmetics.impl.gadgets.GadgetsManager;
 import dev.rage.comet.model.cosmetics.impl.mascots.MascotManager;
@@ -40,10 +44,13 @@ import dev.rage.comet.model.hcfcore.HCFCoreManager;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
 import dev.rage.comet.model.leaderboard.LeaderboardManager;
+import dev.rage.comet.model.lunarclient.LunarClientRunnable;
 import dev.rage.comet.model.parkour.ParkourManager;
 import dev.rage.comet.model.parkour.hotbar.ParkourHotbarManager;
 import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.model.queue.rank.QueueRankManager;
+import dev.rage.comet.model.queue.thread.QueuePositionThread;
+import dev.rage.comet.model.queue.thread.QueueReminderThread;
 import dev.rage.comet.model.rank.RankManager;
 import dev.rage.comet.model.selector.ServerSelectorManager;
 import dev.rage.comet.model.server.ServerDataManager;
@@ -52,19 +59,24 @@ import dev.rage.comet.model.timer.TimerManager;
 import dev.rage.comet.scoreboard.FastBoardListener;
 import dev.rage.comet.scoreboard.FastBoardManager;
 import dev.rage.comet.scoreboard.FastBoardProvider;
-import dev.rage.comet.tablist.Tablist;
-import dev.rage.comet.tablist.TablistProvider;
-import dev.rage.comet.tablist.head.HeadManager;
+import dev.rage.comet.tablist.TablistHandler;
+import dev.rage.comet.tablist.listener.TeamsPacketListener;
+import dev.rage.comet.tablist.provider.TablistProvider;
+import dev.rage.comet.tablist.provider.impl.CustomTablistProvider;
+import dev.rage.comet.tablist.provider.impl.PlayersDisplayTablistProvider;
 import dev.rage.comet.user.UserListener;
 import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.file.FileConfig;
 import dev.rage.comet.utilities.menu.ButtonListener;
+import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.PluginManager;
+
+import java.util.Arrays;
 
 /**
  * Created by Risas
@@ -104,7 +116,6 @@ public class Comet {
     private ParkourHotbarManager parkourHotbarManager;
     private ServerSelectorManager serverSelectorManager;
     private TimerManager timerManager;
-    private HeadManager headManager;
     private MongoManager mongoManager;
     private RedisManager redisManager;
     private HCFCoreManager hcfCoreManager;
@@ -119,10 +130,13 @@ public class Comet {
     private OutfitManager outfitManager;
     private ParticlesManager particlesManager;
     private LeaderboardManager leaderboardManager;
-    private Tablist tablist;
+
+    private TablistHandler tablistHandler;
 
     private Plugin plugins;
     private CometPlugin plugin;
+
+    private PacketEventsAPI<?> packetEventsAPI;
 
     public Comet(CometPlugin plugin) {
         this.plugin = plugin;
@@ -131,12 +145,45 @@ public class Comet {
     public void onEnable() {
         this.licenseFile = new FileConfig(CometPlugin.getPlugin(), "license.yml");
 
-        this.plugins = new Plugin(this.licenseFile.getString("license-key"), plugin);
+        //this.plugins = new Plugin(this.licenseFile.getString("license-key"), plugin);
+
+        Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
+                        "",
+                        " &f&l* &bAuthors&7: &f" + CometPlugin.getPlugin().getDescription().getAuthors(),
+                        " &f&l* &bPlugin Version&7: &f" + CometPlugin.getPlugin().getDescription().getVersion(),
+                        " &f&l* &bLicense Status&7: &aVALID",
+                        " &f&l* &bThanks for using Comet Hubcore <3",
+                        " &f&l* &bIf u have support join to &nastro-operations.com/discord")
+                .forEach(s ->
+                        Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
+
+        CometPlugin.get().registerManagers();
+        CometPlugin.get().registerListeners();
+        CometPlugin.get().registerCommands();
+
+        if (CometPlugin.get().getConfigFile().getBoolean("lunar-client.enabled")) {
+            Bukkit.getScheduler().runTaskTimer(CometPlugin.getPlugin(), new LunarClientRunnable(CometPlugin.get()), 0L, 20L);
+        }
+        if (CometPlugin.get().getConfigFile().getBoolean("action-bar.enabled")) {
+            int interval = CometPlugin.get().getConfigFile().getInt("action-bar.interval");
+            Bukkit.getScheduler().runTaskTimer(CometPlugin.getPlugin(), new ActionBarRunnable(CometPlugin.get(), interval), interval * 20L, interval * 20L);
+        }
+
+        QueueReminderThread reminderThread = new QueueReminderThread(CometPlugin.get());
+        reminderThread.start();
+
+        QueuePositionThread positionThread = new QueuePositionThread(CometPlugin.get());
+        positionThread.start();
+
+        CometPlugin.get().removeBuggedEntities();
+
+        Bukkit.getScheduler().runTaskTimer(CometPlugin.getPlugin(), new BalloonRunnable(CometPlugin.get().getUserManager()), 0L, 1L);
+        Bukkit.getMessenger().registerOutgoingPluginChannel(CometPlugin.getPlugin(), "BungeeCord");
     }
 
     public void onDisable() {
         if (fastBoardManager != null) this.fastBoardManager.onDisable();
-        if (tablist != null) this.tablist.onDisable();
+        if (tablistHandler != null) this.tablistHandler.unload();
         if (userManager != null) this.userManager.onDisable();
         if (redisManager != null) this.redisManager.onDisable();
         if (mascotManager != null) this.mascotManager.onDisable();
@@ -161,7 +208,6 @@ public class Comet {
         this.serverSelectorManager.loadOrRefresh();
         this.queueRankManager.loadOrRefresh();
         this.queueManager.loadOrRefresh();
-        this.headManager.loadOrRefresh();
         this.balloonManager.loadOrRefresh();
         this.outfitManager.loadOrRefresh(this);
         this.mascotManager.loadOrRefresh(this);
@@ -202,7 +248,6 @@ public class Comet {
         this.parkourManager = new ParkourManager(this);
         this.serverSelectorManager = new ServerSelectorManager(this);
         this.timerManager = new TimerManager();
-        this.headManager = new HeadManager(this);
         this.queueRankManager = new QueueRankManager(this);
         this.queueManager = new QueueManager(this);
         this.hcfCoreManager = new HCFCoreManager(this);
@@ -216,7 +261,27 @@ public class Comet {
             this.fastBoardManager.setAdapter(new FastBoardProvider(this));
         }
         if (tablistFile.getBoolean("tablist.enabled")) {
-            this.tablist = new Tablist(this, new TablistProvider(this));
+            PacketEvents.setAPI(SpigotPacketEventsBuilder.build(CometPlugin.getPlugin()));
+
+            packetEventsAPI = PacketEvents.getAPI();
+            packetEventsAPI.getSettings().bStats(false).checkForUpdates(false);
+
+            packetEventsAPI.load();
+            packetEventsAPI.init();
+
+            tablistHandler = new TablistHandler(CometPlugin.getPlugin());
+
+            tablistHandler.init(packetEventsAPI, new TeamsPacketListener(packetEventsAPI));
+
+            TablistProvider tablistProvider;
+
+            if (tablistFile.getString("tablist.type").equalsIgnoreCase("PLAYERS_DISPLAY")) {
+                tablistProvider = new PlayersDisplayTablistProvider(this);
+            } else {
+                tablistProvider = new CustomTablistProvider(this);
+            }
+
+            tablistHandler.registerAdapter(tablistProvider, 20L);
         }
         PlaceholderAPIHook.initialize(this);
     }

@@ -15,7 +15,26 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>refine-public</id>
+            <url>https://maven.refinedev.xyz/repository/public-repo/</url>
+        </repository>
+    </distributionManagement>
+
     <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>placeholder</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
         <repository>
             <id>nms-repo</id>
             <url>https://repo.codemc.io/repository/nms/</url>
@@ -25,12 +44,8 @@
             <url>https://libraries.minecraft.net/</url>
         </repository>
         <repository>
-            <id>placeholder</id>
-            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-        </repository>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>dmulloy2-repo</id>
@@ -44,22 +59,37 @@
     </repositories>
 
     <dependencies>
-        <!-- Spigot API -->
+
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.18.2-R0.1-SNAPSHOT</version>
+            <version>1.20.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.20.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Lombok -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigotapi</artifactId>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/spigot-1.20.4.jar</systemPath>
+        </dependency>
+
+       <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigotapi2</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar</systemPath>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -67,7 +97,96 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- AquaCoreAPI -->
+        <dependency>
+            <groupId>net.luckperms</groupId>
+            <artifactId>api</artifactId>
+            <version>5.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.3</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>3.11.50</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.LunarClient</groupId>
+            <artifactId>BukkitAPI</artifactId>
+            <version>v1.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.MylesIsCool</groupId>
+            <artifactId>ViaVersion</artifactId>
+            <version>3.2.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>5.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.12.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20230227</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api</artifactId>
+            <version>2.11.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.cryptomorin</groupId>
+            <artifactId>XSeries</artifactId>
+            <version>9.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.mrmicky</groupId>
+            <artifactId>FastParticles</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
         <dependency>
             <groupId>aquacore</groupId>
             <artifactId>aquacore</artifactId>
@@ -76,7 +195,6 @@
             <systemPath>${basedir}/libs/AquaCoreAPI.jar</systemPath>
         </dependency>
 
-        <!-- HeliumAPI -->
         <dependency>
             <groupId>helium</groupId>
             <artifactId>helium</artifactId>
@@ -85,104 +203,29 @@
             <systemPath>${basedir}/libs/HeliumAPI.jar</systemPath>
         </dependency>
 
-        <!-- LuckPermsAPI -->
         <dependency>
-            <groupId>net.luckperms</groupId>
-            <artifactId>api</artifactId>
-            <version>5.4</version>
-            <scope>provided</scope>
+            <groupId>com.github.retrooper.packetevents</groupId>
+            <artifactId>spigot</artifactId>
+            <version>2.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.gson</groupId>
+                    <artifactId>gson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jetbrains</groupId>
+                    <artifactId>annotations</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
-        <!-- PAPI -->
         <dependency>
-            <groupId>me.clip</groupId>
-            <artifactId>placeholderapi</artifactId>
-            <version>2.11.3</version>
-            <scope>provided</scope>
+            <groupId>it.unimi.dsi</groupId>
+            <artifactId>fastutil</artifactId>
+            <version>8.5.12</version>
+            <type>jar</type>
         </dependency>
 
-        <!-- AuthLib -->
-        <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>authlib</artifactId>
-            <version>3.11.50</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- LunarClientAPI -->
-        <dependency>
-            <groupId>com.github.LunarClient</groupId>
-            <artifactId>BukkitAPI</artifactId>
-            <version>v1.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- ViaVersion API -->
-        <dependency>
-            <groupId>com.github.MylesIsCool</groupId>
-            <artifactId>ViaVersion</artifactId>
-            <version>3.2.1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- ProtocolLib API -->
-        <dependency>
-            <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>5.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- MongoDB -->
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>3.12.11</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- Redis -->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- Google Gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.10.1</version>
-        </dependency>
-
-        <!-- License -->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.10.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20230227</version>
-        </dependency>
-        <dependency>
-            <groupId>de.tr7zw</groupId>
-            <artifactId>item-nbt-api</artifactId>
-            <version>2.11.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.cryptomorin</groupId>
-            <artifactId>XSeries</artifactId>
-            <version>9.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>fr.mrmicky</groupId>
-            <artifactId>FastParticles</artifactId>
-            <version>2.0.0</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -196,22 +239,40 @@
         </resources>
         <plugins>
             <plugin>
-                <version>3.8.1</version>
+                <version>3.10.1</version>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.26</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.4.0</version>
 
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <shadedArtifactAttached>false</shadedArtifactAttached>
+                    <minimizeJar>true</minimizeJar>
+
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/**</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                     <relocations>
                         <relocation>
                             <pattern>de.tr7zw.changeme.nbtapi</pattern>
@@ -224,6 +285,14 @@
                         <relocation>
                             <pattern>fr.mrmicky.fastparticles</pattern>
                             <shadedPattern>dev.rage.comet.libs.fastparticles</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.github.retrooper</pattern>
+                            <shadedPattern>xyz.refinedev.lib.com.github.retrooper</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori</pattern>
+                            <shadedPattern>xyz.refinedev.lib.com.github.retrooper.libs.net.kyori</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
