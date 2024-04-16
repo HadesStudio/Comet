@@ -48,6 +48,7 @@ public class SkinCache {
         registerSkin("WEBSITE", Skin.WEBSITE_SKIN);
         registerSkin("TWITTER", Skin.TWITTER_SKIN);
         registerSkin("YOUTUBE", Skin.YOUTUBE_SKIN);
+        registerSkin("STORE", Skin.STORE_SKIN);
     }
 
     private void registerSkin(String name, Skin skin) {

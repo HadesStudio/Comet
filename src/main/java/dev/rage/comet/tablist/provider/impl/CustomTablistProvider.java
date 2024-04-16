@@ -22,12 +22,10 @@ public class CustomTablistProvider extends TablistProvider {
         List<TabEntry> entries = new ArrayList<>();
 
         for (int i = 0; i < 20; i++) {
-
             entries.add(createEntry(player, TabOrdinalColumn.LEFT, i));
             entries.add(createEntry(player, TabOrdinalColumn.MIDDLE, i));
             entries.add(createEntry(player, TabOrdinalColumn.RIGHT, i));
             entries.add(createEntry(player, TabOrdinalColumn.FAR_RIGHT, i));
-            //entries.add(new TabEntry(3, i, replace(player, tabFile.getString("tablist.lines.far-right." + i + ".text"))));
         }
 
         return entries;

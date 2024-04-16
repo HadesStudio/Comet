@@ -12,13 +12,13 @@ tablist:
         text: ""
         head: ""
       '3':
-        text: ""
+        text: "&eKitmap"
         head: ""
       '4':
-        text: ""
+        text: "Status <Kitmap-status>"
         head: ""
       '5':
-        text: ""
+        text: "Players &e(%bungee_Kitmap%/250)"
         head: ""
       '6':
         text: ""
@@ -30,31 +30,31 @@ tablist:
         text: ""
         head: ""
       '9':
-        text: ""
+        text: "&eHCF"
         head: ""
       '10':
-        text: "&6&lKitmap"
-        head: "<crown-head>"
+        text: "Status <HCF-status>"
+        head: ""
       '11':
-        text: "&7Status&7: &r<Kitmap-status>"
+        text: "Players &e(%bungee_HCF%/250)"
         head: ""
       '12':
-        text: "&7Online&7: &f%bungee_Kitmap%/250"
+        text: ""
         head: ""
       '13':
         text: ""
         head: ""
       '14':
-        text: "&6&lHCF"
-        head: "<shield-head>"
+        text: ""
+        head: ""
       '15':
-        text: "&7Status&7: &r<HCF-status>"
+        text: "&ePractice"
         head: ""
       '16':
-        text: "&7Online&7: &f%bungee_HCF%/250"
+        text: "Status <Practice-status>"
         head: ""
       '17':
-        text: ""
+        text: "Players &e(%bungee_Practice%/250)"
         head: ""
       '18':
         text: ""
@@ -63,7 +63,7 @@ tablist:
         text: ""
         head: ""
       '20':
-        text: ""
+        text: "&7&o(Server List)"
         head: ""
     middle:
       '1':
@@ -73,49 +73,49 @@ tablist:
         text: ""
         head: ""
       '3':
-        text: ""
-        head: ""
-      '4':
-        text: "&ePlayer Info"
+        text: "&eNickname"
         head: "PLAYER"
-      '5':
+      '4':
         text: "<player-name>'s"
         head: ""
-      '6':
+      '5':
         text: ""
         head: ""
+      '6':
+        text: "&ePing"
+        head: ""
       '7':
-        text: "&e"
+        text: "%player_colored_ping%"
         head: ""
       '8':
         text: ""
         head: ""
       '9':
-        text: ""
+        text: "&eRank"
         head: ""
       '10':
-        text: "&6&lPractice"
-        head: "<potion-head>"
+        text: "%phoenix_player_rank%"
+        head: ""
       '11':
-        text: "&7Status&7: &r<Practice-status>"
+        text: ""
         head: ""
       '12':
-        text: "&7Online&7: &f%bungee_Practice%/250"
+        text: "&eQueue"
         head: ""
       '13':
-        text: ""
+        text: "Server &a(%comet_queue_player_name%)"
         head: ""
       '14':
-        text: ""
+        text: "Position &a(%comet_queue_player_position%/%comet_queue_player_size%)"
         head: ""
       '15':
-        text: "&6&lQueue Information"
-        head: "<tv-head>"
+        text: ""
+        head: ""
       '16':
-        text: "&7Server&7: &f%comet_queue_player_name%"
+        text: "&eGlobal Players"
         head: ""
       '17':
-        text: "&7Position&7: &f%comet_queue_player_position%/&f%comet_queue_player_size%"
+        text: "Total &a(%bungee_Practice%/250)"
         head: ""
       '18':
         text: ""
@@ -124,7 +124,7 @@ tablist:
         text: ""
         head: ""
       '20':
-        text: ""
+        text: "&7&o(General Info)"
         head: ""
     right:
       '1':
@@ -134,58 +134,58 @@ tablist:
         text: ""
         head: ""
       '3':
-        text: "&6&lMy Information"
-        head: "<self-head>"
-      '4':
         text: ""
         head: ""
+      '4':
+        text: "&eDiscord"
+        head: "DISCORD"
       '5':
-        text: "&7Nick: &f%player_name%"
+        text: "discord.comet.hub"
         head: ""
       '6':
-        text: "&7Latency: %player_colored_ping%"
+        text: ""
         head: ""
       '7':
-        text: "&7Rank: %phoenix_player_rank%"
-        head: ""
+        text: "&eFacebook"
+        head: "FACEBOOK"
       '8':
-        text: ""
+        text: "facebook.com/@CometHub"
         head: ""
       '9':
         text: ""
         head: ""
       '10':
-        text: ""
-        head: ""
+        text: "&eWebsite"
+        head: "WEBSITE"
       '11':
-        text: ""
+        text: "www.comet.hub"
         head: ""
       '12':
         text: ""
         head: ""
       '13':
-        text: "&6&lImportant Links"
-        head: "<important-head>"
+        text: "&eStore"
+        head: "STORE"
       '14':
-        text: ""
+        text: "store.comet.hub"
         head: ""
       '15':
-        text: "&7astro-operations.com/discord"
-        head: "<discord-head>"
+        text: ""
+        head: ""
       '16':
-        text: "&7ts.astro-operations.com"
-        head: "<teamspeak-head>"
+        text: "&eYoutube"
+        head: "YOUTUBE"
       '17':
-        text: "&7astro-operations.com"
-        head: "<store-head>"
+        text: "youtube.com/@CometHub"
+        head: ""
       '18':
-        text: "&7t.me/astro-operations"
-        head: "<telegram-head>"
+        text: ""
+        head: ""
       '19':
         text: ""
         head: ""
       '20':
-        text: ""
+        text: "&7&o(Social Info)"
         head: ""
     far_right:
       '1':
@@ -201,37 +201,37 @@ tablist:
         text: ""
         head: ""
       '5':
-        text: ""
+        text: "&eWhat's up?"
         head: ""
       '6':
-        text: ""
+        text: "If you need support you can get it"
         head: ""
       '7':
-        text: "&c&lThank you for choosing us!"
+        text: "by using the command &a(/support) and"
         head: ""
       '8':
-        text: ""
+        text: "a member of the staff will get back"
         head: ""
       '9':
-        text: "&7Don't forget to join our"
+        text: "to you right away."
         head: ""
       '10':
-        text: "&7discord to find out"
+        text: ""
         head: ""
       '11':
-        text: "&7all the news!"
+        text: ""
         head: ""
       '12':
         text: ""
         head: ""
       '13':
-        text: "&7astro-operations.com/discord"
+        text: ""
         head: ""
       '14':
-        text: ""
+        text: "&aThank you for trusting us"
         head: ""
       '15':
-        text: ""
+        text: "&aenjoy your purchase!"
         head: ""
       '16':
         text: ""
@@ -246,5 +246,5 @@ tablist:
         text: ""
         head: ""
       '20':
-        text: ""
+        text: "&7&o(Extra Info)"
         head: ""
