@@ -234,9 +234,9 @@ public class TabLayout {
         } else {
             // So basically updating the skin automatically causes an update
             // to the display name of the fake player, so updating below is just idiotic.
-            this.updateSkin(entry, skin, text);
             this.updatePing(entry, ping);
             this.updateDisplayName(entry, text.isEmpty() ?  this.getTeamAt(index) : text);
+            this.updateSkin(entry, skin, text);
         }
     }
 
@@ -288,12 +288,6 @@ public class TabLayout {
             skin = Skin.DEFAULT_SKIN;
         }
 
-        // Only send if changed
-        Skin lastSkin = info.getSkin();
-        if (skin.equals(lastSkin)) {
-            return false;
-        }
-
         info.setSkin(skin);
 
         UserProfile userProfile = info.getProfile();
@@ -302,7 +296,6 @@ public class TabLayout {
         int ping = info.getPing();
 
         PacketWrapper<?> playerInfoRemove;
-
         Component component = Component.text(text);
 
         if (isServerNew) {
@@ -317,8 +310,6 @@ public class TabLayout {
 
             playerInfoRemove = wrapperPlayerInfoRemove;
         }
-
-        sendPacket(playerInfoRemove);
 
         if (isServerNew) {
             WrapperPlayServerPlayerInfoUpdate.PlayerInfo data = new WrapperPlayServerPlayerInfoUpdate.PlayerInfo(
@@ -336,6 +327,7 @@ public class TabLayout {
 
             list.setEntries(Collections.singletonList(data));
 
+            sendPacket(playerInfoRemove);
             sendPacket(add);
             sendPacket(display);
             sendPacket(list);
@@ -349,7 +341,8 @@ public class TabLayout {
 
             WrapperPlayServerPlayerInfo playerInfoAdd = new WrapperPlayServerPlayerInfo(WrapperPlayServerPlayerInfo.Action.ADD_PLAYER, data);
             playerInfoAdd.setPlayerDataList(Collections.singletonList(data));
-            
+
+            sendPacket(playerInfoRemove);
             sendPacket(playerInfoAdd);
         }
 

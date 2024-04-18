@@ -1,26 +1,34 @@
 package dev.rage.comet.listeners;
 
+import dev.rage.comet.model.pvpmode.PvpModeManager;
+import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.PlayerUtil;
 import dev.rage.comet.utilities.Comet;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.concurrent.CompletableFuture;
 
 public class PlayerListener implements Listener {
 
 	private final Comet plugin;
+	private final PvpModeManager pvpModeManager;
 
 	public PlayerListener(Comet plugin) {
 		this.plugin = plugin;
+		this.pvpModeManager = plugin.getPvpModeManager();
 	}
 
 	@EventHandler
@@ -46,6 +54,10 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	private void onInventoryClick(InventoryClickEvent event) {
+		if (pvpModeManager.contains((Player) event.getWhoClicked())) {
+			return;
+		}
+
 		event.setCancelled(!event.getWhoClicked().hasMetadata("comet-build-mode"));
 	}
 
@@ -83,15 +95,81 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	private void onPlayerDamage(EntityDamageEvent event) {
-		if (event.getEntity() instanceof Player) {
-			event.setCancelled(true);
+		Entity entity = event.getEntity();
+		if (entity instanceof Player) {
+			if (!pvpModeManager.contains((Player) entity)) {
+				event.setCancelled(true);
+			}
 		}
 	}
 
 	@EventHandler
 	private void onPlayerDamageByEntity(EntityDamageByEntityEvent event) {
-		if (event.getEntity() instanceof Player) {
-			event.setCancelled(true);
+		Entity entity = event.getEntity();
+		Entity damager = event.getDamager();
+
+		if (entity instanceof Player && damager instanceof Player) {
+			if (!pvpModeManager.contains((Player) damager) || !pvpModeManager.contains((Player) entity)) {
+				event.setCancelled(true);
+			}
+		}
+	}
+
+	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent event) {
+		event.setDeathMessage(null);
+		event.setDroppedExp(0);
+		event.getDrops().clear();
+
+		Player victim = event.getEntity();
+
+		if (pvpModeManager.contains(victim)) {
+			Player killer = victim.getKiller();
+
+			if (killer == null) return;
+
+			if (pvpModeManager.contains(killer)) {
+				ChatUtil.broadcast(plugin.getLanguageFile().getString("pvpmode-message.kill")
+						.replace("<killer>", killer.getName())
+						.replace("<victim>", victim.getName()));
+			}
+		}
+	}
+
+	@EventHandler
+	public void onPlayerRespawn(PlayerRespawnEvent event) {
+		Player player = event.getPlayer();
+
+		CompletableFuture.runAsync(() -> {
+			if (pvpModeManager.contains(player)) {
+				pvpModeManager.preparePlayerForPvp(player);
+			}
+		});
+	}
+
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		pvpModeManager.removePlayer(event.getPlayer(), false);
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onPlayerInteract(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		if (!pvpModeManager.contains(event.getPlayer())) {
+			return;
+		}
+
+		if (!event.hasItem()) {
+			return;
+		}
+
+		ItemStack itemStack = event.getItem();
+		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+			if (itemStack.getType() == Material.POTION) {
+				event.setCancelled(false);
+			} else if (itemStack.getType() == Material.GOLDEN_APPLE) {
+				event.setCancelled(false);
+			}
 		}
 	}
 }

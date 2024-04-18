@@ -65,6 +65,17 @@ normal:
       slot: 1
       enchanted: true
     commands: []
+  pvpmode:
+    enabled: true
+    item:
+      head: ""
+      name: "&6&lPVPMODE &8┃ &7(Right Click)"
+      description: []
+      material: "DIAMOND_SWORD"
+      data: 0
+      slot: 2
+      enchanted: true
+    commands: []
 
 custom:
   example:

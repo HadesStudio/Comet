@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
 import org.bukkit.entity.Player;
@@ -38,22 +37,7 @@ public class SkinCache {
     private static final String MOJANG_URL = "https://sessionserver.mojang.com/session/minecraft/profile/%s?unsigned=false";
 
     private static final JsonParser JSON_PARSER = new JsonParser();
-
-    @Getter
     private final Map<String, CachedSkin> skinCache = new ConcurrentHashMap<>();
-
-    public SkinCache() {
-        registerSkin("DISCORD", Skin.DISCORD_SKIN);
-        registerSkin("FACEBOOK", Skin.FACEBOOK_SKIN);
-        registerSkin("WEBSITE", Skin.WEBSITE_SKIN);
-        registerSkin("TWITTER", Skin.TWITTER_SKIN);
-        registerSkin("YOUTUBE", Skin.YOUTUBE_SKIN);
-        registerSkin("STORE", Skin.STORE_SKIN);
-    }
-
-    private void registerSkin(String name, Skin skin) {
-        skinCache.put(name, new CachedSkin(name, skin.getValue(), skin.getSignature()));
-    }
 
     /**
      * Load and cache this {@link Player}'s Skin

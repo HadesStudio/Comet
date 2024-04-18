@@ -1,5 +1,6 @@
 package dev.rage.comet.command.impl.queue.subcommands;
 
+import dev.rage.comet.model.queue.player.QueuePlayer;
 import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.command.BaseCommand;
 import dev.rage.comet.command.Command;
@@ -47,7 +48,7 @@ public class QueueJoinCommand extends BaseCommand {
             return;
         }
 
-        Queue queuePlayer = queueManager.getQueueByPlayer(player);
+        QueuePlayer queuePlayer = queueManager.getQueuePlayer(player.getUniqueId());
 
         if (queuePlayer != null) {
             ChatUtil.sendMessage(player, languageFile.getString("queue-message.already-in-queue")

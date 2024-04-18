@@ -108,33 +108,32 @@ public class BukkitUtil {
         return locations;
     }
 
-    public String serializeItemStackArray(ItemStack[] items) {
+    public String serializeItemStackArray(ItemStack[] itemStacks) {
+        if (itemStacks == null) return null;
+
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
 
-            dataOutput.writeInt(items.length);
+            dataOutput.writeInt(itemStacks.length);
 
-            for (ItemStack item : items) {
-                dataOutput.writeObject(item);
+            for (ItemStack itemStack : itemStacks) {
+                dataOutput.writeObject(itemStack);
             }
 
             dataOutput.close();
             return Base64Coder.encodeLines(outputStream.toByteArray());
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
     }
 
     public ItemStack[] deserializeItemStackArray(String data) {
-        if (data == null) return new ItemStack[0];
-        if (data.equals("")) return new ItemStack[0];
+        if (data == null) return null;
+        if (data.equals("")) return null;
 
         try {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
-            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
+            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(new ByteArrayInputStream(Base64Coder.decodeLines(data)));
             ItemStack[] items = new ItemStack[dataInput.readInt()];
 
             for (int i = 0; i < items.length; i++) {
@@ -143,10 +142,8 @@ public class BukkitUtil {
 
             dataInput.close();
             return items;
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ItemStack[0];
     }
 }

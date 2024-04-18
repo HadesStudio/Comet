@@ -8,12 +8,7 @@ import dev.rage.comet.utilities.Comet;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Risas
@@ -61,22 +56,26 @@ public class QueueManager {
 
     public Queue getQueueByPlayer(Player player) {
         for (Queue queue : queues.values()) {
-            for (QueuePlayer queuePlayer : queue.getPlayers()) {
-                if (queuePlayer.getUuid().equals(player.getUniqueId())) {
-                    return queue;
-                }
+            boolean noneMatch = queue.getPlayers()
+                    .stream()
+                    .noneMatch(queuePlayer -> queuePlayer.getUuid().equals(player.getUniqueId()));
+
+            if (noneMatch) {
+                return null;
             }
+
+            return queue;
         }
         return null;
     }
 
     public QueuePlayer getQueuePlayer(UUID uuid) {
         for (Queue queue : queues.values()) {
-            for (QueuePlayer queuePlayer : queue.getPlayers()) {
-                if (queuePlayer.getUuid().equals(uuid)) {
-                    return queuePlayer;
-                }
-            }
+            return queue.getPlayers()
+                    .stream()
+                    .filter(queuePlayer -> queuePlayer.getUuid().equals(uuid))
+                    .findFirst()
+                    .orElse(null);
         }
         return null;
     }

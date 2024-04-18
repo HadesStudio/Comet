@@ -10,6 +10,11 @@ import dev.rage.comet.command.impl.parkour.ParkourCommand;
 import dev.rage.comet.command.impl.parkour.subcommand.ParkourCheckpointCommand;
 import dev.rage.comet.command.impl.parkour.subcommand.ParkourEndLocationCommand;
 import dev.rage.comet.command.impl.parkour.subcommand.ParkourStartLocationCommand;
+import dev.rage.comet.command.impl.pvpmode.PvpModeCommand;
+import dev.rage.comet.command.impl.pvpmode.subcommands.PvpModeJoinCommand;
+import dev.rage.comet.command.impl.pvpmode.subcommands.PvpModeLeaveCommand;
+import dev.rage.comet.command.impl.pvpmode.subcommands.PvpModeSetContentCommand;
+import dev.rage.comet.command.impl.pvpmode.subcommands.PvpModeSetLocationCommand;
 import dev.rage.comet.command.impl.queue.QueueCommand;
 import dev.rage.comet.command.impl.queue.subcommands.QueueJoinCommand;
 import dev.rage.comet.command.impl.queue.subcommands.QueueLeaveCommand;
@@ -47,6 +52,7 @@ import dev.rage.comet.model.leaderboard.LeaderboardManager;
 import dev.rage.comet.model.lunarclient.LunarClientRunnable;
 import dev.rage.comet.model.parkour.ParkourManager;
 import dev.rage.comet.model.parkour.hotbar.ParkourHotbarManager;
+import dev.rage.comet.model.pvpmode.PvpModeManager;
 import dev.rage.comet.model.queue.QueueManager;
 import dev.rage.comet.model.queue.rank.QueueRankManager;
 import dev.rage.comet.model.queue.thread.QueuePositionThread;
@@ -99,6 +105,7 @@ public class Comet {
             databaseFile,
             queueFile,
             serverSelectorFile,
+            pvpModeFile,
             balloonsFile,
             customOutfitsFile,
             cosmeticsFile,
@@ -115,6 +122,7 @@ public class Comet {
     private CustomHotbarManager customHotbarManager;
     private ParkourHotbarManager parkourHotbarManager;
     private ServerSelectorManager serverSelectorManager;
+    private PvpModeManager pvpModeManager;
     private TimerManager timerManager;
     private MongoManager mongoManager;
     private RedisManager redisManager;
@@ -197,6 +205,7 @@ public class Comet {
         this.databaseFile.reload();
         this.queueFile.reload();
         this.serverSelectorFile.reload();
+        this.pvpModeFile.reload();
         this.balloonsFile.reload();
         this.customOutfitsFile.reload();
         this.cosmeticsFile.reload();
@@ -225,6 +234,7 @@ public class Comet {
         this.tablistFile = new FileConfig(CometPlugin.getPlugin(), "tablist/tablist.yml");
         this.tablistHeadsFile = new FileConfig(CometPlugin.getPlugin(), "tablist/heads.yml");
         this.serverSelectorFile = new FileConfig(CometPlugin.getPlugin(), "selector/server-selector.yml");
+        this.pvpModeFile = new FileConfig(CometPlugin.getPlugin(), "pvpmode.yml");
         this.balloonsFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/balloons.yml");
         this.customOutfitsFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/custom-outfits.yml");
         this.cosmeticsFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/cosmetics.yml");
@@ -247,6 +257,7 @@ public class Comet {
         this.parkourHotbarManager = new ParkourHotbarManager(this);
         this.parkourManager = new ParkourManager(this);
         this.serverSelectorManager = new ServerSelectorManager(this);
+        this.pvpModeManager = new PvpModeManager(this);
         this.timerManager = new TimerManager();
         this.queueRankManager = new QueueRankManager(this);
         this.queueManager = new QueueManager(this);
@@ -322,6 +333,11 @@ public class Comet {
         commandManager.registerCommands(new ParkourStartLocationCommand(this));
         commandManager.registerCommands(new ParkourEndLocationCommand(this));
         commandManager.registerCommands(new ParkourCheckpointCommand(this));
+        commandManager.registerCommands(new PvpModeCommand());
+        commandManager.registerCommands(new PvpModeJoinCommand(pvpModeManager));
+        commandManager.registerCommands(new PvpModeLeaveCommand(pvpModeManager));
+        commandManager.registerCommands(new PvpModeSetContentCommand(languageFile, pvpModeManager));
+        commandManager.registerCommands(new PvpModeSetLocationCommand(languageFile, pvpModeManager));
     }
 
     public void removeBuggedEntities() {

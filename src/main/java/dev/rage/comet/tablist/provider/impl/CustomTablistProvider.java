@@ -7,6 +7,7 @@ import dev.rage.comet.utilities.Comet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class CustomTablistProvider extends TablistProvider {
         return entries;
     }
 
-    private TabEntry createEntry(Player player, TabOrdinalColumn ordinalColumn, int slot) {
+    private @NotNull TabEntry createEntry(Player player, @NotNull TabOrdinalColumn ordinalColumn, int slot) {
         TabEntry entry = new TabEntry();
 
         entry.setX(ordinalColumn.ordinalNumber);
@@ -43,7 +44,7 @@ public class CustomTablistProvider extends TablistProvider {
         String head = tabFile.getString(path + "head");
 
         if (head != null && !head.isEmpty()) {
-            if (head.equalsIgnoreCase("PLAYER")) {
+            if (head.equalsIgnoreCase("<player>")) {
                 entry.setSkin(Skin.getPlayer(player));
             } else {
                 entry.setSkin(Skin.getSkin(head));

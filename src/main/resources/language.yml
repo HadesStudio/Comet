@@ -43,3 +43,12 @@ parkour-message:
   checkpoint: "&aYou have reached a checkpoint."
   no-checkpoint: "&cYou have not reached any checkpoint."
   last-checkpoint: "&cYou have been teleported to the last checkpoint."
+pvpmode-message:
+  join: "&aYou have joined to pvpmode."
+  leave: "&cYou have left pvpmode."
+  kill: "&e<killer> &fhas kill to &c<victim>&r."
+  already: "&cYou are already in pvpmode"
+  not-in-pvp: "&cYou are not in pvpmode."
+  location-not-found: "&cPvpMode location not found."
+  set-location: "&aSuccessfully set location"
+  set-content: "&aSuccessfully set content"

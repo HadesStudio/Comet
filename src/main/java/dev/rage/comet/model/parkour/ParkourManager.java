@@ -1,6 +1,7 @@
 package dev.rage.comet.model.parkour;
 
 import com.cryptomorin.xseries.XMaterial;
+import dev.rage.comet.utilities.ChatUtil;
 import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
@@ -60,6 +61,11 @@ public class ParkourManager {
     }
 
     public void addParkourPlayer(Player player) {
+        if (startLocation == null) {
+            player.sendMessage(ChatUtil.translate("&cParkour start location not found."));
+            return;
+        }
+
         this.parkourPlayers.put(player.getUniqueId(), new ParkourPlayer(player));
         parkourHotbarManager.giveHotbar(player);
 
