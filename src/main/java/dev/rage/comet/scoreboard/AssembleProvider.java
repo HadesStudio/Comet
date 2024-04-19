@@ -1,5 +1,6 @@
 package dev.rage.comet.scoreboard;
 
+import dev.rage.comet.scoreboard.animation.ScoreboardAnimated;
 import dev.rage.comet.utilities.Comet;
 import dev.rage.comet.model.queue.Queue;
 import dev.rage.comet.model.queue.QueueManager;
@@ -12,23 +13,21 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FastBoardProvider implements FastBoardAdapter {
+public class AssembleProvider implements AssembleAdapter {
 
     private final Comet plugin;
-    private final FastBoardManager fastBoardManager;
     private final TimerManager timerManager;
     private final QueueManager queueManager;
 
-    public FastBoardProvider(Comet plugin) {
+    public AssembleProvider(Comet plugin) {
         this.plugin = plugin;
-        this.fastBoardManager = plugin.getFastBoardManager();
         this.timerManager = plugin.getTimerManager();
         this.queueManager = plugin.getQueueManager();
     }
 
     @Override
     public String getTitle(Player player) {
-        return fastBoardManager.getTitleAnimation().getTitle();
+        return ScoreboardAnimated.getTitle();
     }
 
     @Override
@@ -59,7 +58,7 @@ public class FastBoardProvider implements FastBoardAdapter {
                 continue;
             }
             if (line.contains("<footer>")) {
-                lines.add(fastBoardManager.getFooterAnimation().getFooter());
+                lines.add(ScoreboardAnimated.getFooter());
                 continue;
             }
 
