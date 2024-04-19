@@ -38,8 +38,8 @@ public class OutfitManager {
     }
 
     public void loadOrRefresh(Comet plugin) {
-        // leatherOutfits.clear();  error al obf
-        // customOutfits.clear();   ""    "" ""
+         leatherOutfits.clear();
+         customOutfits.clear();
 
         // Load the leather outfits
         for (Table.Cell<Object, Object, Object> objectObjectObjectCell : ImmutableTable.builder()
