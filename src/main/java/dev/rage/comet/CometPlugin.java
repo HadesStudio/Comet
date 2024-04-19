@@ -8,8 +8,13 @@ public class CometPlugin extends JavaPlugin {
     private static Comet instance;
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
         instance = new Comet(this);
+        instance.onLoad();
+    }
+
+    @Override
+    public void onEnable() {
         instance.onEnable();
     }
 
