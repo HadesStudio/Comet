@@ -7,7 +7,6 @@ import lombok.extern.log4j.Log4j2;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Team;
 
@@ -103,14 +102,22 @@ public class TablistHandler {
         this.thread.runTaskTimerAsynchronously(plugin, 0L, ticks);
     }
 
-    public void unload() {
-        if (this.listener != null) {
-            HandlerList.unregisterAll(this.listener);
-            this.listener = null;
-        }
+    public void reload(TabAdapter tabAdapter, long ticks) {
+        unload();
+        registerAdapter(tabAdapter, ticks);
 
-        // Destroy player scoreboards.
-        for ( Map.Entry<UUID, TabLayout> entry : this.layoutMapping.entrySet()) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            TabLayout layout = new TabLayout(player);
+
+            layout.create();
+            layout.setHeaderAndFooter();
+
+            layoutMapping.put(player.getUniqueId(), layout);
+        }
+    }
+
+    public void unload() {
+        for (Map.Entry<UUID, TabLayout> entry : this.layoutMapping.entrySet()) {
             UUID uuid = entry.getKey();
 
             Player player = Bukkit.getPlayer(uuid);

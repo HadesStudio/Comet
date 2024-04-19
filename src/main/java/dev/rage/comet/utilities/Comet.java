@@ -140,6 +140,7 @@ public class Comet {
     private LeaderboardManager leaderboardManager;
 
     private TablistHandler tablistHandler;
+    private TablistProvider tablistProvider;
 
     private Plugin plugins;
     private CometPlugin plugin;
@@ -222,6 +223,8 @@ public class Comet {
         this.mascotManager.loadOrRefresh(this);
         this.bannerManager.loadOrCreate(this);
         if (fastBoardManager != null) this.fastBoardManager.resetBoardAnimation();
+        if (tablistHandler != null) this.tablistHandler.reload(tablistProvider, 20L);
+
     }
 
     public void registerManagers() {
@@ -283,8 +286,6 @@ public class Comet {
             tablistHandler = new TablistHandler(CometPlugin.getPlugin());
 
             tablistHandler.init(packetEventsAPI, new TeamsPacketListener(packetEventsAPI));
-
-            TablistProvider tablistProvider;
 
             if (tablistFile.getString("tablist.type").equalsIgnoreCase("PLAYERS_DISPLAY")) {
                 tablistProvider = new PlayersDisplayTablistProvider(this);
