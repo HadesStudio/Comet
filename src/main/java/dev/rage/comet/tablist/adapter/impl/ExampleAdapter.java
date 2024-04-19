@@ -2,6 +2,7 @@ package dev.rage.comet.tablist.adapter.impl;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import dev.rage.comet.tablist.adapter.TabAdapter;
@@ -55,8 +56,8 @@ public class ExampleAdapter implements TabAdapter {
         List<TabEntry> entries = new ObjectArrayList<>();
 
         for ( int i = 0; i < 4; i++ ) {
-            int ping = StringUtils.MINOR_VERSION > 12 ? 1 : 69;
-            Skin skin = player.isSprinting() ? Skin.getPlayer(player) : Skin.YOUTUBE_SKIN;
+            int ping = StringUtils.MINOR_VERSION > 12 ? player.getPing() : 69;
+            Skin skin = player.isSprinting() ? Skin.getPlayer(player) : Skin.getDot(ChatColor.RED);
             TabEntry tabEntry = new TabEntry(i, 0, "&#FF0000Sprinting " + player.isSprinting() + "(" + i + ")", ping, skin);
             entries.add(tabEntry);
         }

@@ -16,7 +16,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -230,13 +229,20 @@ public class TabLayout {
             }
             this.updatePing(entry, ping);
 
-            // 1.8 to 1.20+ support
+        // 1.8 to 1.20+ support
         } else {
             // So basically updating the skin automatically causes an update
             // to the display name of the fake player, so updating below is just idiotic.
+            boolean updated = this.updateSkin(entry, skin, text);
             this.updatePing(entry, ping);
-            this.updateDisplayName(entry, text.isEmpty() ?  this.getTeamAt(index) : text);
-            this.updateSkin(entry, skin, text);
+
+            if (!updated && (changed || this.isFirstJoin)) {
+                this.updateDisplayName(entry, text.isEmpty() ?  this.getTeamAt(index) : text);
+
+                if (this.isFirstJoin) {
+                    this.isFirstJoin = false;
+                }
+            }
         }
     }
 
@@ -288,27 +294,29 @@ public class TabLayout {
             skin = Skin.DEFAULT_SKIN;
         }
 
+        // Only send if changed
+        Skin lastSkin = info.getSkin();
+        if (skin.equals(lastSkin)) {
+            return false;
+        }
+
         info.setSkin(skin);
 
         UserProfile userProfile = info.getProfile();
-        userProfile.setTextureProperties(Collections.singletonList(new TextureProperty("textures", skin.getValue(), skin.getSignature())));
+        TextureProperty textureProperty = new TextureProperty("textures", skin.getValue(), skin.getSignature());
+        userProfile.setTextureProperties(Collections.singletonList(textureProperty));
 
         int ping = info.getPing();
 
-        PacketWrapper<?> playerInfoRemove;
-        Component component = Component.text(text);
+        PacketWrapper<?> playerInfoRemove = null;
 
         if (isServerNew) {
             playerInfoRemove = new WrapperPlayServerPlayerInfoRemove(userProfile.getUUID());
         } else {
-            WrapperPlayServerPlayerInfo wrapperPlayerInfoRemove = new WrapperPlayServerPlayerInfo(
+            playerInfoRemove = new WrapperPlayServerPlayerInfo(
                     WrapperPlayServerPlayerInfo.Action.REMOVE_PLAYER,
                     new WrapperPlayServerPlayerInfo.PlayerData(null, userProfile, GameMode.SURVIVAL, ping)
             );
-
-            wrapperPlayerInfoRemove.setPlayerDataList(Collections.singletonList(new WrapperPlayServerPlayerInfo.PlayerData(component, userProfile, GameMode.SURVIVAL, ping)));
-
-            playerInfoRemove = wrapperPlayerInfoRemove;
         }
 
         if (isServerNew) {
@@ -317,33 +325,37 @@ public class TabLayout {
                     true,
                     ping,
                     GameMode.SURVIVAL,
-                    component,
+                    !PacketUtils.isLegacyClient(player) ? AdventureSerializer.fromLegacyFormat(text) : null,
                     null
             );
 
             WrapperPlayServerPlayerInfoUpdate add = new WrapperPlayServerPlayerInfoUpdate(WrapperPlayServerPlayerInfoUpdate.Action.ADD_PLAYER, data);
             WrapperPlayServerPlayerInfoUpdate list = new WrapperPlayServerPlayerInfoUpdate(WrapperPlayServerPlayerInfoUpdate.Action.UPDATE_LISTED, data);
-            WrapperPlayServerPlayerInfoUpdate display = new WrapperPlayServerPlayerInfoUpdate(WrapperPlayServerPlayerInfoUpdate.Action.UPDATE_DISPLAY_NAME, data);
 
-            list.setEntries(Collections.singletonList(data));
+            if (PacketUtils.isModernClient(player)) {
+                this.sendPacket(playerInfoRemove);
+            }
 
-            sendPacket(playerInfoRemove);
-            sendPacket(add);
-            sendPacket(display);
-            sendPacket(list);
+            this.sendPacket(add);
+            this.sendPacket(list);
+
+            if (!PacketUtils.isLegacyClient(player)) {
+                WrapperPlayServerPlayerInfoUpdate display = new WrapperPlayServerPlayerInfoUpdate(WrapperPlayServerPlayerInfoUpdate.Action.UPDATE_DISPLAY_NAME, data);
+                this.sendPacket(display);
+            }
         } else {
             WrapperPlayServerPlayerInfo.PlayerData data = new WrapperPlayServerPlayerInfo.PlayerData(
-                    component,
+                    !PacketUtils.isLegacyClient(player) ? AdventureSerializer.fromLegacyFormat(text) : null,
                     userProfile,
                     GameMode.SURVIVAL,
                     ping
             );
 
-            WrapperPlayServerPlayerInfo playerInfoAdd = new WrapperPlayServerPlayerInfo(WrapperPlayServerPlayerInfo.Action.ADD_PLAYER, data);
-            playerInfoAdd.setPlayerDataList(Collections.singletonList(data));
-
-            sendPacket(playerInfoRemove);
-            sendPacket(playerInfoAdd);
+            PacketWrapper<?> playerInfoAdd = new WrapperPlayServerPlayerInfo(WrapperPlayServerPlayerInfo.Action.ADD_PLAYER, data);
+            if (PacketUtils.isModernClient(player)) {
+                this.sendPacket(playerInfoRemove);
+            }
+            this.sendPacket(playerInfoAdd);
         }
 
         return true;
