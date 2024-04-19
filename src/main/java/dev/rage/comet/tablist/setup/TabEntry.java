@@ -1,20 +1,17 @@
 package dev.rage.comet.tablist.setup;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import dev.rage.comet.tablist.util.Skin;
 import dev.rage.comet.tablist.util.TabLatency;
 
-@Data
-@Getter @Setter
+@Getter
+@Setter
 @Accessors(chain = true)
-@NoArgsConstructor
 public class TabEntry {
 
-    private int x, y;
+    private final int x, y;
     private String text;
     private int ping = TabLatency.FIVE_BARS.getValue();
     private Skin skin = Skin.DEFAULT_SKIN;

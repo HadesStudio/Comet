@@ -2,16 +2,18 @@ package dev.rage.comet.tablist;
 
 import com.github.retrooper.packetevents.PacketEventsAPI;
 
+import dev.rage.comet.CometPlugin;
+import dev.rage.comet.tablist.adapter.impl.CustomTablistProvider;
+import dev.rage.comet.utilities.ChatUtil;
 import lombok.Getter;
-import lombok.extern.log4j.Log4j2;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Team;
 
 import dev.rage.comet.tablist.adapter.TabAdapter;
-import dev.rage.comet.tablist.adapter.impl.ExampleAdapter;
 import dev.rage.comet.tablist.listener.SkinCacheListener;
 import dev.rage.comet.tablist.listener.TabListener;
 import dev.rage.comet.tablist.listener.TeamsPacketListener;
@@ -24,7 +26,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Getter @Log4j2
+@Getter
 public class TablistHandler {
 
     /**
@@ -72,7 +74,7 @@ public class TablistHandler {
      */
     public void init(PacketEventsAPI<?> packetEventsAPI, TeamsPacketListener listener) {
         this.packetEvents = packetEventsAPI;
-        this.adapter = new ExampleAdapter();
+        this.adapter = new CustomTablistProvider(CometPlugin.get());
         this.listener = new TabListener(this);
 
         this.packetEvents.getEventManager().registerListener(listener);
@@ -87,37 +89,27 @@ public class TablistHandler {
     }
 
     public void registerAdapter(TabAdapter tabAdapter, long ticks) {
-        this.adapter = tabAdapter == null ? new ExampleAdapter() : tabAdapter;
+        this.adapter = tabAdapter == null ? new CustomTablistProvider(CometPlugin.get()) : tabAdapter;
 
-        if (ticks < 20L) {
-            log.info("[{}] Provided refresh tick rate for Tablist is too low, reverting to 20 ticks!", plugin.getName());
+        if (ticks < 20L)
             ticks = 20L;
-        }
 
         if (Bukkit.getMaxPlayers() < 60) {
-            log.fatal("[{}] Max Players is below 60, this will cause issues for players on 1.7 and below!", plugin.getName());
+            Bukkit.getConsoleSender().sendMessage(ChatUtil.translate("&cMax Players is below 60, this will cause issues for players on 1.7 and below!"));
         }
 
         this.thread = new TablistThread(this);
         this.thread.runTaskTimerAsynchronously(plugin, 0L, ticks);
     }
 
-    public void reload(TabAdapter tabAdapter, long ticks) {
-        unload();
-        registerAdapter(tabAdapter, ticks);
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            TabLayout layout = new TabLayout(player);
-
-            layout.create();
-            layout.setHeaderAndFooter();
-
-            layoutMapping.put(player.getUniqueId(), layout);
-        }
-    }
-
     public void unload() {
-        for (Map.Entry<UUID, TabLayout> entry : this.layoutMapping.entrySet()) {
+        if (this.listener != null) {
+            HandlerList.unregisterAll(this.listener);
+            this.listener = null;
+        }
+
+        // Destroy player scoreboards.
+        for ( Map.Entry<UUID, TabLayout> entry : this.layoutMapping.entrySet()) {
             UUID uuid = entry.getKey();
 
             Player player = Bukkit.getPlayer(uuid);

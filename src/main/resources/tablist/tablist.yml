@@ -74,7 +74,7 @@ tablist:
         head: ""
       '3':
         text: "&eNickname"
-        head: "<player>"
+        head: "player"
       '4':
         text: "<player-name>'s"
         head: ""
@@ -138,7 +138,7 @@ tablist:
         head: ""
       '4':
         text: "&eDiscord"
-        head: "<discord>"
+        head: "discord"
       '5':
         text: "discord.comet.hub"
         head: ""
@@ -147,7 +147,7 @@ tablist:
         head: ""
       '7':
         text: "&eFacebook"
-        head: "<facebook>"
+        head: "facebook"
       '8':
         text: "facebook.com/@CometHub"
         head: ""
@@ -156,7 +156,7 @@ tablist:
         head: ""
       '10':
         text: "&eWebsite"
-        head: "<website>"
+        head: "website"
       '11':
         text: "www.comet.hub"
         head: ""
@@ -165,7 +165,7 @@ tablist:
         head: ""
       '13':
         text: "&eStore"
-        head: "<store>"
+        head: "store"
       '14':
         text: "store.comet.hub"
         head: ""
@@ -174,7 +174,7 @@ tablist:
         head: ""
       '16':
         text: "&eYoutube"
-        head: "<youtube>"
+        head: "youtube"
       '17':
         text: "youtube.com/@CometHub"
         head: ""

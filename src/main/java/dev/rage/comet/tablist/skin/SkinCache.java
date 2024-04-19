@@ -3,8 +3,8 @@ package dev.rage.comet.tablist.skin;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
+import dev.rage.comet.tablist.util.JsonParser;
 import lombok.extern.log4j.Log4j2;
 
 import org.bukkit.entity.Player;
@@ -36,7 +36,6 @@ public class SkinCache {
     private static final String ASHCON_URL = "https://api.ashcon.app/mojang/v2/user/%s";
     private static final String MOJANG_URL = "https://sessionserver.mojang.com/session/minecraft/profile/%s?unsigned=false";
 
-    private static final JsonParser JSON_PARSER = new JsonParser();
     private final Map<String, CachedSkin> skinCache = new ConcurrentHashMap<>();
 
     /**
@@ -122,7 +121,7 @@ public class SkinCache {
                     sb.append(inputLine);
                 }
 
-                JsonElement element = JSON_PARSER.parse(sb.toString());
+                JsonElement element = JsonParser.parseString(sb.toString());
                 if (!element.isJsonObject()) return null;
 
                 JsonObject object = element.getAsJsonObject();
@@ -158,7 +157,7 @@ public class SkinCache {
                     sb.append(inputLine);
                 }
 
-                JsonElement element = JSON_PARSER.parse(sb.toString());
+                JsonElement element = JsonParser.parseString(sb.toString());
                 if (!element.isJsonObject()) return null;
 
                 JsonObject object = element.getAsJsonObject();

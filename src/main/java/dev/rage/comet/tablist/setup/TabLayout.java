@@ -237,7 +237,7 @@ public class TabLayout {
             this.updatePing(entry, ping);
 
             if (!updated && (changed || this.isFirstJoin)) {
-                this.updateDisplayName(entry, text.isEmpty() ?  this.getTeamAt(index) : text);
+                this.updateDisplayName(entry, text.length() == 0 ?  this.getTeamAt(index) : text);
 
                 if (this.isFirstJoin) {
                     this.isFirstJoin = false;
