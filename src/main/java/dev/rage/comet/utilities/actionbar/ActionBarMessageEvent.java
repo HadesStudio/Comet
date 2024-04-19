@@ -1,4 +1,4 @@
-package dev.rage.comet.utils;
+package dev.rage.comet.utilities.actionbar;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;

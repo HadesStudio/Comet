@@ -1,4 +1,4 @@
-package dev.rage.comet.utils;
+package dev.rage.comet.utilities;
 
 import lombok.Setter;
 import org.bukkit.Bukkit;

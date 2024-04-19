@@ -62,14 +62,13 @@ import dev.rage.comet.model.selector.ServerSelectorManager;
 import dev.rage.comet.model.server.ServerDataManager;
 import dev.rage.comet.model.spawn.SpawnManager;
 import dev.rage.comet.model.timer.TimerManager;
-import dev.rage.comet.scoreboard.FastBoardListener;
-import dev.rage.comet.scoreboard.FastBoardManager;
-import dev.rage.comet.scoreboard.FastBoardProvider;
+import dev.rage.comet.scoreboard.Assemble;
+import dev.rage.comet.scoreboard.AssembleStyle;
+import dev.rage.comet.scoreboard.AssembleProvider;
+import dev.rage.comet.scoreboard.animation.ScoreboardAnimated;
 import dev.rage.comet.tablist.TablistHandler;
+import dev.rage.comet.tablist.adapter.impl.CustomTablistProvider;
 import dev.rage.comet.tablist.listener.TeamsPacketListener;
-import dev.rage.comet.tablist.provider.TablistProvider;
-import dev.rage.comet.tablist.provider.impl.CustomTablistProvider;
-import dev.rage.comet.tablist.provider.impl.PlayersDisplayTablistProvider;
 import dev.rage.comet.user.UserListener;
 import dev.rage.comet.user.UserManager;
 import dev.rage.comet.utilities.file.FileConfig;
@@ -133,22 +132,30 @@ public class Comet {
     private BannerManager bannerManager;
     private BalloonManager balloonManager;
     private MascotManager mascotManager;
-    private FastBoardManager fastBoardManager;
     private GadgetsManager gadgetsManager;
     private OutfitManager outfitManager;
     private ParticlesManager particlesManager;
     private LeaderboardManager leaderboardManager;
 
-    private TablistHandler tablistHandler;
-    private TablistProvider tablistProvider;
-
     private Plugin plugins;
     private CometPlugin plugin;
 
+    private TablistHandler tablistHandler;
     private PacketEventsAPI<?> packetEventsAPI;
+
+    private Assemble assemble;
 
     public Comet(CometPlugin plugin) {
         this.plugin = plugin;
+    }
+
+    public void onLoad() {
+        PacketEvents.setAPI(SpigotPacketEventsBuilder.build(CometPlugin.getPlugin()));
+
+        this.packetEventsAPI = PacketEvents.getAPI();
+        this.packetEventsAPI.getSettings().bStats(false).checkForUpdates(false);
+
+        this.packetEventsAPI.load();
     }
 
     public void onEnable() {
@@ -191,11 +198,11 @@ public class Comet {
     }
 
     public void onDisable() {
-        if (fastBoardManager != null) this.fastBoardManager.onDisable();
         if (tablistHandler != null) this.tablistHandler.unload();
         if (userManager != null) this.userManager.onDisable();
         if (redisManager != null) this.redisManager.onDisable();
         if (mascotManager != null) this.mascotManager.onDisable();
+        if (assemble != null) ScoreboardAnimated.disable();
     }
 
     public void onReload() {
@@ -222,9 +229,6 @@ public class Comet {
         this.outfitManager.loadOrRefresh(this);
         this.mascotManager.loadOrRefresh(this);
         this.bannerManager.loadOrCreate(this);
-        if (fastBoardManager != null) this.fastBoardManager.resetBoardAnimation();
-        if (tablistHandler != null) this.tablistHandler.reload(tablistProvider, 20L);
-
     }
 
     public void registerManagers() {
@@ -271,18 +275,20 @@ public class Comet {
         this.leaderboardManager = new LeaderboardManager(this);
 
         if (scoreboardFile.getBoolean("scoreboard.enabled")) {
-            this.fastBoardManager = new FastBoardManager(this);
-            this.fastBoardManager.setAdapter(new FastBoardProvider(this));
+            this.assemble = new Assemble(CometPlugin.getPlugin(), new AssembleProvider(this));
+            this.assemble.setAssembleStyle(AssembleStyle.MODERN);
+            this.assemble.setTicks(2);
+
+            ScoreboardAnimated.init();
         }
         if (tablistFile.getBoolean("tablist.enabled")) {
-            PacketEvents.setAPI(SpigotPacketEventsBuilder.build(CometPlugin.getPlugin()));
+            this.packetEventsAPI.init();
 
-            packetEventsAPI = PacketEvents.getAPI();
-            packetEventsAPI.getSettings().bStats(false).checkForUpdates(false);
+            this.tablistHandler = new TablistHandler(CometPlugin.getPlugin());
+            this.tablistHandler.init(this.packetEventsAPI, new TeamsPacketListener(this.packetEventsAPI));
+            this.tablistHandler.registerAdapter(new CustomTablistProvider(this), 20L);
 
-            packetEventsAPI.load();
-            packetEventsAPI.init();
-
+            /*
             tablistHandler = new TablistHandler(CometPlugin.getPlugin());
 
             tablistHandler.init(packetEventsAPI, new TeamsPacketListener(packetEventsAPI));
@@ -294,6 +300,8 @@ public class Comet {
             }
 
             tablistHandler.registerAdapter(tablistProvider, 20L);
+
+             */
         }
         PlaceholderAPIHook.initialize(this);
     }
@@ -310,10 +318,6 @@ public class Comet {
         pluginManager.registerEvents(new UserListener(this), CometPlugin.getPlugin());
         pluginManager.registerEvents(new ParkourListener(this), CometPlugin.getPlugin());
         pluginManager.registerEvents(new ParkourHotbarListener(this), CometPlugin.getPlugin());
-
-        if (scoreboardFile.getBoolean("scoreboard.enabled")) {
-            pluginManager.registerEvents(new FastBoardListener(fastBoardManager), CometPlugin.getPlugin());
-        }
     }
 
     public void registerCommands() {

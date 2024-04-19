@@ -1,4 +1,4 @@
-package dev.rage.comet.utils;
+package dev.rage.comet.utilities;
 
 import com.cryptomorin.xseries.XBlock;
 import com.cryptomorin.xseries.XMaterial;
