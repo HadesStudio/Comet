@@ -69,7 +69,7 @@ public class ItemBuilder {
         SkullMeta meta = (SkullMeta) this.itemMeta;
 
         if (ownerOrValue.startsWith("eyJ")) {
-            GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+            GameProfile profile = new GameProfile(UUID.randomUUID(), "");
             profile.getProperties().put("textures", new Property("textures", ownerOrValue));
 
             Field profileField;

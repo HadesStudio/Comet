@@ -274,6 +274,7 @@ public class Comet {
         this.parkourHotbarManager = new ParkourHotbarManager(this);
         this.parkourManager = new ParkourManager(this);
         this.serverSelectorManager = new ServerSelectorManager(this);
+        this.hubSelectorManager = new HubSelectorManager(this);
         this.pvpModeManager = new PvpModeManager(this);
         this.timerManager = new TimerManager();
         this.queueRankManager = new QueueRankManager(this);
@@ -283,7 +284,6 @@ public class Comet {
         this.outfitManager = new OutfitManager(this);
         this.particlesManager = new ParticlesManager(this);
         this.leaderboardManager = new LeaderboardManager(this);
-        this.hubSelectorManager = new HubSelectorManager(this);
 
         if (scoreboardFile.getBoolean("scoreboard.enabled")) {
             this.assemble = new Assemble(CometPlugin.getPlugin(), new AssembleProvider(this));

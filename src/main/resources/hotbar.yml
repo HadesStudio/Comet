@@ -18,7 +18,7 @@ normal:
       description: [ ]
       material: "WATCH"
       data: 0
-      slot: 3
+      slot: 7
       enchanted: true
     commands: [ ]
   ender-butt:
