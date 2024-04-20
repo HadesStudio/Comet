@@ -116,6 +116,12 @@ public class User {
         }
     }
 
+    public void removeParticle() {
+        if (particle != null) {
+            this.particle = null;
+        }
+    }
+
     public void removeOutfit(Player player) {
         player.getInventory().setArmorContents(null);
     }

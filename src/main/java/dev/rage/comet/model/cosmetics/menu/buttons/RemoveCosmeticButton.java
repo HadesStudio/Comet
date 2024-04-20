@@ -37,6 +37,7 @@ public class RemoveCosmeticButton extends Button {
         user.removeBalloon();
         user.removeBanner(player);
         user.removeMascot();
+        user.removeParticle();
         user.removeOutfit(player);
         user.removeGadget(player);
 
