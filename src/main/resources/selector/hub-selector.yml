@@ -1,0 +1,14 @@
+title: "&6&lHub Selector"
+size: 27
+
+hubs:
+  hub-01:
+    item:
+      displayName: "&6&lHub-01"
+      lore:
+        - "&7&m-------------------------------"
+        - "&fClick to join &6Hub-01"
+        - "&7&m-------------------------------"
+      material: "WATCH"
+    permission: ""
+    slot: 0

@@ -94,7 +94,8 @@ public class NormalHotbarManager {
                 registerHotbarFromConfig(new HidePlayerHotbar("hide-players", this), section),
                 registerHotbarFromConfig(new CosmeticsHotbar("cosmetics", plugin), section),
                 registerHotbarFromConfig(new ParkourHotbar("parkour", plugin), section),
-                registerHotbarFromConfig(new PvpModeHotbar("pvpmode", plugin), section)
+                registerHotbarFromConfig(new PvpModeHotbar("pvpmode", plugin), section),
+                registerHotbarFromConfig(new HubSelectorHotbar("hub-selector", plugin), section)
         );
 
         if (reload) Bukkit.getOnlinePlayers().forEach(player -> {

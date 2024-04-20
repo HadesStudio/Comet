@@ -10,6 +10,17 @@ normal:
       slot: 4
       enchanted: true
     commands: []
+  hub-selector:
+    enabled: true
+    item:
+      head: ""
+      name: "&6&lHUB SELECTOR &8┃ &7(Right Click)"
+      description: [ ]
+      material: "WATCH"
+      data: 0
+      slot: 3
+      enchanted: true
+    commands: [ ]
   ender-butt:
     enabled: true
     mount: true

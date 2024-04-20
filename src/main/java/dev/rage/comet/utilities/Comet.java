@@ -48,6 +48,7 @@ import dev.rage.comet.model.cosmetics.impl.particles.ParticlesManager;
 import dev.rage.comet.model.hcfcore.HCFCoreManager;
 import dev.rage.comet.model.hotbar.custom.CustomHotbarManager;
 import dev.rage.comet.model.hotbar.normal.NormalHotbarManager;
+import dev.rage.comet.model.hubselector.HubSelectorManager;
 import dev.rage.comet.model.leaderboard.LeaderboardManager;
 import dev.rage.comet.model.lunarclient.LunarClientRunnable;
 import dev.rage.comet.model.parkour.ParkourManager;
@@ -104,6 +105,7 @@ public class Comet {
             databaseFile,
             queueFile,
             serverSelectorFile,
+            hubSelectorFile,
             pvpModeFile,
             balloonsFile,
             customOutfitsFile,
@@ -136,6 +138,7 @@ public class Comet {
     private OutfitManager outfitManager;
     private ParticlesManager particlesManager;
     private LeaderboardManager leaderboardManager;
+    private HubSelectorManager hubSelectorManager;
 
     private Plugin plugins;
     private CometPlugin plugin;
@@ -213,6 +216,7 @@ public class Comet {
         this.databaseFile.reload();
         this.queueFile.reload();
         this.serverSelectorFile.reload();
+        this.hubSelectorFile.reload();
         this.pvpModeFile.reload();
         this.balloonsFile.reload();
         this.customOutfitsFile.reload();
@@ -223,6 +227,7 @@ public class Comet {
         this.normalHotbarManager.loadOrRefresh(true);
         this.customHotbarManager.loadOrRefresh(true);
         this.serverSelectorManager.loadOrRefresh();
+        this.hubSelectorManager.loadOrRefresh();
         this.queueRankManager.loadOrRefresh();
         this.queueManager.loadOrRefresh();
         this.balloonManager.loadOrRefresh();
@@ -241,6 +246,7 @@ public class Comet {
         this.tablistFile = new FileConfig(CometPlugin.getPlugin(), "tablist/tablist.yml");
         this.tablistHeadsFile = new FileConfig(CometPlugin.getPlugin(), "tablist/heads.yml");
         this.serverSelectorFile = new FileConfig(CometPlugin.getPlugin(), "selector/server-selector.yml");
+        this.hubSelectorFile = new FileConfig(CometPlugin.getPlugin(), "selector/hub-selector.yml");
         this.pvpModeFile = new FileConfig(CometPlugin.getPlugin(), "pvpmode.yml");
         this.balloonsFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/balloons.yml");
         this.customOutfitsFile = new FileConfig(CometPlugin.getPlugin(), "cosmetics/custom-outfits.yml");
@@ -273,6 +279,7 @@ public class Comet {
         this.outfitManager = new OutfitManager(this);
         this.particlesManager = new ParticlesManager(this);
         this.leaderboardManager = new LeaderboardManager(this);
+        this.hubSelectorManager = new HubSelectorManager(this);
 
         if (scoreboardFile.getBoolean("scoreboard.enabled")) {
             this.assemble = new Assemble(CometPlugin.getPlugin(), new AssembleProvider(this));
@@ -287,21 +294,6 @@ public class Comet {
             this.tablistHandler = new TablistHandler(CometPlugin.getPlugin());
             this.tablistHandler.init(this.packetEventsAPI, new TeamsPacketListener(this.packetEventsAPI));
             this.tablistHandler.registerAdapter(new CustomTablistProvider(this), 20L);
-
-            /*
-            tablistHandler = new TablistHandler(CometPlugin.getPlugin());
-
-            tablistHandler.init(packetEventsAPI, new TeamsPacketListener(packetEventsAPI));
-
-            if (tablistFile.getString("tablist.type").equalsIgnoreCase("PLAYERS_DISPLAY")) {
-                tablistProvider = new PlayersDisplayTablistProvider(this);
-            } else {
-                tablistProvider = new CustomTablistProvider(this);
-            }
-
-            tablistHandler.registerAdapter(tablistProvider, 20L);
-
-             */
         }
         PlaceholderAPIHook.initialize(this);
     }
