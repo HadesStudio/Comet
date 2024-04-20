@@ -166,13 +166,17 @@ public class Comet {
 
         //this.plugins = new Plugin(this.licenseFile.getString("license-key"), plugin);
 
-        Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
+
+        Arrays.asList(
+                        "      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
                         "",
-                        " &f&l* &bAuthors&7: &f" + CometPlugin.getPlugin().getDescription().getAuthors(),
+                        " &f&l* &bAuthor&7: &f" + CometPlugin.getPlugin().getDescription().getAuthors(),
                         " &f&l* &bPlugin Version&7: &f" + CometPlugin.getPlugin().getDescription().getVersion(),
+
                         " &f&l* &bLicense Status&7: &aVALID",
-                        " &f&l* &bThanks for using Comet Hubcore <3",
-                        " &f&l* &bIf u have support join to &nastro-operations.com/discord")
+                        " ",
+                        " &f&l* &bThanks for using Comet <3",
+                        " &f&l* &bIf you need support, join to &nastro-operations.com/discord")
                 .forEach(s ->
                         Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
 

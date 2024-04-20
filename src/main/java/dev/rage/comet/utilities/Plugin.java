@@ -24,6 +24,7 @@ public class Plugin {
     private String discordName;
     private String discordID;
     private final String statusMsg;
+    private String callbackVersion;
 
     private final String product;
     private final String version;
@@ -51,25 +52,43 @@ public class Plugin {
             JSONObject obj = new JSONObject(data);
 
             if (obj.has("status_msg") && obj.has("status_id")) {
-                statusCode = obj.getInt("status_code");
-                statusMsg = obj.getString("status_msg");
+                this.statusCode = obj.getInt("status_code");
+                this.statusMsg = obj.getString("status_msg");
 
                 if (obj.has("status_overview")) {
-                    discordName = obj.getString("discord_username");
-                    discordID = obj.getString("discord_id");
+                    this.discordName = obj.getString("discord_username");
+                    this.discordID = obj.getString("discord_id");
+                    this.callbackVersion = obj.getString("version");
+
+                    boolean updated = getCallbackVersion().equals(CometPlugin.getPlugin().getDescription().getVersion());
+                    String fancyVersion = (updated ? "&a(Up to date)" : "&c(Outdated, latest is " + getCallbackVersion() + ")");
+
+                    Arrays.asList(
+                            "      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
+                            "",
+                            " &f&l* &bAuthor&7: &f" + CometPlugin.getPlugin().getDescription().getAuthors(),
+                            " &f&l* &bPlugin Version&7: &f" + CometPlugin.getPlugin().getDescription().getVersion() + " " + fancyVersion,
+
+                            " &f&l* &bLicense Status&7: &aVALID",
+                            "",
+                            " &f&l* &bThanks " + getDiscordName() + " for using Comet &a<3",
+                            " &f&l* &bIf you need support, join to &nastro-operations.com/discord"
+                    ).forEach(s -> Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
 
                     //TODO
                 }
             } else {
                 statusMsg = obj.getString("status_msg");
 
-                Arrays.asList("      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
-                                "",
-                                " &f&l* &bAuthors&7: &f" + CometPlugin.getPlugin().getDescription().getAuthors(),
-                                " &f&l* &bPlugin Version&7: &f" + CometPlugin.getPlugin().getDescription().getVersion(),
-                                " &f&l* &bLicense Status&7: &cINVALID",
-                                " ",
-                                " &f&l* &bIf u have support join to &nastro-operations.com/discord")
+                Arrays.asList(
+                        "      &f&l* &b&lComet &7(&fHubCore&7) &f&l*       ",
+                        "",
+                        " &f&l* &bAuthor&7: &f" + CometPlugin.getPlugin().getDescription().getAuthors(),
+                        " &f&l* &bPlugin Version&7: &f" + CometPlugin.getPlugin().getDescription().getVersion(),
+
+                        " &f&l* &bLicense Status&7: &c" + statusMsg,
+                        " ",
+                        " &f&l* &bIf you need support, join to &nastro-operations.com/discord")
                         .forEach(s ->
                                 Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
             }
