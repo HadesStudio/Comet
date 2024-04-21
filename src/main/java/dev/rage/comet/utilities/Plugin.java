@@ -75,7 +75,29 @@ public class Plugin {
                             " &f&l* &bIf you need support, join to &nastro-operations.com/discord"
                     ).forEach(s -> Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
 
-                    //TODO
+
+                    CometPlugin.get().registerManagers();
+                    CometPlugin.get().registerListeners();
+                    CometPlugin.get().registerCommands();
+
+                    if (CometPlugin.get().getConfigFile().getBoolean("lunar-client.enabled")) {
+                        Bukkit.getScheduler().runTaskTimer(CometPlugin.getPlugin(), new LunarClientRunnable(CometPlugin.get()), 0L, 20L);
+                    }
+                    if (CometPlugin.get().getConfigFile().getBoolean("action-bar.enabled")) {
+                        int interval = CometPlugin.get().getConfigFile().getInt("action-bar.interval");
+                        Bukkit.getScheduler().runTaskTimer(CometPlugin.getPlugin(), new ActionBarRunnable(CometPlugin.get(), interval), interval * 20L, interval * 20L);
+                    }
+
+                    QueueReminderThread reminderThread = new QueueReminderThread(CometPlugin.get());
+                    reminderThread.start();
+
+                    QueuePositionThread positionThread = new QueuePositionThread(CometPlugin.get());
+                    positionThread.start();
+
+                    CometPlugin.get().removeBuggedEntities();
+
+                    Bukkit.getScheduler().runTaskTimer(CometPlugin.getPlugin(), new BalloonRunnable(CometPlugin.get().getUserManager()), 0L, 1L);
+                    Bukkit.getMessenger().registerOutgoingPluginChannel(CometPlugin.getPlugin(), "BungeeCord");
                 }
             } else {
                 statusMsg = obj.getString("status_msg");
