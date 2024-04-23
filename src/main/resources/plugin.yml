@@ -1,7 +1,6 @@
-main: dev.rage.comet.CometPlugin
+main: dev.astro.net.CometPlugin
 name: ${project.name}
 version: ${project.version}
-authors:
-  - "Astro Operations"
+author: "Astro Operations"
 api-version: 1.13
 depend: ["PlaceholderAPI", "ProtocolLib"]

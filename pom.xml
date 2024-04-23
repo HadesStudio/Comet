@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dev.rage.comet</groupId>
+    <groupId>dev.astro.net</groupId>
     <artifactId>Comet</artifactId>
     <version>1.6-SNAPSHOT</version>
     <name>Comet</name>
@@ -275,15 +275,15 @@
                     <relocations>
                         <relocation>
                             <pattern>de.tr7zw.changeme.nbtapi</pattern>
-                            <shadedPattern>dev.rage.comet.libs.nbtapi</shadedPattern>
+                            <shadedPattern>dev.astro.net.libs.nbtapi</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.cryptomorin.xseries</pattern>
-                            <shadedPattern>dev.rage.comet.libs.xseries</shadedPattern>
+                            <shadedPattern>dev.astro.net.libs.xseries</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>fr.mrmicky.fastparticles</pattern>
-                            <shadedPattern>dev.rage.comet.libs.fastparticles</shadedPattern>
+                            <shadedPattern>dev.astro.net.libs.fastparticles</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.github.retrooper</pattern>
