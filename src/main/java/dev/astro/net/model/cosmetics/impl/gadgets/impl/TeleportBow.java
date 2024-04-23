@@ -65,13 +65,13 @@ public class TeleportBow extends Gadget {
 
     @Override
     public void onUsage(Player player) {
-        player.getInventory().setItem(1, getItem());
+        player.getInventory().setItem(3, getItem());
         player.getInventory().setItem(9, new ItemStack(com.cryptomorin.xseries.XMaterial.ARROW.parseMaterial(), 1));
     }
 
     @Override
     public void onRemoval(Player player) {
-        player.getInventory().setItem(1, null);
+        player.getInventory().setItem(3, null);
         player.getInventory().setItem(9, null);
     }
 

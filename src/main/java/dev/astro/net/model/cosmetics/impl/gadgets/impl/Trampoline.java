@@ -58,7 +58,7 @@ public class Trampoline extends Gadget {
 
     @Override
     public void onUsage(Player player) {
-        //player.getInventory().setItem(1, getItem());
+        //player.getInventory().setItem(3, getItem());
         Location location = player.getLocation();
         Map<Block, FacedBlock> unsetBlocks = checkBlocks(location);
         List<Block> blocks = this.blocks.computeIfAbsent(player.getUniqueId(), ignored -> new ArrayList<>());

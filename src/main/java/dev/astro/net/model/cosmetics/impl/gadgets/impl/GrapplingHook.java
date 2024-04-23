@@ -47,12 +47,12 @@ public class GrapplingHook extends Gadget {
 
     @Override
     public void onUsage(Player player) {
-        player.getInventory().setItem(1, getItem());
+        player.getInventory().setItem(3, getItem());
     }
 
     @Override
     public void onRemoval(Player player) {
-        player.getInventory().setItem(1, null);
+        player.getInventory().setItem(3, null);
     }
 
     @Override
