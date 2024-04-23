@@ -46,17 +46,17 @@ public class SnowBallHider extends Gadget {
         the child laughs, he starts to cry for stupid things of "order".
     */
     private void refund(Player player) {
-        player.getInventory().setItem(3, getItem());
+        player.getInventory().setItem(1, getItem());
     }
 
     @Override
     public void onUsage(Player player) {
-        player.getInventory().setItem(3, getItem());
+        player.getInventory().setItem(1, getItem());
     }
 
     @Override
     public void onRemoval(Player player) {
-        player.getInventory().setItem(3, null);
+        player.getInventory().setItem(1, null);
     }
 
     @Override
