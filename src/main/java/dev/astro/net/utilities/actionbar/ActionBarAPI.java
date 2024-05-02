@@ -14,7 +14,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class ActionBarAPI {
 
-    private static final short SERVER_VERSION = Short.parseShort(Bukkit.getServer().getBukkitVersion().split("\\.")[1].split("-")[0]);
+    private static final int SERVER_VERSION = Integer.parseInt(
+            Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].substring(1)
+                    .replace("1_", "")
+                    .replaceAll("_R\\d", ""));
 
     public static void sendActionBar(Player player, String message) {
         if (!player.isOnline()) return; // Player may have logged out
