@@ -1,5 +1,8 @@
 package dev.astro.net.user;
 
+import dev.astro.net.CometPlugin;
+import dev.astro.net.model.cosmetics.impl.outfits.entries.impl.CustomOutfit;
+import dev.astro.net.model.cosmetics.impl.outfits.menu.CustomOutfitMenu;
 import dev.astro.net.utilities.Comet;
 import dev.astro.net.utilities.ChatUtil;
 import org.bukkit.entity.Player;
@@ -50,7 +53,16 @@ public class UserListener implements Listener {
             user.applyMascot(plugin, event.getPlayer(), user.getMascot());
         }
 
-        if (user.getOutfit() != null) {
+        if (user.getOutfit() == null) {
+            if (CometPlugin.get().getOutfitManager().getCustomOutfits().isEmpty()) return;
+
+            for (CustomOutfit customOutfit : CometPlugin.get().getOutfitManager().getCustomOutfits()) {
+                if (customOutfit.getName().equals(CometPlugin.get().getRankManager().getRank().getRankName(player.getUniqueId()))) {
+                    user.setOutfit(customOutfit);
+                    customOutfit.apply(CometPlugin.get(), player);
+                }
+            }
+        } else {
             user.getOutfit().apply(plugin, player);
         }
 
