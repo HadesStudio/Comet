@@ -4,20 +4,22 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import dev.astro.net.CometPlugin;
+import dev.astro.net.utilities.ChatUtil;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ActionBarAPI {
-
     private static final int SERVER_VERSION = Integer.parseInt(
             Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].substring(1)
                     .replace("1_", "")
                     .replaceAll("_R\\d", ""));
+
 
     public static void sendActionBar(Player player, String message) {
         if (!player.isOnline()) return; // Player may have logged out
@@ -28,32 +30,32 @@ public class ActionBarAPI {
 
         if (actionBarMessageEvent.isCancelled()) return;
 
-        WrappedChatComponent wrappedChatComponent = WrappedChatComponent.fromText(message);
-
-        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-        PacketContainer actionBarPacket;
         if (SERVER_VERSION >= 19) {
-            actionBarPacket = protocolManager.createPacket(PacketType.Play.Server.CHAT);
-            StructureModifier<Integer> integers = actionBarPacket.getIntegers();
-            if (integers.size() == 1) {
-                integers.write(0, (int) EnumWrappers.ChatType.GAME_INFO.getId());
-            } else {
-                actionBarPacket.getBooleans().write(0, true);
-            }
-            actionBarPacket.getStrings().write(0, wrappedChatComponent.getJson());
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatUtil.translate(message)));
         } else if (SERVER_VERSION > 16 || SERVER_VERSION < 11) {
+            ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
+            PacketContainer actionBarPacket;
+            WrappedChatComponent wrappedChatComponent = WrappedChatComponent.fromText(message);
+
             actionBarPacket = protocolManager.createPacket(PacketType.Play.Server.CHAT);
             actionBarPacket.getChatTypes().write(0, EnumWrappers.ChatType.GAME_INFO);
             if (actionBarPacket.getBytes().size() == 1) {
                 actionBarPacket.getBytes().write(0, (byte) 2);
             }
             actionBarPacket.getChatComponents().write(0, wrappedChatComponent);
+
+            protocolManager.sendServerPacket(player, actionBarPacket);
         } else {
+            ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
+            PacketContainer actionBarPacket;
+            WrappedChatComponent wrappedChatComponent = WrappedChatComponent.fromText(message);
+
             actionBarPacket = protocolManager.createPacket(PacketType.Play.Server.TITLE);
             actionBarPacket.getTitleActions().write(0, EnumWrappers.TitleAction.ACTIONBAR);
             actionBarPacket.getChatComponents().write(0, wrappedChatComponent);
+
+            protocolManager.sendServerPacket(player, actionBarPacket);
         }
-        protocolManager.sendServerPacket(player, actionBarPacket);
     }
 
     public static void sendActionBar(Player player, String message, int duration) {
