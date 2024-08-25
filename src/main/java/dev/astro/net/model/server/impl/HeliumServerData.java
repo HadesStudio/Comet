@@ -1,7 +1,7 @@
 package dev.astro.net.model.server.impl;
 
 import dev.astro.net.model.server.IServerData;
-import dev.rage.helium.api.HeliumAPI;
+import services.plasma.helium.api.HeliumAPI;
 
 public class HeliumServerData implements IServerData {
 

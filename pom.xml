@@ -6,7 +6,7 @@
 
     <groupId>dev.astro.net</groupId>
     <artifactId>Comet</artifactId>
-    <version>1.6-SNAPSHOT</version>
+    <version>1.7-SNAPSHOT</version>
     <name>Comet</name>
 
     <properties>
@@ -223,7 +223,7 @@
             <artifactId>helium</artifactId>
             <version>dev</version>
             <scope>system</scope>
-            <systemPath>${basedir}/libs/HeliumAPI.jar</systemPath>
+            <systemPath>${basedir}/libs/HeliumAPI-1.0-SNAPSHOT.jar</systemPath>
         </dependency>
     </dependencies>
 

@@ -2,7 +2,6 @@ package dev.astro.net.user;
 
 import dev.astro.net.CometPlugin;
 import dev.astro.net.model.cosmetics.impl.outfits.entries.impl.CustomOutfit;
-import dev.astro.net.model.cosmetics.impl.outfits.menu.CustomOutfitMenu;
 import dev.astro.net.utilities.Comet;
 import dev.astro.net.utilities.ChatUtil;
 import org.bukkit.entity.Player;

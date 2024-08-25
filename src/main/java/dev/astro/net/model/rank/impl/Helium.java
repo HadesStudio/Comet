@@ -1,7 +1,7 @@
 package dev.astro.net.model.rank.impl;
 
 import dev.astro.net.model.rank.IRank;
-import dev.rage.helium.api.HeliumAPI;
+import services.plasma.helium.api.HeliumAPI;
 
 import java.util.UUID;
 
