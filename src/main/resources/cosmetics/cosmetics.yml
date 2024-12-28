@@ -1,26 +1,32 @@
 menu:
   placeholder: true
   title: "&aCosmetics"
+  balloon_enabled: true
   balloon_title: "&aBalloons"
   balloon_lore:
     - ""
     - "&7Click to view all balloons."
+  banner_enabled: true
   banner_title: "&aBanner"
   banner_lore:
     - ""
     - "&7Click to view all banners."
+  gadgets_enabled: true
   gadgets_title: "&aGadgets"
   gadgets_lore:
     - ""
     - "&7Click to view all gadgets."
+  mascot_enabled: true
   mascot_title: "&aMascots"
   mascot_lore:
     - ""
     - "&7Click to view all mascots."
+  outfit_enabled: true
   outfit_title: "&aOutfits"
   outfit_lore:
     - ""
     - "&7Click to view all outfits."
+  particles_enabled: true
   particles_title: "&aParticles"
   particles_lore:
     - ""

@@ -35,12 +35,24 @@ public class CosmeticsMenu extends Menu {
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> buttons = Maps.newHashMap();
 
-        buttons.put(getSlot(2, 1), new BannerButton(plugin, plugin.getBannerManager(), plugin.getUserManager()));
-        buttons.put(getSlot(3, 2), new BalloonButton(plugin, plugin.getBalloonManager(), plugin.getUserManager()));
-        buttons.put(getSlot(4, 1), new GadgetsButton(plugin));
-        buttons.put(getSlot(5, 2), new MascotButton(plugin, plugin.getMascotManager()));
-        buttons.put(getSlot(6, 1), new OutfitButton(plugin, plugin.getOutfitManager()));
-        buttons.put(getSlot(4, 3), new ParticlesButton(plugin, plugin.getParticlesManager()));
+        if (plugin.getCosmeticsFile().getBoolean("menu.banner_enabled"))
+            buttons.put(getSlot(2, 1), new BannerButton(plugin, plugin.getBannerManager(), plugin.getUserManager()));
+
+        if (plugin.getCosmeticsFile().getBoolean("menu.balloon_enabled"))
+            buttons.put(getSlot(3, 2), new BalloonButton(plugin, plugin.getBalloonManager(), plugin.getUserManager()));
+
+        if (plugin.getCosmeticsFile().getBoolean("menu.gadgets_enabled"))
+            buttons.put(getSlot(4, 1), new GadgetsButton(plugin));
+
+        if (plugin.getCosmeticsFile().getBoolean("menu.mascot_enabled"))
+            buttons.put(getSlot(5, 2), new MascotButton(plugin, plugin.getMascotManager()));
+
+        if (plugin.getCosmeticsFile().getBoolean("menu.outfit_enabled"))
+            buttons.put(getSlot(6, 1), new OutfitButton(plugin, plugin.getOutfitManager()));
+
+        if (plugin.getCosmeticsFile().getBoolean("menu.particles_enabled"))
+            buttons.put(getSlot(4, 3), new ParticlesButton(plugin, plugin.getParticlesManager()));
+
         buttons.put(getSize() - 5, new RemoveCosmeticButton(plugin));
 
         return buttons;
