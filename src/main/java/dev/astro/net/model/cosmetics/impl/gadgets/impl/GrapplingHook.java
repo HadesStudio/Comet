@@ -63,9 +63,7 @@ public class GrapplingHook extends Gadget {
     @EventHandler
     public void onPlayerFish(PlayerFishEvent event) {
         String state = event.getState().toString();
-        if (!state.equals("REEL_IN") && !state.equals("IN_GROUND")) {
-            return;
-        }
+        if (!state.equals("REEL_IN") && !state.equals("IN_GROUND")) return;
 
         Player player = event.getPlayer();
         Location from = player.getLocation();
@@ -73,18 +71,17 @@ public class GrapplingHook extends Gadget {
         Location to = hook.getLocation();
 
         from.setY(from.getY() + 1.0D);
-        player.teleport(from);
+
         double g = -0.08D;
         double d = to.distance(from);
         double v_x = (1.0D + 0.07D * d) * (to.getX() - from.getX()) / d;
         double v_y = (1.0D + 0.03D * d) * (to.getY() - from.getY()) / d - 0.5D * g * d;
         double v_z = (1.0D + 0.07D * d) * (to.getZ() - from.getZ()) / d;
+
         Vector v = player.getVelocity();
         v.setX(v_x);
         v.setY(v_y);
         v.setZ(v_z);
         player.setVelocity(v.multiply(multiply));
-        //event.getPlayer().setVelocity(to.toVector().subtract(from.toVector())
-        //      .normalize().multiply(multiply).setY(yBoost));
     }
 }
