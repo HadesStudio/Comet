@@ -29,6 +29,7 @@ import dev.astro.net.command.impl.timer.subcommand.TimerStopCommand;
 import dev.astro.net.database.mongo.MongoManager;
 import dev.astro.net.database.redis.RedisManager;
 import dev.astro.net.integrations.PlaceholderAPIHook;
+import dev.astro.net.listeners.ChatListener;
 import dev.astro.net.listeners.PlayerListener;
 import dev.astro.net.listeners.QueueListener;
 import dev.astro.net.listeners.SpawnListener;
@@ -270,6 +271,9 @@ public class Comet {
         pluginManager.registerEvents(new UserListener(this), CometPlugin.getPlugin());
         pluginManager.registerEvents(new ParkourListener(this), CometPlugin.getPlugin());
         pluginManager.registerEvents(new ParkourHotbarListener(this), CometPlugin.getPlugin());
+
+        if (this.getConfigFile().getBoolean("chat.enabled"))
+            pluginManager.registerEvents(new ChatListener(), CometPlugin.getPlugin());
     }
 
     public void registerCommands() {

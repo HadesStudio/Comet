@@ -18,6 +18,10 @@ lunar-client:
     - "&7Ping: &f%player_ping%ms"
     - "%player_name%"
 
+chat:
+  enabled: true
+  format: "&7%luckperms_suffix%<player-name>&8: &f<message>"
+
 action-bar:
   enabled: true
   interval: 5
