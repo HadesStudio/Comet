@@ -63,8 +63,8 @@ public class PvpModeManager {
         inventory.clear();
 
         comet.getSpawnManager().toSpawn(player);
-        comet.getCustomHotbarManager().giveHotbar(player);
         comet.getNormalHotbarManager().giveHotbar(player);
+        comet.getCustomHotbarManager().giveHotbar(player);
 
         player.updateInventory();
     
