@@ -1,6 +1,6 @@
 main: dev.astro.net.CometPlugin
 name: ${project.name}
 version: ${project.version}
-author: "Astro Operations"
+author: "ElTitoHulk"
 api-version: 1.13
 depend: ["PlaceholderAPI", "ProtocolLib"]

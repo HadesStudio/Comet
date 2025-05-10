@@ -7,6 +7,7 @@ import dev.astro.net.utilities.PlayerUtil;
 import fr.mrmicky.fastparticles.ParticleType;
 import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -25,9 +26,9 @@ public class EnderButtHotbar extends NormalHotbar {
     }
 
     @Override
-    public void onItemInteract(Player player) {
+    public void onItemInteract(Player player, PlayerInteractEvent playerInteractEvent) {
         PlayerUtil.playSound(player, "ORB_PICKUP");
-        if (!mount) {
+        if (Boolean.FALSE.equals(mount)) {
             player.setVelocity(player.getLocation().getDirection().normalize().setY(2.0));
             player.setVelocity(player.getLocation().getDirection().normalize().multiply(2F));
             return;

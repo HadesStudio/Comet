@@ -4,6 +4,7 @@ import dev.astro.net.utilities.Comet;
 import dev.astro.net.model.hotbar.normal.NormalHotbar;
 import dev.astro.net.model.selector.menu.ServerSelectorMenu;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 /**
  * Created by Risas
@@ -23,7 +24,7 @@ public class ServerSelectorHotbar extends NormalHotbar {
     }
 
     @Override
-    public void onItemInteract(Player player) {
+    public void onItemInteract(Player player, PlayerInteractEvent playerInteractEvent) {
         ServerSelectorMenu serverSelectorMenu = new ServerSelectorMenu(plugin);
         serverSelectorMenu.openMenu(player);
     }

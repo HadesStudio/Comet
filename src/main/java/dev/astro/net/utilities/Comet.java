@@ -157,7 +157,6 @@ public class Comet {
 
     public void onEnable() {
         this.licenseFile = new FileConfig(CometPlugin.getPlugin(), "license.yml");
-
         this.plugins = new Plugin(this.licenseFile.getString("license-key"), plugin);
     }
 

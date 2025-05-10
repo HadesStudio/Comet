@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -35,5 +36,5 @@ public abstract class NormalHotbar {
                 && toCheck.getItemMeta().getDisplayName().equals(item.getItemMeta().getDisplayName());
     }
 
-    public abstract void onItemInteract(Player player);
+    public abstract void onItemInteract(Player player, PlayerInteractEvent playerInteractEvent);
 }

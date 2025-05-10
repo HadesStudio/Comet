@@ -47,8 +47,9 @@ public class NormalHotbarManager {
             return hotbarCache.get(item);
 
         for (NormalHotbar hotbar : getHotbars()) {
-            if (hotbar.isSimilar(item))
+            if (hotbar.isSimilar(item)) {
                 return hotbarCache.computeIfAbsent(item, k -> hotbar);
+            }
         }
         return null;
     }

@@ -4,6 +4,7 @@ import dev.astro.net.utilities.Comet;
 import dev.astro.net.model.cosmetics.menu.CosmeticsMenu;
 import dev.astro.net.model.hotbar.normal.NormalHotbar;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class CosmeticsHotbar extends NormalHotbar {
 
@@ -15,7 +16,7 @@ public class CosmeticsHotbar extends NormalHotbar {
     }
 
     @Override
-    public void onItemInteract(Player player) {
+    public void onItemInteract(Player player, PlayerInteractEvent playerInteractEvent) {
         new CosmeticsMenu(plugin).openMenu(player);
     }
 }

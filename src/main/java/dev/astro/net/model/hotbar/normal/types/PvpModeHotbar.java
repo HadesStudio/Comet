@@ -5,6 +5,7 @@ import dev.astro.net.utilities.ChatUtil;
 import dev.astro.net.utilities.Comet;
 import dev.astro.net.utilities.file.FileConfig;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PvpModeHotbar extends NormalHotbar {
 
@@ -16,7 +17,7 @@ public class PvpModeHotbar extends NormalHotbar {
     }
 
     @Override
-    public void onItemInteract(Player player) {
+    public void onItemInteract(Player player, PlayerInteractEvent playerInteractEvent) {
         plugin.getPvpModeManager().addPlayer(player);
     }
 }

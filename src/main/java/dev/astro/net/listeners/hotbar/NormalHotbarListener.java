@@ -20,31 +20,32 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class NormalHotbarListener implements Listener {
 
-    private final NormalHotbarManager normalHotbarManager;
+	private final NormalHotbarManager normalHotbarManager;
 
-    public NormalHotbarListener(Comet plugin) {
-        this.normalHotbarManager = plugin.getNormalHotbarManager();
-    }
+	public NormalHotbarListener(Comet plugin) {
+		this.normalHotbarManager = plugin.getNormalHotbarManager();
+	}
 
-    @EventHandler
-    private void onPlayerJoin(PlayerJoinEvent event) {
-        normalHotbarManager.giveHotbar(event.getPlayer());
-    }
+	@EventHandler
+	private void onPlayerJoin(PlayerJoinEvent event) {
+		normalHotbarManager.giveHotbar(event.getPlayer());
+	}
 
-    @EventHandler
-    private void onHotbarInteract(PlayerInteractEvent event) {
-        if (event.getItem() == null
-                || event.getAction() != Action.RIGHT_CLICK_BLOCK
-                && event.getAction() != Action.RIGHT_CLICK_AIR)
-            return;
+	@EventHandler
+	private void onHotbarInteract(PlayerInteractEvent event) {
+		if (event.getItem() == null ||
+			event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) {
+			return;
+		}
 
-        NormalHotbar hotbar = normalHotbarManager.getHotbar(event.getItem());
-        if (hotbar == null)
-            return;
+		NormalHotbar hotbar = normalHotbarManager.getHotbar(event.getItem());
+		if (hotbar == null) {
+			return;
+		}
 
-        event.setCancelled(true);
+		event.setCancelled(true);
 
-        Player player = event.getPlayer();
-        hotbar.onItemInteract(player);
-    }
+		Player player = event.getPlayer();
+		hotbar.onItemInteract(player, event);
+	}
 }

@@ -3,6 +3,7 @@ package dev.astro.net.model.hotbar.normal.types;
 import dev.astro.net.model.hotbar.normal.NormalHotbar;
 import dev.astro.net.model.hotbar.normal.NormalHotbarManager;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 /**
  * Created by Risas
@@ -22,7 +23,7 @@ public class HidePlayerHotbar extends NormalHotbar {
     }
 
     @Override
-    public void onItemInteract(Player player) {
+    public void onItemInteract(Player player, PlayerInteractEvent playerInteractEvent) {
         for (Player online : player.getServer().getOnlinePlayers()) {
             player.hidePlayer(online);
         }

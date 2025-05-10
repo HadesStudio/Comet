@@ -5,6 +5,7 @@ import dev.astro.net.model.hotbar.normal.NormalHotbar;
 import dev.astro.net.utilities.ChatUtil;
 import dev.astro.net.utilities.file.FileConfig;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class ParkourHotbar extends NormalHotbar {
 
@@ -18,7 +19,7 @@ public class ParkourHotbar extends NormalHotbar {
     }
 
     @Override
-    public void onItemInteract(Player player) {
+    public void onItemInteract(Player player, PlayerInteractEvent playerInteractEvent) {
         plugin.getParkourManager().addParkourPlayer(player);
         ChatUtil.sendMessage(player, languageFile.getString("parkour-message.join"));
     }
