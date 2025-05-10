@@ -41,7 +41,6 @@ public class Plugin {
 				" &f&l* &bLicense Status&7: &aVALID"
 			).forEach(s -> Bukkit.getConsoleSender().sendMessage(ChatUtil.translate(s)));
 
-
 			CometPlugin.get().registerManagers();
 			CometPlugin.get().registerListeners();
 			CometPlugin.get().registerCommands();
